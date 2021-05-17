@@ -1,0 +1,42 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parser": "babel-eslint",
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-redux/recommended"
+  ],
+  "plugins": [
+    "react",
+    "react-redux",
+    "react-hooks"
+  ],
+  "globals": {
+    "fetch": false,
+    "console": false,
+    "document": false
+  },
+
+  "rules": {
+	"eqeqeq": "warn",
+    "quotes": ["error", "double"],
+    "react/no-set-state": "off",
+    "complexity": ["error", 4],"react/jsx-one-expression-per-line": [ 2, {
+      "allow": "single-child"
+      }],
+    "max-len": [
+      	  "warn", {
+      		"code": 150,
+      		"tabWidth": 2,
+      		"ignoreUrls": true,
+      		"ignoreComments": true,
+      		"ignoreRegExpLiterals": true,
+      		"ignoreStrings": true,
+      		"ignoreTemplateLiterals": true
+      	  }
+      	]
+  }
+}

@@ -9,8 +9,8 @@ import {
 
 export const REQUEST_USER_REGISTER = "REQUEST_USER_REGISTER";
 export const RECEIVE_USER_REGISTER = "RECEIVE_USER_REGISTER";
-export const RECEIVE_USER_AUTH    = "RECEIVE_USER_AUTH"
-export const LOADING_CURRENT_USER = 'LOADING_CURRENT_USER'
+export const RECEIVE_USER_AUTH    = "RECEIVE_USER_AUTH";
+export const LOADING_CURRENT_USER = "LOADING_CURRENT_USER";
 
 
 export const registerNewUser = (userData) => (dispatch) => {
@@ -18,8 +18,8 @@ export const registerNewUser = (userData) => (dispatch) => {
 	const url = BASIC_URL + BASIC_PATH + REGISTRATION_URL;
 
 	if (userData.userName && userData.password) {
-		requestParams['userName'] = userData.userName;
-		requestParams['password'] = userData.password;
+		requestParams["userName"] = userData.userName;
+		requestParams["password"] = userData.password;
 	}
 
 	dispatch({
@@ -43,8 +43,8 @@ export const authUser = (userData) => (dispatch) => {
 	const url = BASIC_URL + BASIC_PATH + AUTH_URL;
 
 	if (userData.userName && userData.password) {
-		requestParams['userName'] = userData.userName;
-		requestParams['password'] = userData.password;
+		requestParams["userName"] = userData.userName;
+		requestParams["password"] = userData.password;
 	}
 
 	dispatch({

@@ -2,8 +2,7 @@ import {
 	REQUEST_USER_REGISTER,
 	RECEIVE_USER_REGISTER,
 	RECEIVE_USER_AUTH,
-	LOADING_CURRENT_USER
-}  from '../actions/auth';
+}  from "../actions/auth";
 
 
 const initialState = {

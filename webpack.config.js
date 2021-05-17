@@ -21,15 +21,21 @@ var webpack_config = {
 		main: [
 			"react",
 			"react-dom",
-			"react-router"
+			"react-router",
+			"webpack-hot-middleware/client?path=/__webpack_hmr&reload=true"
 		],
-		react_app: path.join(ASSETS_PATH, "/index.jsx"),
+		react_app: [
+			path.join(ASSETS_PATH, "/index.jsx"),
+			"webpack-hot-middleware/client?path=/__webpack_hmr&reload=true"
+		]
 	},
 
 	output: {
 		path: BUILD_DIR,
 		filename: 'js/[name].min.js',
 		publicPath: '/build',
+		hotUpdateChunkFilename: '.hot/hot-update.js',
+		hotUpdateMainFilename: '.hot/hot-update.json',
 	},
 
 	resolve: {
@@ -50,7 +56,7 @@ var webpack_config = {
 		rules: [
 			{
 				test: /\.(jsx|js)$/,
-				loader: 'babel-loader?compact=true&comments=true&minified=true',
+				use: ['babel-loader?compact=true&comments=true&minified=true', 'eslint-loader'],
 				exclude: /node_modules/
 			},
 			{
@@ -109,6 +115,7 @@ var webpack_config = {
 				NODE_ENV: JSON.stringify(process.env.NODE_ENV)
 			}
 		}),
+		new webpack.HotModuleReplacementPlugin(),
 		// new CleanWebpackPlugin({
 		// 	verbose: true,
 		// 	cleanOnceBeforeBuildPatterns: [

@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component, Fragment} from "react";
 import {Header, Segment} from "semantic-ui-react";
 
 
@@ -8,7 +8,10 @@ export default class MainPage extends Component {
 			<Fragment>
 				<Segment>
 					<Header>
-						Hello from Main Page!
+						Welcome
+					</Header>
+					<Header as="h4">
+						Hello from Main Page!HEHEHE!
 					</Header>
 				</Segment>
 			</Fragment>
