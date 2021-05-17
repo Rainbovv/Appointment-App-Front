@@ -1,8 +1,19 @@
 import React, {Component, Fragment} from "react";
-import {Header, Segment} from "semantic-ui-react";
+import {withRouter} from "react-router-dom";
+
+import {connect} from "react-redux";
+import {
+	Header,
+	Segment
+} from "semantic-ui-react";
 
 
-export default class MainPage extends Component {
+class MainPage extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {}
+	}
+
 	render() {
 		return (
 			<Fragment>
@@ -11,10 +22,18 @@ export default class MainPage extends Component {
 						Welcome
 					</Header>
 					<Header as="h4">
-						Hello from Main Page!HEHEHE!
+						Hello from Main Page!
 					</Header>
 				</Segment>
 			</Fragment>
 		)
 	}
 }
+
+const mapStateToProps = state => {
+	return {
+		userData: state.auth.userData
+	}
+};
+
+export default withRouter(connect(mapStateToProps)(MainPage));

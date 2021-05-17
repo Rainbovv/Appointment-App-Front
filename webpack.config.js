@@ -25,7 +25,7 @@ var webpack_config = {
 			"webpack-hot-middleware/client?path=/__webpack_hmr&reload=true"
 		],
 		react_app: [
-			path.join(ASSETS_PATH, "/index.jsx"),
+			path.join(ASSETS_PATH, "/index.tsx"),
 			"webpack-hot-middleware/client?path=/__webpack_hmr&reload=true"
 		]
 	},
@@ -39,7 +39,7 @@ var webpack_config = {
 	},
 
 	resolve: {
-		extensions: [' ', '.web.js', '.js', '.jsx', 'css'],
+		extensions: [' ', '.web.js', '.ts', '.tsx', '.js', '.jsx', 'css'],
 	},
 
 	devtool: ("production" === process.env.NODE_ENV) ? "source-map" : "eval-source-map",
@@ -58,6 +58,11 @@ var webpack_config = {
 				test: /\.(jsx|js)$/,
 				use: ['babel-loader?compact=true&comments=true&minified=true', 'eslint-loader'],
 				exclude: /node_modules/
+			},
+			{
+				test: /\.tsx?$/,
+				use: 'ts-loader',
+				exclude: '/node_modules/'
 			},
 			{
 				test: /\.(ttf|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
