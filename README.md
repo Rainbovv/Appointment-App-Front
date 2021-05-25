@@ -40,3 +40,5 @@ _Project supports module-hot-reload_
     'npm run dev'
 
 6 After buil, go to browser http://localhost:3000/ (port can be customized in config 'server.js')
+
+7 Link for Semantic-UI components https://react.semantic-ui.com/
