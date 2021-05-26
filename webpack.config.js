@@ -21,8 +21,7 @@ var webpack_config = {
 		main: [
 			"react",
 			"react-dom",
-			"react-router",
-			"webpack-hot-middleware/client?path=/__webpack_hmr&reload=true"
+			"react-router"
 		],
 		react_app: [
 			path.join(ASSETS_PATH, "/index.tsx"),
@@ -43,10 +42,6 @@ var webpack_config = {
 	},
 
 	devtool: ("production" === process.env.NODE_ENV) ? "source-map" : "eval-source-map",
-
-	devServer: {
-		contentBase: './src',
-	},
 
 	watchOptions: {
 		poll: true
@@ -70,7 +65,7 @@ var webpack_config = {
 					loader: 'file-loader',
 					options: {
 						name: '[name].[ext]',
-						outputPath: 'fonts/'
+						outputPath: '/css/fonts/'
 					}
 				}
 			},
@@ -80,7 +75,7 @@ var webpack_config = {
 					loader: 'file-loader',
 					options: {
 						name: '[name].[ext]',
-						outputPath: 'media/'
+						outputPath: '/css/media/'
 					}
 				}
 			},
@@ -106,7 +101,6 @@ var webpack_config = {
 					{
 						loader: MiniCssExtractPlugin.loader,
 						options: {
-							publicPath: '/css/'
 						}
 					}
 					, 'css-loader'],

@@ -5,6 +5,7 @@ import {store} from "./store";
 
 import MainPage from "./pages/MainPage";
 import NotFound from "./pages/NotFound";
+import AdminPage from "./pages/AdminPage/AdminPage";
 
 
 export default class App extends Component {
@@ -14,6 +15,7 @@ export default class App extends Component {
 				<Router>
 					<Switch>
 						<Route exact path="/" component={MainPage}/>
+						<Route exact path="/admin" component={AdminPage}/>
 						<Route path="*" component={NotFound}/>
 					</Switch>
 				</Router>

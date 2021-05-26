@@ -8,6 +8,7 @@ const config = require('./webpack.config.js');
 const compiler = webpack(config);
 const SERVER_PORT = 3000;
 
+app.use(express.static(__dirname + '/build'));
 app.use(
 	webpackDevMiddleware(compiler, {
 		publicPath: config.output.publicPath,

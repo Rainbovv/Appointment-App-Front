@@ -20,6 +20,7 @@
   },
 
   "rules": {
+	"react/prop-types": "off",
 	"eqeqeq": "warn",
     "quotes": ["error", "double"],
     "react/no-set-state": "off",
