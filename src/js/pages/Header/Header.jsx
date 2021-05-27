@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Image, Menu, Container, Popup } from "semantic-ui-react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getUserData } from "../../selectors/auth";
+import { getUserLoaded } from "../../selectors/auth";
 import SignIn from "./components/SignInDropdown";
 import ProfileDropdown from "./components/ProfileDropdown";
 
 const Header = () => {
 
     const [open, setOpen] = useState(false);
-    const userData = useSelector(getUserData);
+    const userLoaded = useSelector(getUserLoaded);
 
     const history = useHistory();
 
@@ -33,7 +33,7 @@ const Header = () => {
                 <Menu.Item as="a" name="home" onClick={homePage}>
                     Home
                 </Menu.Item>
-                {userData && 
+                {userLoaded && 
                     <Menu.Item as="a" name="appointments" onClick={appointmentsPage}>
                         Appointments
                     </Menu.Item>}
@@ -46,7 +46,7 @@ const Header = () => {
                     </Menu.Item>
                 </Menu.Menu>
                 <Menu.Menu position="right">
-                    {userData ?
+                    {userLoaded ?
                         <Popup
                             eventsEnabled="true"
                             position="bottom left"
