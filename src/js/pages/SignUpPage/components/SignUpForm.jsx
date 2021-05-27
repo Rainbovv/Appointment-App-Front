@@ -3,7 +3,7 @@ import { Form, Container } from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux"
-import { registerNewUser } from "../../actions/auth";
+import { registerNewUser } from "../../../actions/auth";
 
 const options = [
     { key: "m", text: "Male", value: "male" },

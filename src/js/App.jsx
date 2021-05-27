@@ -6,7 +6,7 @@ import {store} from "./store";
 import MainPage from "./pages/MainPage";
 import NotFound from "./pages/NotFound";
 import SignUpPage from "./pages/SignUpPage";
-import Header from "./components/header/header.component";
+import Header from "./pages/Header/Header";
 
 
 export default class App extends Component {

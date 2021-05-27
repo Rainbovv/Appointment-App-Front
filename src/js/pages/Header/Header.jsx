@@ -3,8 +3,8 @@ import { Image, Menu, Container, Popup } from "semantic-ui-react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUserData } from "../../selectors/auth";
-import SignIn from "../sign-in/sign-in.component";
-import ProfileDropdown from "../profile-dropdown/profile-dropdown.component";
+import SignIn from "./components/SignInDropdown";
+import ProfileDropdown from "./components/ProfileDropdown";
 
 const Header = () => {
 
@@ -33,11 +33,10 @@ const Header = () => {
                 <Menu.Item as="a" name="home" onClick={homePage}>
                     Home
                 </Menu.Item>
-                {userData ? 
+                {userData && 
                     <Menu.Item as="a" name="appointments" onClick={appointmentsPage}>
                         Appointments
-                    </Menu.Item> 
-                : null }
+                    </Menu.Item>}
                 <Menu.Menu position="right">
                     <Menu.Item active="false" name="phone">
                         Hospital #1

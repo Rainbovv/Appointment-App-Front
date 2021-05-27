@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Message } from "semantic-ui-react";
 //import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux";
-import { getUserData } from "../../selectors/auth";
+import { getUserData } from "../../../selectors/auth";
 
 const ProfileDropdown = () => {
  //   const dispatch = useDispatch();

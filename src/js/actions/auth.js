@@ -14,13 +14,7 @@ export const LOADING_CURRENT_USER = "LOADING_CURRENT_USER";
 
 
 export const registerNewUser = (userData) => (dispatch) => {
-//	let requestParams = {};
 	const url = BASIC_URL + BASIC_PATH + REGISTRATION_URL;
-
-	// if (userData.userName && userData.password) {
-	// 	requestParams["userName"] = userData.userName;
-	// 	requestParams["password"] = userData.password;
-	// }
 
 	dispatch({
 		type: REQUEST_USER_REGISTER,
@@ -42,13 +36,7 @@ export const registerNewUser = (userData) => (dispatch) => {
 }
 
 export const authUser = (userData) => (dispatch) => {
-	// let requestParams = {};
 	const url = BASIC_URL + BASIC_PATH + AUTH_URL;
-
-	// if (userData.userName && userData.password) {
-	// 	requestParams["userName"] = userData.userName;
-	// 	requestParams["password"] = userData.password;
-	// }
 
 	dispatch({
 		type: REQUEST_USER_REGISTER,

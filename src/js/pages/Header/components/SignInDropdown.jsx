@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {  Form, Message } from "semantic-ui-react";
 import { useDispatch } from "react-redux"
-import { authUser } from "../../actions/auth";
+import { authUser } from "../../../actions/auth";
 import { Link } from "react-router-dom";
 
 const SignIn = () => {
