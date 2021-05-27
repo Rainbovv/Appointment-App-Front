@@ -6,15 +6,14 @@ import {store} from "./store";
 import MainPage from "./pages/MainPage";
 import NotFound from "./pages/NotFound";
 import SignUpPage from "./pages/SignUpPage";
-import Header from "./pages/Header/Header";
 import AdminPage from "./pages/AdminPage/AdminPage";
+import Header from "./pages/Header/Header";
 
 
 export default class App extends Component {
 	render() {
 		return(
 			<Provider store={store}>
-
 				<Router>
 					<Header />
 					<Switch>
