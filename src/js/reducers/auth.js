@@ -6,7 +6,7 @@ import {
 
 
 const initialState = {
-	userData : {},
+	userData : null,
 	currentUserLoaded: false,
 };
 

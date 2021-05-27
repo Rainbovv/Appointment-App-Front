@@ -14,45 +14,14 @@ export const LOADING_CURRENT_USER = "LOADING_CURRENT_USER";
 
 
 export const registerNewUser = (userData) => (dispatch) => {
-	let requestParams = {};
 	const url = BASIC_URL + BASIC_PATH + REGISTRATION_URL;
 
-	if (userData.userName && userData.password) {
-		requestParams["userName"] = userData.userName;
-		requestParams["password"] = userData.password;
-	}
-
 	dispatch({
 		type: REQUEST_USER_REGISTER,
 		payload: true,
 	});
 
-	return HttpService.post(url, requestParams)
-		.then(response => {
-			dispatch({
-				type: REQUEST_USER_REGISTER,
-				payload: false,
-			});
-
-			return response;
-		})
-}
-
-export const authUser = (userData) => (dispatch) => {
-	let requestParams = {};
-	const url = BASIC_URL + BASIC_PATH + AUTH_URL;
-
-	if (userData.userName && userData.password) {
-		requestParams["userName"] = userData.userName;
-		requestParams["password"] = userData.password;
-	}
-
-	dispatch({
-		type: REQUEST_USER_REGISTER,
-		payload: true,
-	});
-
-	return HttpService.post(url, requestParams)
+	return HttpService.post(url, userData)
 		.then(response => {
 			dispatch({
 				type: REQUEST_USER_REGISTER,
@@ -61,7 +30,29 @@ export const authUser = (userData) => (dispatch) => {
 
 			return dispatch({
 				type: RECEIVE_USER_AUTH,
-				currentUser: response,
+				payload: response,
+			});
+		})
+}
+
+export const authUser = (userData) => (dispatch) => {
+	const url = BASIC_URL + BASIC_PATH + AUTH_URL;
+
+	dispatch({
+		type: REQUEST_USER_REGISTER,
+		payload: true,
+	});
+
+	return HttpService.post(url, userData)
+		.then(response => {
+			dispatch({
+				type: REQUEST_USER_REGISTER,
+				payload: false,
+			});
+
+			return dispatch({
+				type: RECEIVE_USER_AUTH,
+				payload: response,
 			})
 		})
 }
