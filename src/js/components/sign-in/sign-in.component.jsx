@@ -43,7 +43,7 @@ const SignIn = () => {
                     </Form.Button>
                 </Form>
                 <Message size="small">
-                        <a href="#">Forgot your password?</a>
+                        <Link>Forgot your password?</Link>
                 </Message>
                 <Message size="small">
                     Not registered yet? <Link to="/sign-up">Sign Up</Link>
