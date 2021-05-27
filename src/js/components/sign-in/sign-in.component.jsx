@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {  Form, Message } from "semantic-ui-react";
 import { useDispatch } from "react-redux"
-import { registerNewUser } from "../../actions/auth";
+import { authUser } from "../../actions/auth";
 import { Link } from "react-router-dom";
 
 const SignIn = () => {
@@ -17,7 +17,7 @@ const SignIn = () => {
             "password" : password
         }
 
-       dispatch(registerNewUser(formattedData));
+       dispatch(authUser(formattedData));
     }
 
     return (
