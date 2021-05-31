@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, Icon, Table} from "semantic-ui-react";
+import {adminContentTypes} from "../../../config/parameters";
 
 type Props = {
     color: string;
@@ -10,7 +11,7 @@ type Props = {
 
 export const UsersTable: React.FunctionComponent<Props> = ({
                                                                color = "blue",
-                                                               tableType = "doctor",
+                                                               tableType = adminContentTypes.PERSONAL,
                                                                recordsLimit = 50,
                                                                columnNames = ["ColumnName1", "ColumnName2"],
                                                                ...props
@@ -37,7 +38,7 @@ export const UsersTable: React.FunctionComponent<Props> = ({
                     <Table.Cell>0g</Table.Cell>
                     <Table.Cell>
                         {
-                            tableType === "doctor" && <Button>
+                            tableType === adminContentTypes.PERSONAL && <Button>
 								<Icon name='edit'/>
 								Edit
 							</Button>
@@ -54,7 +55,7 @@ export const UsersTable: React.FunctionComponent<Props> = ({
                     <Table.Cell>0g</Table.Cell>
                     <Table.Cell>
                         {
-                            tableType === "doctor" && <Button>
+                            tableType === adminContentTypes.PERSONAL && <Button>
 								<Icon name='edit'/>
 								Edit
 							</Button>

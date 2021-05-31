@@ -1,17 +1,24 @@
-import React from "react";
-import {RootState} from "../../store";
+import React, {Fragment} from "react";
+import {
+    Divider,
+    Header
+} from "semantic-ui-react";
+import SignUpPage from "../SignUpPage";
 
-type AddUserPageState = {
-    columnNames: Array<string>;
-    contentType: string
-};
 
-
-interface AddUserPageProps extends RootState{
+const AddUserPage: React.FunctionComponent = () => {
+    return (
+        <Fragment>
+            <Header>
+                ADD USER PAGE
+            </Header>
+            <Divider/>
+            <Divider hidden/>
+            <Divider hidden/>
+            <Divider hidden/>
+            <SignUpPage/>
+        </Fragment>
+    );
 }
 
-export default class AddUserPage extends React.Component<RootState, AddUserPageState> {
-
-
-
-}
+export default AddUserPage;

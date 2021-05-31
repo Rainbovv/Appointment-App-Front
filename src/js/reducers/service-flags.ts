@@ -1,12 +1,13 @@
 import {actionTypes} from "../actions/service-flags";
 import {PlainObject} from "../types/interfaces/PlainObject";
+import {adminContentTypes} from "../config/parameters";
 
 type serviceFlagsTypes = {
     adminContentType: string
 }
 
 const initialState: serviceFlagsTypes = {
-    adminContentType : "patient",
+    adminContentType : adminContentTypes.PATIENT,
 };
 
 export const serviceFlags = (state = initialState, action: PlainObject) => {

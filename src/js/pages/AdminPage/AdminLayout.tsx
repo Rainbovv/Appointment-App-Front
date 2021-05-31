@@ -6,6 +6,7 @@ import {RootState} from "../../store";
 
 import {MenuLeft} from "./components/MenuLeft";
 import {Grid} from "semantic-ui-react";
+import {withRouter} from "react-router-dom";
 
 
 interface AdminLayoutProps extends RootState {
@@ -50,4 +51,4 @@ const mapStateToProps = (state: AdminLayoutProps) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => bindActionCreators({setAdminContentType}, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminLayout as any);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AdminLayout as any));

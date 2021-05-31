@@ -3,6 +3,7 @@ import reducer from "./reducers/reducer";
 import thunk from "redux-thunk";
 import {createLogger} from "redux-logger";
 import {persistStore} from "redux-persist";
+import {PlainObject} from "./types/interfaces/PlainObject";
 
 
 const middleware = [
@@ -18,6 +19,10 @@ export const store = createStore(
 export type RootState = {
 	serviceFlags: {
 		adminContentType: string;
+	},
+	users: {
+		userListLoaded: boolean;
+		usersList: Array<PlainObject>
 	}
 };
 

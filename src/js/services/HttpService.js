@@ -69,8 +69,9 @@ async function request(url, method = "GET", requestParams, withoutResult = false
 		HEADERS["Authorization"] = token;
 	}
 
+	config.headers = HEADERS;
+
 	if (method === "POST" || method === "PUT") {
-		config.headers = HEADERS;
 		config.body = JSON.stringify(requestParams)
 	}
 	
