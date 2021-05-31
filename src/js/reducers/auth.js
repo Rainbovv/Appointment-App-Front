@@ -2,13 +2,17 @@ import {
 	REQUEST_USER_REGISTER,
 	RECEIVE_USER_REGISTER,
 	RECEIVE_USER_AUTH,
-	RECEIVE_USER_SIGNOUT
+	RECEIVE_USER_SIGNOUT,
+	RECEIVE_AUTH_BAD_CREDENTIALS,
+	RECEIVE_SIGNUP_DUPLICATED
 }  from "../actions/auth";
 
 
 const initialState = {
 	userData : null,
 	currentUserLoaded: false,
+	isEmailDuplicated: false,
+	isBadCredentials: false,
 };
 
 export const auth = (state = initialState, action) => {
@@ -34,6 +38,16 @@ export const auth = (state = initialState, action) => {
 				...state,
 				userData: null,
 				currentUserLoaded: false,
+			}
+		case RECEIVE_AUTH_BAD_CREDENTIALS:
+			return {
+				...state,
+				isBadCredentials: true,
+			}
+		case RECEIVE_SIGNUP_DUPLICATED:
+			return {
+				...state,
+				isEmailDuplicated: true,
 			}
 		default:
 			return state

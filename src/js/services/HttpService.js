@@ -1,3 +1,5 @@
+import { store } from "../store";
+
 const HEADERS = {
 	"Content-Type": "application/json",
 	"Accept": "application/json",
@@ -60,12 +62,18 @@ async function request(url, method = "GET", requestParams, withoutResult = false
 		CREDENTIALS
 	};
 
+	const state = store.getState();
+	const token = state.auth.userData && state.auth.userData.token && state.auth.userData.token;
+
+	if (token) {
+		HEADERS["Authorization"] = token;
+	}
+
 	if (method === "POST" || method === "PUT") {
 		config.headers = HEADERS;
 		config.body = JSON.stringify(requestParams)
 	}
-
-	const response = await fetch(url, config)
-
+	
+	const response = await fetch(url, config);
 	return !withoutResult ? await response.json() : null;
 }
