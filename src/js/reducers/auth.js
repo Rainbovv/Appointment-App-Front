@@ -2,6 +2,7 @@ import {
 	REQUEST_USER_REGISTER,
 	RECEIVE_USER_REGISTER,
 	RECEIVE_USER_AUTH,
+	RECEIVE_USER_SIGNOUT
 }  from "../actions/auth";
 
 
@@ -28,6 +29,12 @@ export const auth = (state = initialState, action) => {
 				userData: action.payload,
 				currentUserLoaded: true,
 			};
+		case RECEIVE_USER_SIGNOUT:
+			return {
+				...state,
+				userData: null,
+				currentUserLoaded: false,
+			}
 		default:
 			return state
 	}

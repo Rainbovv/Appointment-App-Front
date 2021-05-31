@@ -43,9 +43,18 @@ export class HttpService {
 			throw e
 		}
 	}
+
+	static async postSignOut(url) {
+		try {
+			return await request(url, "POST", {}, true)
+		} catch (e) {
+			console.log("Error on POST request: ", e)
+			throw e
+		}
+	}
 }
 
-async function request(url, method = "GET", requestParams) {
+async function request(url, method = "GET", requestParams, withoutResult = false) {
 	const config = {
 		method,
 		CREDENTIALS
@@ -58,5 +67,5 @@ async function request(url, method = "GET", requestParams) {
 
 	const response = await fetch(url, config)
 
-	return await response.json()
+	return !withoutResult ? await response.json() : null;
 }

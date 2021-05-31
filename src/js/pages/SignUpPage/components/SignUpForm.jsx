@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch } from "react-redux"
 import { registerNewUser } from "../../../actions/auth";
+import { useHistory } from "react-router-dom";
 
 const options = [
     { key: "m", text: "Male", value: "male" },
@@ -14,6 +15,7 @@ const options = [
 const SignUp = () => {
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [startDate, setStartDate] = useState(new Date());    
     const [firstName, setFirstName] = useState("");
@@ -40,6 +42,7 @@ const SignUp = () => {
         }
 
        dispatch(registerNewUser(formattedData));
+       history.push("/");
     }
 
     return (

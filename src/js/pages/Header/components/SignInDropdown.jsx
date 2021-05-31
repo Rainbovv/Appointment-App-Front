@@ -25,6 +25,7 @@ const SignIn = () => {
                 <Form onSubmit={handleSubmit}>
                     <Form.Input
                         fluid
+                        icon="mail"
                         name="login"
                         iconPosition="left"
                         placeholder="Email address"
@@ -32,6 +33,7 @@ const SignIn = () => {
                     />
                     <Form.Input
                         fluid
+                        icon="lock"
                         name="password"
                         iconPosition="left"
                         placeholder="Password"
