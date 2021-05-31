@@ -6,24 +6,29 @@ import {store} from "./store";
 import MainPage from "./pages/MainPage";
 import NotFound from "./pages/NotFound";
 import SignUpPage from "./pages/SignUpPage";
-import AdminPage from "./pages/AdminPage/AdminPage";
+import AdminMainPage from "./pages/AdminPage/AdminMainPage";
 import Header from "./pages/Header/Header";
+import AddUserPage from "./pages/AdminPage/AddUserPage";
+import AdminLayout from "./pages/AdminPage/AdminLayout";
 
 
 export default class App extends Component {
-	render() {
-		return(
-			<Provider store={store}>
-				<Router>
-					<Header />
-					<Switch>
-						<Route exact path="/" component={MainPage}/>
-						<Route exact path="/admin" component={AdminPage}/>
-						<Route path="/sign-up" component={SignUpPage}/>
-						<Route path="*" component={NotFound}/>
-					</Switch>
-				</Router>
-			</Provider>
-		);
-	}
+    render() {
+        return (
+                <Provider store={store}>
+                    <Router>
+                        <Header/>
+                        <Switch>
+                            <Route exact path="/" component={MainPage}/>
+                            <Route path="/sign-up" component={SignUpPage}/>
+                            <AdminLayout>
+                                <Route path="/admin" exact component={AdminMainPage}/>
+                                <Route path="/admin/add-user" exact component={AddUserPage}/>
+                            </AdminLayout>
+                            <Route path="*" component={NotFound}/>
+                        </Switch>
+                    </Router>
+                </Provider>
+        );
+    }
 }

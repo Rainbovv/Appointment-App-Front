@@ -36,12 +36,14 @@ export const UsersTable: React.FunctionComponent<Props> = ({
                     <Table.Cell>200</Table.Cell>
                     <Table.Cell>0g</Table.Cell>
                     <Table.Cell>
-                        <Button>
-                            <Icon name='edit' />
-                            Edit
-                        </Button>
+                        {
+                            tableType === "doctor" && <Button>
+								<Icon name='edit'/>
+								Edit
+							</Button>
+                        }
                         <Button color={"red"}>
-                            <Icon name='user delete' />
+                            <Icon name='user delete'/>
                             Delete
                         </Button>
                     </Table.Cell>
@@ -51,12 +53,14 @@ export const UsersTable: React.FunctionComponent<Props> = ({
                     <Table.Cell>310</Table.Cell>
                     <Table.Cell>0g</Table.Cell>
                     <Table.Cell>
-                        <Button>
-                            <Icon name='edit' />
-                            Edit
-                        </Button>
+                        {
+                            tableType === "doctor" && <Button>
+								<Icon name='edit'/>
+								Edit
+							</Button>
+                        }
                         <Button color={"red"}>
-                            <Icon name='user delete' />
+                            <Icon name='user delete'/>
                             Delete
                         </Button>
                     </Table.Cell>

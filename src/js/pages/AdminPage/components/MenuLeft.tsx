@@ -7,19 +7,17 @@ type Props = {
 }
 
 export const MenuLeft: React.FunctionComponent<Props> = ({
-                                                             contentType = "patients",
+                                                             contentType = "patient",
                                                              onClick,
                                                              ...props
                                                          }) => {
-    const handleIncrement = () => {
-    };
 
     return (
         <Menu pointing vertical>
             <Menu.Item
-                name="patients"
-                active={contentType === "patients"}
-                onClick={()=>onClick("patients")}
+                name="patient"
+                active={contentType === "patient"}
+                onClick={(e)=>onClick("patient")}
             />
             <Menu.Item
                 name="personal"

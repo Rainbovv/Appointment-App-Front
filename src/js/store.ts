@@ -13,3 +13,9 @@ export const store = createStore(
 	reducer,
 	compose(applyMiddleware(...middleware))
 );
+
+export type RootState = {
+	serviceFlags: {
+		adminContentType: string;
+	}
+};
