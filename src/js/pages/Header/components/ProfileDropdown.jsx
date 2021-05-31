@@ -17,7 +17,7 @@ const ProfileDropdown = () => {
     return (
             <div>
                 <Message size="small">
-                        {userData.username}
+                        {userData.firstName}
                 </Message>
                 <Button.Group vertical fluid>
                     <Button>
