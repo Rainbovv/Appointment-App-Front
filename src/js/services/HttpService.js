@@ -1,6 +1,6 @@
 import { store } from "../store";
 
-const HEADERS = {
+let HEADERS = {
 	"Content-Type": "application/json",
 	"Accept": "application/json",
 };
@@ -68,6 +68,8 @@ async function request(url, method = "GET", requestParams, withoutResult = false
 	if (token) {
 		HEADERS["Authorization"] = token;
 	}
+	
+	config.headers = HEADERS;
 
 	config.headers = HEADERS;
 
