@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import {  Form, Message } from "semantic-ui-react";
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { authUser } from "../../../actions/auth";
 import { Link } from "react-router-dom";
+import { getBadCredentials } from "../../../selectors/auth";
 
 const SignIn = () => {
     const dispatch = useDispatch();
+    const isBadCredentials = useSelector(getBadCredentials);
     const [login, setLogin] = useState("");
     const [password, setPassowrd] = useState("");
 
@@ -25,6 +27,7 @@ const SignIn = () => {
                 <Form onSubmit={handleSubmit}>
                     <Form.Input
                         fluid
+                        icon="mail"
                         name="login"
                         iconPosition="left"
                         placeholder="Email address"
@@ -32,13 +35,21 @@ const SignIn = () => {
                     />
                     <Form.Input
                         fluid
+                        icon="lock"
                         name="password"
                         iconPosition="left"
                         placeholder="Password"
                         type="password"
                         onChange={e => setPassowrd(e.target.value)}
                     />
-                    <Form.Button color="blue" fluid>
+                    {isBadCredentials && 
+                    <Message 
+                        negative={true}
+                        content="Invalid email or password"/>}
+                    <Form.Button 
+                        color="blue" 
+                        fluid
+                        disabled={!login && !password}>
                         Sign-in
                     </Form.Button>
                 </Form>

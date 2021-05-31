@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import {HashRouter as Router, Route, Switch} from "react-router-dom";
 import {Provider} from "react-redux";
-import {store} from "./store";
+import {store, persistor} from "./store";
+import {PersistGate} from "redux-persist/integration/react";
 
 import MainPage from "./pages/MainPage";
 import NotFound from "./pages/NotFound";
@@ -15,8 +16,9 @@ import AdminLayout from "./pages/AdminPage/AdminLayout";
 export default class App extends Component {
     render() {
         return (
-                <Provider store={store}>
-                    <Router>
+            <Provider store={store}>
+                <Router>
+                    <PersistGate persistor={persistor}>
                         <Header/>
                         <Switch>
                             <Route exact path="/" component={MainPage}/>
@@ -27,8 +29,9 @@ export default class App extends Component {
                             </AdminLayout>
                             <Route path="*" component={NotFound}/>
                         </Switch>
-                    </Router>
-                </Provider>
+                    </PersistGate>
+                </Router>
+            </Provider>
         );
     }
 }

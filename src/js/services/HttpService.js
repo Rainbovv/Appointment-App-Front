@@ -1,3 +1,5 @@
+import { store } from "../store";
+
 const HEADERS = {
 	"Content-Type": "application/json",
 	"Accept": "application/json",
@@ -43,20 +45,35 @@ export class HttpService {
 			throw e
 		}
 	}
+
+	static async postSignOut(url) {
+		try {
+			return await request(url, "POST", {}, true)
+		} catch (e) {
+			console.log("Error on POST request: ", e)
+			throw e
+		}
+	}
 }
 
-async function request(url, method = "GET", requestParams) {
+async function request(url, method = "GET", requestParams, withoutResult = false) {
 	const config = {
 		method,
 		CREDENTIALS
 	};
 
+	const state = store.getState();
+	const token = state.auth.userData && state.auth.userData.token && state.auth.userData.token;
+
+	if (token) {
+		HEADERS["Authorization"] = token;
+	}
+
 	if (method === "POST" || method === "PUT") {
 		config.headers = HEADERS;
 		config.body = JSON.stringify(requestParams)
 	}
-
-	const response = await fetch(url, config)
-
-	return await response.json()
+	
+	const response = await fetch(url, config);
+	return !withoutResult ? await response.json() : null;
 }
