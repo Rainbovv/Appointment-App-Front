@@ -2,7 +2,7 @@ import React from "react";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {
-    deleteProfileAndUser,
+    deleteProfileAndUser, getProfileById,
     getProfilesList
 } from "../../../actions/actions";
 
@@ -33,6 +33,18 @@ export const UsersTable: React.FunctionComponent<Props> = ({
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const infoAction = (profileId: number) =>{
+        history.push("/admin/" + profileId);
+        dispatch(getProfileById(profileId));
+    };
+
+    const deleteAction = (profileId: number) => {
+        const deleteUser = async () => dispatch(deleteProfileAndUser(profileId));
+
+        deleteUser()
+            .then(()=>dispatch(getProfilesList()));
+    }
+
     return (
         <Table celled>
             <Table.Header>
@@ -58,10 +70,9 @@ export const UsersTable: React.FunctionComponent<Props> = ({
                             <Table.Cell>
                                 <Button
                                     size={"tiny"}
-                                    onClick={() => history.push("/admin/" + item.profileId)}
+                                    onClick={() => infoAction(item.profileId)}
                                 >
                                     <Icon
-                                        basic
                                         name='user circle'
                                     />
                                     Info
@@ -79,10 +90,7 @@ export const UsersTable: React.FunctionComponent<Props> = ({
                                 <Button
                                     size={"tiny"}
                                     color={"red"}
-                                    onClick={() => {
-                                        dispatch(getProfilesList());
-                                        dispatch(deleteProfileAndUser(item.profileId));
-                                    }}
+                                    onClick={() => deleteAction(item.profileId)}
                                 >
                                     <Icon name='user delete'/>
                                     Delete

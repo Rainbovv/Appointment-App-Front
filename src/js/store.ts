@@ -22,7 +22,9 @@ export type RootState = {
 	},
 	profiles: {
 		profilesListLoaded: boolean;
-		profilesList: Array<PlainObject>
+		profilesList: Array<PlainObject>;
+		selectedUserProfile: PlainObject;
+		profileContentLoaded: boolean;
 	}
 };
 

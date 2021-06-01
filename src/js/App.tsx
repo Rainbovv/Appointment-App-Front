@@ -22,14 +22,12 @@ export default class App extends Component {
                     <PersistGate persistor={persistor}>
                         <Header/>
                         <Switch>
-                            // @ts-ignore
                             <Route exact path="/" component={MainPage}/>
                             <Route path="/sign-up" component={SignUpPage}/>
                             <AdminLayout>
                                 <Route path="/admin" exact component={AdminMainPage}/>
-                                <Route path="/admin/add-user" exact component={AddUserPage}/>
-                                <Route path="/admin/:profileId" component={UserPage}/>
-
+                                <Route path="/admin/:profileId"  component={UserPage}/>
+                                {/*<Route path="/admin/add-user" component={AddUserPage}/>*/}
                             </AdminLayout>
                             <Route path="*" component={NotFound}/>
                         </Switch>
