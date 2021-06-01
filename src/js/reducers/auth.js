@@ -32,6 +32,7 @@ export const auth = (state = initialState, action) => {
 				...state,
 				userData: action.payload,
 				currentUserLoaded: true,
+				isBadCredentials: false
 			};
 		case RECEIVE_USER_SIGNOUT:
 			return {

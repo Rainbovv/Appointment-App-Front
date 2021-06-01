@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {HashRouter as Router, Route, Switch} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store, persistor} from "./store";
-import { PersistGate } from "redux-persist/integration/react";
+import {PersistGate} from "redux-persist/integration/react";
 
 import MainPage from "./pages/MainPage";
 import NotFound from "./pages/NotFound";
@@ -19,8 +19,10 @@ export default class App extends Component {
 					<PersistGate persistor={persistor}>
 						<Header />
 						<Switch>
+							{/*
+ 								// @ts-ignore */}
 							<Route exact path="/" component={MainPage}/>
-							<Route exact path="/admin" component={AdminPage}/>
+							<Route path="/admin" component={AdminPage}/>
 							<Route path="/sign-up" component={SignUpPage}/>
 							<Route path="*" component={NotFound}/>
 						</Switch>
