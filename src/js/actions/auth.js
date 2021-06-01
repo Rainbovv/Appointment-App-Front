@@ -17,16 +17,23 @@ export const RECEIVE_SIGNUP_DUPLICATED = "RECEIVE_SIGNUP_DUPLICATED";
 export const RECEIVE_AUTH_BAD_CREDENTIALS = "RECEIVE_AUTH_BAD_CREDENTIALS";
 
 
-export const registerNewUser = (userData) => (dispatch) => {
+export const registerNewUser = (userData, history) => (dispatch) => {
 	const url = BASIC_URL + BASIC_PATH + REGISTRATION_URL;
 
 	return HttpService.post(url, userData)
-		.then(response => {
+	.then(response => {
+		if (response === 403) {
 			return dispatch({
+				type: RECEIVE_SIGNUP_DUPLICATED
+			})
+		} else if (typeof response === "object") {
+			dispatch({
 				type: RECEIVE_USER_AUTH,
-				payload: response,
+				payload: response
 			});
-		})
+			history.push("/");
+		}
+	})
 }
 
 export const authUser = (userData) => (dispatch) => {
@@ -34,21 +41,27 @@ export const authUser = (userData) => (dispatch) => {
 
 	return HttpService.post(url, userData)
 		.then(response => {
-			console.log(response);
-			return dispatch({
-				type: RECEIVE_USER_AUTH,
-				payload: response,
-			})
-		})
+			if (response === 403) {
+				return dispatch({
+					type: RECEIVE_AUTH_BAD_CREDENTIALS
+				})
+			} else if (typeof response === "object") {
+				return dispatch({
+					type: RECEIVE_USER_AUTH,
+					payload: response
+				})
+			}
+		})		
 }
 
-export const signOutUser = () => (dispatch) => {
+export const signOutUser = (history) => (dispatch) => {
 	const url = BASIC_URL + BASIC_PATH + SIGNOUT_URL;
 
 	return HttpService.postSignOut(url)
 		.then(() => {
 			dispatch({
 				type: RECEIVE_USER_SIGNOUT
-			})
+			});
+			history.push("/");
 		})
 }

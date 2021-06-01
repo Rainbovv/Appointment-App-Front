@@ -7,6 +7,7 @@ import {profiles} from "./profiles";
 import {departments} from "./departments";
 import {specialities} from "./specialities";
 import {serviceFlags} from "./service-flags";
+import {errors} from "./errors";
 
 const persistConfig = {
 	key: "root",
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
 	profiles: profiles,
 	departments: departments,
 	specialities: specialities,
-	serviceFlags: serviceFlags
+	serviceFlags: serviceFlags,
+	errors: errors
 });
 
 export default persistReducer(persistConfig, rootReducer);

@@ -19,7 +19,7 @@ export class HttpService {
 		try {
 			return await request(url, "POST", requestParams)
 		} catch (e) {
-			console.log("Error on POST request: ", e)
+			console.log("Error on POST request: ", e);
 			throw e
 		}
 	}
@@ -53,13 +53,14 @@ export class HttpService {
 }
 
 async function request(url, method = "GET", requestParams, withoutResult = false) {
-	let HEADERS = {
-		"Content-Type": "application/json",
-		"Accept": "application/json",
-	};
 	const config = {
 		method,
 		CREDENTIALS
+	};
+
+	let HEADERS = {
+		"Content-Type": "application/json",
+		"Accept": "application/json",
 	};
 
 	const state = store.getState();
@@ -68,7 +69,7 @@ async function request(url, method = "GET", requestParams, withoutResult = false
 	if (token) {
 		HEADERS["Authorization"] = token;
 	}
-	
+
 	config.headers = HEADERS;
 
 	if (method === "POST" || method === "PUT") {
@@ -76,5 +77,11 @@ async function request(url, method = "GET", requestParams, withoutResult = false
 	}
 	
 	const response = await fetch(url, config);
+
+	if (!response.ok) {
+		return response.status
+	}
+
 	return !withoutResult ? await response.json() : null;
+
 }
