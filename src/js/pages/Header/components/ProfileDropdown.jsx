@@ -11,8 +11,7 @@ const ProfileDropdown = () => {
     const userData = useSelector(getUserData);
     const history = useHistory();
     const handleOnClick = () => {
-        dispatch(signOutUser());
-        history.push("/");
+        dispatch(signOutUser(history));
     }
     return (
             <div>

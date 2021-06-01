@@ -54,13 +54,14 @@ export const authUser = (userData) => (dispatch) => {
 		})		
 }
 
-export const signOutUser = () => (dispatch) => {
+export const signOutUser = (history) => (dispatch) => {
 	const url = BASIC_URL + BASIC_PATH + SIGNOUT_URL;
 
 	return HttpService.postSignOut(url)
 		.then(() => {
 			dispatch({
 				type: RECEIVE_USER_SIGNOUT
-			})
+			});
+			history.push("/");
 		})
 }

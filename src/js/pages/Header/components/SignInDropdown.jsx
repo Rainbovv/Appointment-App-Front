@@ -19,7 +19,7 @@ const SignIn = () => {
             "password" : password
         }
 
-       dispatch(authUser(formattedData));
+        dispatch(authUser(formattedData));
     }
 
     return (
