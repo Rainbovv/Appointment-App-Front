@@ -1,66 +1,96 @@
 import React from "react";
-import {Button, Icon, Table} from "semantic-ui-react";
+import {useHistory} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {
+    deleteProfileAndUser,
+    getProfilesList
+} from "../../../actions/actions";
+
+import {adminContentTypes} from "../../../config/parameters";
+import {PlainObject} from "../../../types/interfaces/PlainObject";
+
+import {
+    Button,
+    Icon,
+    Table
+} from "semantic-ui-react";
+
 
 type Props = {
-    color: string;
     tableType: string;
     recordsLimit: number;
+    tableData: Array<PlainObject>
     columnNames: Array<string>
 }
 
 export const UsersTable: React.FunctionComponent<Props> = ({
-                                                               color = "blue",
-                                                               tableType = "doctor",
+                                                               tableType = adminContentTypes.PERSONAL,
                                                                recordsLimit = 50,
                                                                columnNames = ["ColumnName1", "ColumnName2"],
+                                                               tableData = [],
                                                                ...props
                                                            }) => {
-    const handleIncrement = () => {
-    };
+    const dispatch = useDispatch();
+    const history = useHistory();
 
     return (
-        <Table celled fixed singleLine>
+        <Table celled>
             <Table.Header>
                 <Table.Row>
                     {
                         columnNames.map(columnName => {
-                            return <Table.HeaderCell key={columnName}>{columnName}</Table.HeaderCell>
+                            return <Table.HeaderCell key={columnName}>
+                                {columnName}
+                            </Table.HeaderCell>
                         })
                     }
                 </Table.Row>
             </Table.Header>
 
             <Table.Body>
-                <Table.Row>
-                    <Table.Cell>Apples</Table.Cell>
-                    <Table.Cell>200</Table.Cell>
-                    <Table.Cell>0g</Table.Cell>
-                    <Table.Cell>
-                        <Button>
-                            <Icon name='edit' />
-                            Edit
-                        </Button>
-                        <Button color={"red"}>
-                            <Icon name='user delete' />
-                            Delete
-                        </Button>
-                    </Table.Cell>
-                </Table.Row>
-                <Table.Row>
-                    <Table.Cell>Orange</Table.Cell>
-                    <Table.Cell>310</Table.Cell>
-                    <Table.Cell>0g</Table.Cell>
-                    <Table.Cell>
-                        <Button>
-                            <Icon name='edit' />
-                            Edit
-                        </Button>
-                        <Button color={"red"}>
-                            <Icon name='user delete' />
-                            Delete
-                        </Button>
-                    </Table.Cell>
-                </Table.Row>
+                {
+                    tableData.map((item) => {
+                        return <Table.Row key={item.profileId}>
+                            <Table.Cell width={3}>{item.firstName}</Table.Cell>
+                            <Table.Cell width={3}>{item.lastName}</Table.Cell>
+                            <Table.Cell width={3}>{item.email}</Table.Cell>
+                            <Table.Cell width={3}>{item.telephone}</Table.Cell>
+                            <Table.Cell>
+                                <Button
+                                    size={"tiny"}
+                                    onClick={() => history.push("/admin/" + item.profileId)}
+                                >
+                                    <Icon
+                                        basic
+                                        name='user circle'
+                                    />
+                                    Info
+                                </Button>
+                                {
+                                    tableType === adminContentTypes.PERSONAL
+                                    && <Button
+										color={"blue"}
+										size={"tiny"}
+									>
+										<Icon name='edit'/>
+										Edit
+									</Button>
+                                }
+                                <Button
+                                    size={"tiny"}
+                                    color={"red"}
+                                    onClick={() => {
+                                        dispatch(getProfilesList());
+                                        dispatch(deleteProfileAndUser(item.profileId));
+                                    }}
+                                >
+                                    <Icon name='user delete'/>
+                                    Delete
+                                </Button>
+                            </Table.Cell>
+                        </Table.Row>
+                    })
+                }
             </Table.Body>
         </Table>
     )

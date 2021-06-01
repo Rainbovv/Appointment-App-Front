@@ -1,7 +1,6 @@
 import { store } from "../store";
 
 
-
 const CREDENTIALS = {
 	credentials: "same-origin"
 };
@@ -66,9 +65,10 @@ async function request(url, method = "GET", requestParams, withoutResult = false
 
 	const state = store.getState();
 	const token = state.auth.userData && state.auth.userData.token && state.auth.userData.token;
+
 	if (token) {
 		HEADERS["Authorization"] = token;
-	} 
+	}
 
 	config.headers = HEADERS;
 
@@ -77,11 +77,11 @@ async function request(url, method = "GET", requestParams, withoutResult = false
 	}
 	
 	const response = await fetch(url, config);
-	
+
 	if (!response.ok) {
 		return response.status
 	}
 
-	return !withoutResult ? await response.json() : null; 
+	return !withoutResult ? await response.json() : null;
 
 }

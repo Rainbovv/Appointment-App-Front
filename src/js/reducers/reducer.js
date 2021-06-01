@@ -1,21 +1,32 @@
 import {combineReducers} from "redux";
-import {auth} from "./auth";
-import {departments} from "./departments";
-import {specialities} from "./specialities";
-import {errors} from "./errors";
 import {persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage";
+
+import {auth} from "./auth";
+import {profiles} from "./profiles";
+import {departments} from "./departments";
+import {specialities} from "./specialities";
+import {serviceFlags} from "./service-flags";
+import {errors} from "./errors";
 
 const persistConfig = {
 	key: "root",
 	storage,
-	whitelist: ["auth"]
+	whitelist: [
+		"auth",
+		"profiles",
+		"serviceFlags",
+		"departments",
+		"specialities"
+	]
 }
 
 const rootReducer = combineReducers({
 	auth: auth,
+	profiles: profiles,
 	departments: departments,
 	specialities: specialities,
+	serviceFlags: serviceFlags,
 	errors: errors
 });
 

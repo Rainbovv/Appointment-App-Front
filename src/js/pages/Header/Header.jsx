@@ -33,7 +33,7 @@ const Header = () => {
                 <Menu.Item as="a" name="home" onClick={homePage}>
                     Home
                 </Menu.Item>
-                {userLoaded && 
+                {userLoaded &&
                     <Menu.Item as="a" name="appointments" onClick={appointmentsPage}>
                         Appointments
                     </Menu.Item>}

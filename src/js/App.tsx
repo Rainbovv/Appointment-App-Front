@@ -7,28 +7,35 @@ import {PersistGate} from "redux-persist/integration/react";
 import MainPage from "./pages/MainPage";
 import NotFound from "./pages/NotFound";
 import SignUpPage from "./pages/SignUpPage";
-import AdminPage from "./pages/AdminPage/AdminPage";
+import AdminMainPage from "./pages/AdminPage/AdminMainPage";
 import Header from "./pages/Header/Header";
+import AddUserPage from "./pages/AdminPage/AddUserPage";
+import UserPage from "./pages/AdminPage/UserPage";
+import AdminLayout from "./pages/AdminPage/AdminLayout";
 
 
 export default class App extends Component {
-	render() {
-		return(
-			<Provider store={store}>
-				<Router>
-					<PersistGate persistor={persistor}>
-						<Header />
-						<Switch>
-							{/*
- 								// @ts-ignore */}
-							<Route exact path="/" component={MainPage}/>
-							<Route path="/admin" component={AdminPage}/>
-							<Route path="/sign-up" component={SignUpPage}/>
-							<Route path="*" component={NotFound}/>
-						</Switch>
-					</PersistGate>
-				</Router>
-			</Provider>
-		);
-	}
+    render() {
+        return (
+            <Provider store={store}>
+                <Router>
+                    <PersistGate persistor={persistor}>
+                        <Header/>
+                        <Switch>
+                            // @ts-ignore
+                            <Route exact path="/" component={MainPage}/>
+                            <Route path="/sign-up" component={SignUpPage}/>
+                            <AdminLayout>
+                                <Route path="/admin" exact component={AdminMainPage}/>
+                                <Route path="/admin/add-user" exact component={AddUserPage}/>
+                                <Route path="/admin/:profileId" component={UserPage}/>
+
+                            </AdminLayout>
+                            <Route path="*" component={NotFound}/>
+                        </Switch>
+                    </PersistGate>
+                </Router>
+            </Provider>
+        );
+    }
 }
