@@ -1,9 +1,6 @@
 import { store } from "../store";
 
-let HEADERS = {
-	"Content-Type": "application/json",
-	"Accept": "application/json",
-};
+
 
 const CREDENTIALS = {
 	credentials: "same-origin"
@@ -23,7 +20,7 @@ export class HttpService {
 		try {
 			return await request(url, "POST", requestParams)
 		} catch (e) {
-			console.log("Error on POST request: ", e)
+			console.log("Error on POST request: ", e);
 			throw e
 		}
 	}
@@ -62,13 +59,17 @@ async function request(url, method = "GET", requestParams, withoutResult = false
 		CREDENTIALS
 	};
 
+	let HEADERS = {
+		"Content-Type": "application/json",
+		"Accept": "application/json",
+	};
+
 	const state = store.getState();
 	const token = state.auth.userData && state.auth.userData.token && state.auth.userData.token;
-
 	if (token) {
 		HEADERS["Authorization"] = token;
-	}
-	
+	} 
+
 	config.headers = HEADERS;
 
 	if (method === "POST" || method === "PUT") {
@@ -76,5 +77,11 @@ async function request(url, method = "GET", requestParams, withoutResult = false
 	}
 	
 	const response = await fetch(url, config);
-	return !withoutResult ? await response.json() : null;
+	
+	if (!response.ok) {
+		return response.status
+	}
+
+	return !withoutResult ? await response.json() : null; 
+
 }

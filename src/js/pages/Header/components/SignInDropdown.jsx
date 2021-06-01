@@ -3,7 +3,7 @@ import {  Form, Message } from "semantic-ui-react";
 import { useDispatch, useSelector } from "react-redux"
 import { authUser } from "../../../actions/auth";
 import { Link } from "react-router-dom";
-import { getBadCredentials } from "../../../selectors/auth";
+import { getBadCredentials } from "../../../selectors/errors";
 
 const SignIn = () => {
     const dispatch = useDispatch();

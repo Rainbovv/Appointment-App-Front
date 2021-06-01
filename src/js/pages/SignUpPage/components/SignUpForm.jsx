@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux"
 import { registerNewUser } from "../../../actions/auth";
 import { useHistory } from "react-router-dom";
-import { getEmailDuplicated } from "../../../selectors/auth";
+import { getEmailDuplicated } from "../../../selectors/errors";
 
 const options = [
     { key: "m", text: "Male", value: "male" },
@@ -56,9 +56,8 @@ const SignUp = () => {
             "gender" : gender,
             "role" : "PATIENT"
         }
-
-       dispatch(registerNewUser(formattedData));
-       history.push("/");
+        
+       dispatch(registerNewUser(formattedData, history));
     }
 
     return (

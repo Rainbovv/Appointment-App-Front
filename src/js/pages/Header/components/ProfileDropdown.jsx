@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Message } from "semantic-ui-react";
+import { Button, Divider, Message } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
 import { signOutUser } from "../../../actions/auth";
 import { useSelector } from "react-redux";
@@ -19,17 +19,20 @@ const ProfileDropdown = () => {
                 <Message size="small">
                         {userData.firstName}
                 </Message>
+                <Divider hidden/>
                 <Button.Group vertical fluid>
-                    <Button>
+                    <Button color="green">
                         View Profile
                     </Button>
+                    <Divider hidden/>
                     <Button>
                         View Appointments
                     </Button>
+                    <Divider hidden/>
+                    <Button fluid color="red" onClick={handleOnClick}>
+                        Sign-out
+                    </Button>
                 </Button.Group>
-                <Button fluid color="red" onClick={handleOnClick}>
-                    Sign-out
-                </Button>
             </div>
     )
 }
