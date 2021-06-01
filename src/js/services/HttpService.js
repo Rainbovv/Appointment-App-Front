@@ -1,9 +1,5 @@
 import { store } from "../store";
 
-let HEADERS = {
-	"Content-Type": "application/json",
-	"Accept": "application/json",
-};
 
 const CREDENTIALS = {
 	credentials: "same-origin"
@@ -57,6 +53,10 @@ export class HttpService {
 }
 
 async function request(url, method = "GET", requestParams, withoutResult = false) {
+	let HEADERS = {
+		"Content-Type": "application/json",
+		"Accept": "application/json",
+	};
 	const config = {
 		method,
 		CREDENTIALS
@@ -69,8 +69,6 @@ async function request(url, method = "GET", requestParams, withoutResult = false
 		HEADERS["Authorization"] = token;
 	}
 	
-	config.headers = HEADERS;
-
 	config.headers = HEADERS;
 
 	if (method === "POST" || method === "PUT") {

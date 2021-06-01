@@ -10,6 +10,7 @@ import SignUpPage from "./pages/SignUpPage";
 import AdminMainPage from "./pages/AdminPage/AdminMainPage";
 import Header from "./pages/Header/Header";
 import AddUserPage from "./pages/AdminPage/AddUserPage";
+import UserPage from "./pages/AdminPage/UserPage";
 import AdminLayout from "./pages/AdminPage/AdminLayout";
 
 
@@ -26,6 +27,8 @@ export default class App extends Component {
                             <AdminLayout>
                                 <Route path="/admin" exact component={AdminMainPage}/>
                                 <Route path="/admin/add-user" exact component={AddUserPage}/>
+                                <Route path="/admin/:profileId" component={UserPage}/>
+
                             </AdminLayout>
                             <Route path="*" component={NotFound}/>
                         </Switch>

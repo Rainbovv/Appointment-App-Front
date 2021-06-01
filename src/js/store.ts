@@ -20,9 +20,9 @@ export type RootState = {
 	serviceFlags: {
 		adminContentType: string;
 	},
-	users: {
-		userListLoaded: boolean;
-		usersList: Array<PlainObject>
+	profiles: {
+		profilesListLoaded: boolean;
+		profilesList: Array<PlainObject>
 	}
 };
 

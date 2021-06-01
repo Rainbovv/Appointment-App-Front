@@ -3,7 +3,7 @@ import {persistReducer} from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import {auth} from "./auth";
-import {users} from "./users";
+import {profiles} from "./profiles";
 import {departments} from "./departments";
 import {specialities} from "./specialities";
 import {serviceFlags} from "./service-flags";
@@ -13,7 +13,7 @@ const persistConfig = {
 	storage,
 	whitelist: [
 		"auth",
-		"users",
+		"profiles",
 		"serviceFlags",
 		"departments",
 		"specialities"
@@ -22,7 +22,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
 	auth: auth,
-	users: users,
+	profiles: profiles,
 	departments: departments,
 	specialities: specialities,
 	serviceFlags: serviceFlags

@@ -2,17 +2,18 @@ import React, {Fragment} from "react";
 import {connect} from "react-redux";
 import {AnyAction, bindActionCreators, Dispatch} from "redux";
 import {RootState} from "../../store";
-import {getUserList} from "../../actions/actions";
+import {getProfilesList} from "../../actions/actions";
+import * as ProfileService from "../../services/ProfileService";
 
 import {
     Button,
     Divider,
-    Header, Loader
+    Header,
+    Loader
 } from "semantic-ui-react";
 import {UsersTable} from "./components/UsersTable";
 
 import "./admin-style.css";
-import {adminContentTypes} from "../../config/parameters";
 
 
 type AdminPageState = {
@@ -21,9 +22,10 @@ type AdminPageState = {
 
 interface AdminPageProps extends RootState {
     adminContentType: string;
-    userListLoaded: boolean
-    getUserList: () => void;
-    history: any
+    profilesListLoaded: boolean
+    getProfilesList: () => void;
+    profilesList: [];
+    history: any;
 }
 
 class AdminMainPage extends React.Component<AdminPageProps> {
@@ -32,6 +34,7 @@ class AdminMainPage extends React.Component<AdminPageProps> {
             "first name",
             "last name",
             "mail",
+            "telephone",
             "actions"
         ],
     };
@@ -42,7 +45,7 @@ class AdminMainPage extends React.Component<AdminPageProps> {
         } = this.props;
 
 
-        this.props.getUserList();
+        this.props.getProfilesList();
     }
 
     render() {
@@ -51,8 +54,11 @@ class AdminMainPage extends React.Component<AdminPageProps> {
         } = this.state;
         const {
             adminContentType,
-            userListLoaded
+            profilesListLoaded,
+            profilesList
         } = this.props;
+
+        const tableData = ProfileService.formatProfileData(profilesList);
 
         return (
             <Fragment>
@@ -63,29 +69,26 @@ class AdminMainPage extends React.Component<AdminPageProps> {
                 <div className="admin-addButton-container">
                     <Button
                         primary
-                        onClick={() => this.props.history.push("/add-user")}
+                        onClick={() => this.props.history.push("/admin/add-user")}
                     >
                         Add
                     </Button>
                 </div>
                 {
-                    userListLoaded ?
+                    profilesListLoaded ?
                         <Fragment>
                             {
-                                adminContentType === adminContentTypes.PATIENT ?
+                                tableData.length > 0 ?
                                     <UsersTable
-                                        color={"yellow"}
-                                        tableType={adminContentTypes.PATIENT}
+                                        tableType={adminContentType}
                                         recordsLimit={50}
                                         columnNames={columnNames}
+                                        tableData={tableData}
                                     />
                                     :
-                                    <UsersTable
-                                        color={"blue"}
-                                        tableType={adminContentTypes.PERSONAL}
-                                        recordsLimit={50}
-                                        columnNames={columnNames}
-                                    />
+                                    <Header>
+                                        No users were added
+                                    </Header>
                             }
                         </Fragment>
                         :
@@ -96,15 +99,18 @@ class AdminMainPage extends React.Component<AdminPageProps> {
             </Fragment>
         );
     }
+
 }
 
 const mapStateToProps = (state: RootState) => ({
-    adminContentType: state.serviceFlags.adminContentType,
-    userListLoaded: state.users.userListLoaded,
-    usersList: state.users.usersList
-});
+        adminContentType: state.serviceFlags.adminContentType,
+        profilesListLoaded: state.profiles.profilesListLoaded,
+        profilesList: state.profiles.profilesList
+    }
+
+);
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => bindActionCreators({
-    getUserList
+    getProfilesList
 }, dispatch);
 
 export default connect(
