@@ -1,13 +1,13 @@
 import {combineReducers} from "redux";
 import {persistReducer} from "redux-persist";
-import storage from "redux-persist/lib/storage";
-
 import {auth} from "./auth";
 import {profiles} from "./profiles";
 import {departments} from "./departments";
 import {specialities} from "./specialities";
 import {serviceFlags} from "./service-flags";
 import {errors} from "./errors";
+import storage from "redux-persist/lib/storage";
+import {appointments} from "./appointments";
 
 const persistConfig = {
 	key: "root",
@@ -17,7 +17,8 @@ const persistConfig = {
 		"profiles",
 		"serviceFlags",
 		"departments",
-		"specialities"
+		"specialities",
+		"appointments"
 	]
 }
 
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
 	departments: departments,
 	specialities: specialities,
 	serviceFlags: serviceFlags,
+	appointments: appointments,
 	errors: errors
 });
 

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { signOutUser } from "../../../actions/auth";
 import { useSelector } from "react-redux";
 import { getUserData } from "../../../selectors/auth";
-import { useHistory } from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 const ProfileDropdown = () => {
     const dispatch = useDispatch();
@@ -21,11 +21,11 @@ const ProfileDropdown = () => {
                 <Divider hidden/>
                 <Button.Group vertical fluid>
                     <Button color="green">
-                        View Profile
+                        <Link to="/account/info">View Profile</Link>
                     </Button>
                     <Divider hidden/>
-                    <Button>
-                        View Appointments
+                    <Button
+                         href="http://localhost:3000/#/account/appointments">View Appointments
                     </Button>
                     <Divider hidden/>
                     <Button fluid color="red" onClick={handleOnClick}>
