@@ -1,1 +1,2 @@
-export const getUserAppointments = state => state.appointments.appointmentsList;
+export const getPatientAppointments = state => state.appointments.patientAppointments;
+export const getDoctorAppointments = state => state.appointments.doctorAppointments;
