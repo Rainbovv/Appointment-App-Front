@@ -1,13 +1,9 @@
 import * as React from "react";
-import {Component, useEffect, useState} from "react";
 import {DateInput} from "semantic-ui-calendar-react";
 import {Button, ButtonGroup, Form, Modal} from "semantic-ui-react";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {connect} from "react-redux";
 import {getAppointments} from "../../../../actions/appointments";
-import {getUserAppointments} from "../../../../selectors/appointments";
-import {AnyAction, bindActionCreators, Dispatch} from "redux";
-import {auth} from "../../../../reducers/auth";
-import {appointments} from "../../../../reducers/appointments";
+import { bindActionCreators} from "redux";
 
  class UserAppointments extends React.Component {
      constructor(props) {
@@ -17,7 +13,7 @@ import {appointments} from "../../../../reducers/appointments";
              appointmentList: [],
              date: "",
              time: "",
-             userData: ''
+             userData: ""
          }
      }
 
@@ -26,40 +22,30 @@ import {appointments} from "../../../../reducers/appointments";
     }
 
     handleChange = (event, {name, value}) => {
-        if (this.state.hasOwnProperty(name)) {
+        if (this.state.name) {
             this.setState({ [name]: value });
         }
     }
 
-    // const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     dispatch(getAppointments)
-    // }, [])
 
      render() {
 
 
-         // const [date, setDate] = useState("")
-         // const [time, setTime] = useState("")
-         const disableDates = ['2021-05-27'];
-         // const rowAppointments = useSelector(getUserAppointments)
+
+         const disableDates = ["2021-05-27"];
+
          const appointmentDates = this.state.appointmentList
-             // .map(a => a.startTime)
+
 
          console.log(appointmentDates)
 
          const hoursList = appointmentDates.map(t => t.slice(11))
 
-         // function onClickDateHandler(event, {value}) {
-         //     // const date = event.target.innerText
-         //     setDate(value);
-         //     console.error(date)
-         //     // setOpen(!open)
-         // }
 
-         function onClickTimeHandler(hour) {
-             // setTime(hour)
+
+         function onClickTimeHandler() {
+
 
          }
 
@@ -92,26 +78,25 @@ import {appointments} from "../../../../reducers/appointments";
                      size="mini"
                      closeIcon
                      open={open}
-                     onClose={() => setOpen(!open)}
-                     onOpen={() => setOpen(!open)}
+
                  >
                      <Modal.Content>
                          <ButtonGroup fluid>
-                             {getButton('8:00')}
-                             {getButton('9:00')}
-                             {getButton('10:00')}
+                             {getButton("8:00")}
+                             {getButton("9:00")}
+                             {getButton("10:00")}
                          </ButtonGroup>
 
                          <ButtonGroup fluid>
-                             {getButton('11:00')}
-                             {getButton('12:00')}
-                             {getButton('13:00')}
+                             {getButton("11:00")}
+                             {getButton("12:00")}
+                             {getButton("13:00")}
                          </ButtonGroup>
 
                          <ButtonGroup fluid>
-                             {getButton('15:00')}
-                             {getButton('16:00')}
-                             {getButton('17:00')}
+                             {getButton("15:00")}
+                             {getButton("16:00")}
+                             {getButton("17:00")}
                          </ButtonGroup>
                      </Modal.Content>
                  </Modal>
@@ -130,8 +115,4 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 getAppointments
 }, dispatch);
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-    )
-(UserAppointments);
+export default connect(mapStateToProps, mapDispatchToProps)(UserAppointments);

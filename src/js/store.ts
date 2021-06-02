@@ -25,6 +25,9 @@ export type RootState = {
 		profilesList: Array<PlainObject>;
 		selectedUserProfile: PlainObject;
 		profileContentLoaded: boolean;
+	},
+	appointments: {
+		appointmentsList: Array<PlainObject>
 	}
 };
 

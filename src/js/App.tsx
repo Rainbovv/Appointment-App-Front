@@ -33,7 +33,6 @@ export default class App extends Component {
                                 <Route path="/admin" exact component={AdminMainPage}/>
                                 <Route path="/admin/add-user" exact component={AddUserPage}/>
                                 <Route path="/admin/:profileId" component={UserPage}/>
-
                             </AdminLayout>
                             <Route path="*" component={NotFound}/>
                         </Switch>

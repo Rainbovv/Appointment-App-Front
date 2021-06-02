@@ -4,11 +4,11 @@ import {
     BASIC_PATH,
     APPOINTMENTS_URL
 } from "../config/routes";
-import {auth} from "../reducers/auth";
+
 
 export const RECEIVE_USER_APPOINTMENTS = "RECEIVE_USER_APPOINTMENTS";
 
-export const getAppointments = (id) => (dispatch) => {
+export const getAppointments = (id, role) => (dispatch) => {
     const URL = BASIC_URL + BASIC_PATH + APPOINTMENTS_URL + "/user/" + id
 
     return HttpService.get(URL, {})
