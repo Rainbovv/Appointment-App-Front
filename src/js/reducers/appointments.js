@@ -2,7 +2,7 @@ import {RECEIVE_USER_APPOINTMENTS} from "../actions/appointments";
 
 
 const initialState = {
-    appointmentsList: null
+    appointments: null
 };
 
 export const appointments = (state = initialState, action) => {
@@ -11,7 +11,7 @@ export const appointments = (state = initialState, action) => {
 
             return {
                 ...state,
-                appointmentsList: action.payload
+                appointments: action.payload
             }
         default:
             return state

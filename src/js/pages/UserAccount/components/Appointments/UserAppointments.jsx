@@ -1,131 +1,133 @@
 import * as React from "react";
-import {Component, useEffect, useState} from "react";
 import {DateInput} from "semantic-ui-calendar-react";
 import {Button, ButtonGroup, Form, Modal} from "semantic-ui-react";
-import {connect, useDispatch, useSelector} from "react-redux";
+import {connect} from "react-redux";
 import {getAppointments} from "../../../../actions/appointments";
-import {getUserAppointments} from "../../../../selectors/appointments";
-import {AnyAction, bindActionCreators, Dispatch} from "redux";
-import {auth} from "../../../../reducers/auth";
-import {appointments} from "../../../../reducers/appointments";
+import {bindActionCreators} from "redux";
+
+
 
  class UserAppointments extends React.Component {
      constructor(props) {
          super(props);
 
          this.state = {
-             appointmentList: [],
              date: "",
              time: "",
-             userData: ''
+             modalOpen: false
          }
      }
 
+
     componentDidMount() {
-        this.props.getAppointments(this.state.userData.id)
+        this.props.getAppointments(this.props.userData.id)
     }
+
+     componentWillMount() {
+         this.props.getAppointments(this.props.userData.id)
+     }
 
     handleChange = (event, {name, value}) => {
         if (this.state.hasOwnProperty(name)) {
-            this.setState({ [name]: value });
+            this.setState({ [name]: value , modalOpen: true});
         }
     }
 
-    // const dispatch = useDispatch()
+     // onClickTimeHandler(hour) {
+     //     this.setState({time:"T" + hour + ":00", modalOpen:false})
+     //
+     // }
 
-    // useEffect(() => {
-    //     dispatch(getAppointments)
-    // }, [])
 
      render() {
 
+         const {
+             appointmentList
+         } = this.props
 
-         // const [date, setDate] = useState("")
-         // const [time, setTime] = useState("")
-         const disableDates = ['2021-05-27'];
-         // const rowAppointments = useSelector(getUserAppointments)
-         const appointmentDates = this.state.appointmentList
-             // .map(a => a.startTime)
+         for (const appointmentListElement of appointmentList) {
+             console.log(appointmentListElement)
+         }
 
-         console.log(appointmentDates)
+         const disableDates = ['2021-05-23'];
+         const appointmentDates = appointmentList && appointmentList
+             .map(a => a.startTime)
 
-         const hoursList = appointmentDates.map(t => t.slice(11))
+         // const hoursList = appointmentDates && appointmentDates.map(t => t.slice(11,13))
 
-         // function onClickDateHandler(event, {value}) {
-         //     // const date = event.target.innerText
-         //     setDate(value);
-         //     console.error(date)
-         //     // setOpen(!open)
+
+         // function getButton(hour) {
+         //     return (
+         //         <Button basic
+         //                 onClick={() => this.onClickTimeHandler(hour)}
+         //                 disabled={hoursList.includes(hour.slice(0,2))}
+         //         >
+         //             {hour}
+         //         </Button>
+         //     )
          // }
-
-         function onClickTimeHandler(hour) {
-             // setTime(hour)
-
-         }
-
-         function getButton(hour) {
-             return (
-                 <Button basic
-                         onClick={() => onClickTimeHandler(hour)}
-                         disabled={hoursList.includes(hour)}
-                 >
-                     {hour}
-                 </Button>
-             )
-         }
 
          const open = false
 
-         return (<Form>
+         return (
+             <Form>
                  <DateInput
                      value={this.state.date}
                      dateFormat="YYYY-MM-DD"
                      inline
+                     name="date"
                      // value={date}
-                     disable={disableDates}
-                     // enable={enableDates}
+                     // disable={disableDates}
+                     // enable={disableDates}
                      marked={appointmentDates}
                      markColor="blue"
                      onChange={this.handleChange}
                  />
-                 <Modal
-                     size="mini"
-                     closeIcon
-                     open={open}
-                     onClose={() => setOpen(!open)}
-                     onOpen={() => setOpen(!open)}
-                 >
-                     <Modal.Content>
-                         <ButtonGroup fluid>
-                             {getButton('8:00')}
-                             {getButton('9:00')}
-                             {getButton('10:00')}
-                         </ButtonGroup>
+                 {/*<Modal*/}
+                 {/*    size="mini"*/}
+                 {/*    closeIcon*/}
+                 {/*    open={open}*/}
+                 {/*    onClose={() => this.setState({modalOpen:false})}*/}
+                 {/*     onOpen={() => setOpen(!open)}*/}
+                 {/*>*/}
+                     {/*<Modal.Content>*/}
+                     {/*    <ButtonGroup fluid>*/}
+                     {/*        {getButton('8:00')}*/}
+                     {/*        {getButton('9:00')}*/}
+                     {/*        {getButton('10:00')}*/}
+                     {/*    </ButtonGroup>*/}
 
-                         <ButtonGroup fluid>
-                             {getButton('11:00')}
-                             {getButton('12:00')}
-                             {getButton('13:00')}
-                         </ButtonGroup>
+                     {/*    <ButtonGroup fluid>*/}
+                     {/*        {getButton('11:00')}*/}
+                     {/*        {getButton('12:00')}*/}
+                     {/*        {getButton('13:00')}*/}
+                     {/*    </ButtonGroup>*/}
 
-                         <ButtonGroup fluid>
-                             {getButton('15:00')}
-                             {getButton('16:00')}
-                             {getButton('17:00')}
-                         </ButtonGroup>
-                     </Modal.Content>
-                 </Modal>
+                     {/*    <ButtonGroup fluid>*/}
+                     {/*        {getButton('15:00')}*/}
+                     {/*        {getButton('16:00')}*/}
+                     {/*        {getButton('17:00')}*/}
+                     {/*    </ButtonGroup>*/}
+                     {/*</Modal.Content>*/}
+                 {/*</Modal>*/}
              </Form>
          )
      }
 }
 
+// const mapStateToProps = state => {
+//     return {
+//         userData: state.auth.userData,
+//         appointmentList: state.appointments.appointments
+//     }
+// };
+//
 const mapStateToProps = (state) => ({
         userData: state.auth.userData,
-        appointmentsList: state.appointments.appointmentsList
+        appointmentList: state.appointments.appointments
     }
-
 );
+
 const mapDispatchToProps = (dispatch) => bindActionCreators({
 getAppointments
 }, dispatch);
