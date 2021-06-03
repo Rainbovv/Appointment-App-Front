@@ -1,12 +1,11 @@
 import {Dispatch} from "redux";
 import {HttpService} from "../services/HttpService";
-
+import {PlainObject} from "../types/interfaces/PlainObject";
 import {
     BASIC_PATH,
     BASIC_URL,
     PROFILE_URL
 } from "../config/routes";
-import {profiles} from "../reducers/profiles";
 
 
 export enum actionTypes {
@@ -67,4 +66,13 @@ export const deleteProfileAndUser = (profileId: number) => (dispatch: Dispatch) 
         .then(response=>{
             return response;
         });
+}
+
+export const updateProfile = (profile: PlainObject) => () => {
+    const url = BASIC_URL + BASIC_PATH + PROFILE_URL
+
+    return HttpService.put(url, profile)
+        .then(response=>{
+            return response;
+        })
 }
