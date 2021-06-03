@@ -1,16 +1,24 @@
-import {RECEIVE_USER_APPOINTMENTS} from "../actions/appointments";
+import {RECEIVE_DOCTOR_APPOINTMENTS, RECEIVE_PATIENT_APPOINTMENTS} from "../actions/appointments";
 
 
 const initialState = {
-    appointmentsList: []
+    patientAppointments: [],
+    doctorAppointments: []
 };
 
 export const appointments = (state = initialState, action) => {
     switch (action.type) {
-        case RECEIVE_USER_APPOINTMENTS:
+        case RECEIVE_PATIENT_APPOINTMENTS:
+
             return {
                 ...state,
-                appointmentsList: action.payload
+                patientAppointments: action.payload
+            }
+        case RECEIVE_DOCTOR_APPOINTMENTS:
+
+            return {
+                ...state,
+                doctorAppointments: action.payload
             }
         default:
             return state

@@ -27,7 +27,8 @@ export type RootState = {
 		profileContentLoaded: boolean;
 	},
 	appointments: {
-		appointmentsList: Array<PlainObject>
+		patientAppointments: Array<PlainObject>;
+		doctorAppointments: Array<PlainObject>
 	}
 };
 

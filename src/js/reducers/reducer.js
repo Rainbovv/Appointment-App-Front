@@ -7,7 +7,7 @@ import {specialities} from "./specialities";
 import {serviceFlags} from "./service-flags";
 import {errors} from "./errors";
 import storage from "redux-persist/lib/storage";
-import {appointments} from "./patientAppointments";
+import {appointments} from "./appointments";
 
 
 const persistConfig = {

@@ -6,7 +6,7 @@ import {
 } from "../config/routes";
 
 
-export const RECEIVE_PATIENT_APPOINTMENTS = "RECEIVE_USER_APPOINTMENTS";
+export const RECEIVE_PATIENT_APPOINTMENTS = "RECEIVE_PATIENT_APPOINTMENTS";
 export const RECEIVE_DOCTOR_APPOINTMENTS = "RECEIVE_DOCTOR_APPOINTMENTS";
 
 export const getPatientAppointments = (id) => (dispatch) => {
