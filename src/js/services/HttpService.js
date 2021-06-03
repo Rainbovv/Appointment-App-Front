@@ -11,6 +11,8 @@ export class HttpService {
 			return await request(url,"GET", requestParams)
 		} catch (e) {
 			console.log("Error on GET request: ", e)
+			// store.dispatch({type: "SET_TOKEN_EXPIRED",
+			// 	payload: true});
 			throw e
 		}
 	}
@@ -75,11 +77,17 @@ async function request(url, method = "GET", requestParams, withoutResult = false
 	if (method === "POST" || method === "PUT") {
 		config.body = JSON.stringify(requestParams)
 	}
-	
+
 	const response = await fetch(url, config);
 
 	if (!response.ok) {
+		if (response?.status === 401) {
+			store.dispatch({type: "SET_TOKEN_EXPIRED",
+				payload: true});
+			throw ("token expired");
+		}
 		return response.status
+
 	}
 
 	return !withoutResult ? await response.json() : null;

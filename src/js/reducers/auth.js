@@ -4,8 +4,8 @@ import {
 	RECEIVE_USER_AUTH,
 	RECEIVE_USER_SIGNOUT,
 	RECEIVE_AUTH_BAD_CREDENTIALS,
-	RECEIVE_SIGNUP_DUPLICATED
-}  from "../actions/auth";
+	RECEIVE_SIGNUP_DUPLICATED, SET_TOKEN_EXPIRED
+} from "../actions/auth";
 
 
 const initialState = {
@@ -13,6 +13,7 @@ const initialState = {
 	currentUserLoaded: false,
 	isEmailDuplicated: false,
 	isBadCredentials: false,
+	isTokenExpired: false,
 };
 
 export const auth = (state = initialState, action) => {
@@ -50,6 +51,14 @@ export const auth = (state = initialState, action) => {
 				...state,
 				isEmailDuplicated: true,
 			}
+		case SET_TOKEN_EXPIRED:
+			return {
+				...state,
+				isTokenExpired: action.payload,
+				userData: null,
+				currentUserLoaded: false
+			}
+
 		default:
 			return state
 	}
