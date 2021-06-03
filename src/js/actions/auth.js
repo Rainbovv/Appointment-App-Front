@@ -15,6 +15,8 @@ export const LOADING_CURRENT_USER = "LOADING_CURRENT_USER";
 export const RECEIVE_USER_SIGNOUT = "RECEIVE_USER_SIGNOUT";
 export const RECEIVE_SIGNUP_DUPLICATED = "RECEIVE_SIGNUP_DUPLICATED";
 export const RECEIVE_AUTH_BAD_CREDENTIALS = "RECEIVE_AUTH_BAD_CREDENTIALS";
+export const SET_TOKEN_EXPIRED = "SET_TOKEN_EXPIRED";
+
 
 
 export const registerNewUser = (userData, history) => (dispatch) => {
