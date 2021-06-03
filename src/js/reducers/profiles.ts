@@ -3,12 +3,16 @@ import {PlainObject} from "../types/interfaces/PlainObject";
 
 type profilesTypes = {
     profilesList: Array<PlainObject>,
-    profilesListLoaded: boolean
+    profilesListLoaded: boolean,
+    profileContentLoaded: boolean,
+    selectedUserProfile: PlainObject
 }
 
 const initialState = {
     profilesList: new Array(),
-    profilesListLoaded: true
+    profilesListLoaded: true,
+    profileContentLoaded: true,
+    selectedUserProfile: {}
 };
 
 export const profiles = (state = initialState, action: PlainObject) => {
@@ -22,6 +26,16 @@ export const profiles = (state = initialState, action: PlainObject) => {
             return {
                 ...state,
                 profilesList: action.payload,
+            };
+        case actionTypes.REQUEST_PROFILE_BY_ID:
+            return {
+                ...state,
+                profileContentLoaded: action.payload
+            };
+        case actionTypes.GET_PROFILE_BY_ID:
+            return {
+                ...state,
+                selectedUserProfile: action.payload,
             };
         default:
             return state

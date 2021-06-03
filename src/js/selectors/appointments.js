@@ -1,1 +1,0 @@
-export const getUserAppointments = state => state.appointments.appointmentsList;

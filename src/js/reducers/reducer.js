@@ -9,6 +9,7 @@ import {errors} from "./errors";
 import storage from "redux-persist/lib/storage";
 import {appointments} from "./appointments";
 
+
 const persistConfig = {
 	key: "root",
 	storage,

@@ -51,7 +51,7 @@ var webpack_config = {
 		rules: [
 			{
 				test: /\.(jsx|js)$/,
-				use: ['babel-loader?compact=true&comments=true&minified=true', 'eslint-loader'],
+				use: ['babel-loader?compact=true&comments=true&minified=true', /*'eslint-loader'*/],
 				exclude: /node_modules/
 			},
 			{

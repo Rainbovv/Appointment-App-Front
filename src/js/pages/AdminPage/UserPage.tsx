@@ -1,43 +1,109 @@
+import React, {useEffect, Fragment} from "react";
+import {
+    useHistory,
+    useParams
+} from "react-router-dom";
+import {
+    useDispatch,
+    useSelector
+} from "react-redux";
+import {
+    profileContentLoaded,
+    selectedUserProfile
+} from "../../selectors/profiles";
+import {
+    doctorAppointments,
+    patientAppointments,
+} from "../../selectors/appointments";
+import {
+    getProfileById,
+    getPatientAppointments,
+    getDoctorAppointments
+} from "../../actions/actions";
+import {UrlParams} from "../../types/interfaces/UrlParams";
 import {PlainObject} from "../../types/interfaces/PlainObject";
-import React from "react";
-import {useHistory} from "react-router-dom";
-import {Card, Divider, Header, Icon, Item} from "semantic-ui-react";
+import {adminContentTypes} from "../../config/parameters";
+import {adminContentType} from "../../selectors/serviceFlags";
+
+import AppointmentTable from "./components/AppointmentTable";
+import {
+    Button,
+    Divider,
+    Header,
+    Item,
+    Loader,
+} from "semantic-ui-react";
+import UserCard from "./components/UserCard";
+
 
 type Props = {
-    profileData: PlainObject;
+    profileContentLoaded: boolean;
+    userData: PlainObject;
+    userDataLoaded: boolean;
 }
 
-const UserPage: React.FunctionComponent<Props> = ({profileData = {}, ...props}) => {
-    const history = useHistory();
+const UserPage: React.FunctionComponent<Props> = () => {
+        const history = useHistory();
+        const {profileId} = useParams<UrlParams>();
+        const dispatch = useDispatch();
+        const userData: PlainObject = useSelector(selectedUserProfile);
+        const userDataLoaded: boolean = useSelector(profileContentLoaded);
+        const currentContentType: string = useSelector(adminContentType);
+        const appointments: Array<PlainObject> = currentContentType === adminContentTypes.PATIENT ? useSelector(patientAppointments) : useSelector(doctorAppointments);
 
-    const fullName = profileData.firstName + " " + profileData.lastName;
+        const fullName: string = (userData && userData.firstName && userData.firstName)
+            + "  " + (userData && userData.lastName && userData.lastName)
+
+        useEffect(() => {
+            const userId = userData && userData.user && userData.user.id;
+
+            if (!userData || !userData.id) {
+                dispatch(getProfileById(parseInt(profileId)));
+            }
+
+            if (currentContentType === adminContentTypes.PATIENT) {
+                dispatch(getPatientAppointments(userId));
+            } else {
+                dispatch(getDoctorAppointments(userId));
+            }
+        }, []);
 
 
-    return (
-        <div>
-            <Header>
-                USER PAGE
-            </Header>
-            <Divider/>
-            <Item.Group>
-                <Item>
-                    <Item.Image size='tiny' src='https://react.semantic-ui.com/images/wireframe/image.png' />
-                    <Item.Content>
-                        <Item.Header>
-                            {fullName}
-                        </Item.Header>
-                        <Item.Meta>
-                            <span className='price'>{profileData.dateOfBirth}</span>
-                            <span className='stay'>1 Month</span>
-                        </Item.Meta>
-                        <Item.Description>Hey</Item.Description>
-                    </Item.Content>
-                </Item>
+        return (
+            <Fragment>
+                {
+                    userDataLoaded ?
+                        <Fragment>
+                            <Header as="h2">
+                                {fullName && fullName}
+                            </Header>
+                            <Divider/>
+                            <UserCard userData={userData}/>
 
-            </Item.Group>
-        </div>
-    )
-}
-
+                            <Header as="h3">
+                                Appointments
+                            </Header>
+                            <Divider/>
+                            <AppointmentTable
+                                appointments={appointments}
+                                currentContentType={currentContentType}
+                            />
+                        </Fragment>
+                        :
+                        <Loader active>
+                            Loading...
+                        </Loader>
+                }
+                <Button
+                    primary
+                    floated="right"
+                    onClick={() => history.push("/admin")}
+                >
+                    Back
+                </Button>
+            </Fragment>
+        )
+    }
+;
 
 export default UserPage;

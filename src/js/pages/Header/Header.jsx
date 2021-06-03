@@ -22,7 +22,7 @@ const Header = () => {
     }
 
     return (
-        <Menu>
+        <Menu style={{"marginBottom" : 0}}>
             <Container>
                 <Menu.Item as="a" header onClick={homePage}>
                     <Image

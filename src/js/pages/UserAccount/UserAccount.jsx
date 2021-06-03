@@ -42,7 +42,7 @@ function UserAccount(props) {
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <div className="content-column">
-                        {activeItem === "Appointments" && <UserAppointments userData={userData}/> }
+                        {activeItem === "Appointments" && <UserAppointments/> }
                         {activeItem === "Account Info" && <UserInfo userData={userData}/> }
                     </div>
                 </Grid.Column>

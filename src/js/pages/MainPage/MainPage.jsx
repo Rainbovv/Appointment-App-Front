@@ -5,8 +5,10 @@ import {connect} from "react-redux";
 import {
 	Button,
 	Header,
-	Segment
+	Image,
+	Divider
 } from "semantic-ui-react";
+
 
 
 class MainPage extends Component {
@@ -18,24 +20,33 @@ class MainPage extends Component {
 		}
 	}
 
+
 	render() {
 		const {
 			myState
 		} = this.state;
 
+
 		return (
 			<Fragment>
-				<Segment>
+				<Image
+					src="build/images/2slide.jpg"
+					style={{"maxHeight": "600px", "width": "100%"}}
+				/>
+				<Divider hidden/>
+
 					<Header>
 						Welcome
 					</Header>
 					<Header as="h4">
 						Hello from Main Page!
 					</Header>
-					{myState ? <Button primary>Primary</Button> : <Button primary>Secondary</Button> }
+					{myState ? <Button primary>Primary</Button> : <Button primary>Secondary</Button>}
 					<Button
-						primary>Primary</Button>
-				</Segment>
+						primary
+					>
+						Primary
+					</Button>
 			</Fragment>
 		)
 	}

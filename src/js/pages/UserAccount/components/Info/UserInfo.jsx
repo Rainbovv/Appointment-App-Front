@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Form, Input} from "semantic-ui-react";
+import {Button, Form} from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 
 
@@ -7,17 +7,17 @@ import DatePicker from "react-datepicker";
 export default function UserInfo() {
 
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
-    const [firstName, setFirstName] = useState("Ion");
-    const [lastName, setLastName] = useState("Batico");
-    const [gender, setGender] = useState("Male");
-    const [phone, setPhone] = useState("+65521256");
-    const [email, setEmail] = useState("IonSDf@gmail.com");
-    const [address, setAddress] = useState("asdasdasfasfasfa asd asd ");
-    const [socialNumber, setSocialNumber] = useState("12356437347AN");
+    const [firstName] = useState("Ion");
+    const [lastName] = useState("Batico");
+    const [gender] = useState("Male");
+    const [phone] = useState("+65521256");
+    const [email] = useState("IonSDf@gmail.com");
+    const [address] = useState("asdasdasfasfasfa asd asd ");
+    const [socialNumber] = useState("12356437347AN");
 
     const genderOptions = [
-        {key:'m', text: "Male", value: "male"},
-        {key:'f', text: "Female", value: "female"},
+        {key:"m", text: "Male", value: "male"},
+        {key:"f", text: "Female", value: "female"},
         {key: "o", text: "Other", value: "other"}
     ]
 
