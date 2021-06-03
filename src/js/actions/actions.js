@@ -4,5 +4,5 @@ export * from "./specialities"
 export * from "./service-flags"
 export * from "./profiles"
 export * from "./appointments"
-
+export * from "./roles"
 

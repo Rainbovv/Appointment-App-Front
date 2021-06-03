@@ -33,10 +33,11 @@ export default class App extends Component {
                                 <Route path="/account/appointments" render={() => <UserAccount activeItem="Appointments"/>}/>
                                 <Route path="/account" component={UserAccount}/>
                                 <AdminLayout>
-                                    <Route path="/admin" exact component={AdminMainPage}/>
-                                    <Route path="/admin/add-user" exact component={AddUserPage}/>
-                                    <Route path="/admin/:profileId" component={UserPage}/>
-
+                                    <Switch>
+                                        <Route exact path="/admin"  component={AdminMainPage}/>
+                                        <Route exact path="/admin/add-user" component={AddUserPage}/>
+                                        <Route exact path="/admin/:profileId"  component={UserPage}/>
+                                    </Switch>
                                 </AdminLayout>
                                 <Route path="*" component={NotFound}/>
                             </Switch>

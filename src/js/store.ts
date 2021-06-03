@@ -30,7 +30,10 @@ export type RootState = {
 	},
 	appointments: {
 		patientAppointments: Array<PlainObject>;
-		doctorAppointments: Array<PlainObject>
+		doctorAppointments: Array<PlainObject>;
+	}
+	roles: {
+		userRolesList: Array<PlainObject>;
 	}
 };
 

@@ -62,7 +62,7 @@ const UserPage: React.FunctionComponent<Props> = () => {
             }
 
             if (currentContentType === adminContentTypes.PATIENT) {
-                dispatch(getPatientAppointments(parseInt(profileId)));
+                dispatch(getPatientAppointments(parseInt(userId)));
             } else {
                 dispatch(getDoctorAppointments(parseInt(profileId)));
             }
