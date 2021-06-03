@@ -13,7 +13,8 @@ import {bindActionCreators} from "redux";
              date: "",
              time: "",
              modalOpen: false,
-             buttons: true
+             buttons: true,
+             name: ""
          }
      }
 
@@ -32,10 +33,24 @@ import {bindActionCreators} from "redux";
     }
 
     onClickTimeHandler = (hour) => {
-        this.setState({time:"T" + hour, buttons:false})
-        console.log(this.state.date + this.state.time)
+
+        this.setState(() => {
+            return {time:"T" + hour, buttons:false}
+        })
+        this.setDoctorName()
     }
+
+     setDoctorName = () => {
+         console.log(new Date(this.props.appointments[0]))
+         this.setState((state, props) => {
+             return {name: props.appointments
+                     .filter(a => a.startTime === state.date+state.time)[0]
+                     .firstName}
+         })
+     }
+
      render() {
+
          const {
              appointments
          } = this.props
@@ -43,16 +58,18 @@ import {bindActionCreators} from "redux";
          let {
              date,
              time,
-             buttons
+             buttons,
+             name
          } = this.state
 
          const appointmentDates = appointments && appointments
              .map(a => a.startTime)
 
+
          const getButton = (hour) => {
              return (
                  <Button basic
-                         onClick={() => this.onClickTimeHandler(hour + ':00')}
+                         onClick={() => this.onClickTimeHandler(hour + ":00")}
                          disabled={!appointmentDates.includes(date + "T" + hour + ":00")}
                  >
                      {hour}
@@ -84,27 +101,27 @@ import {bindActionCreators} from "redux";
                          <Modal.Content>
                              <ButtonGroup fluid>
                                  {getButton("8:00")}
-                                 {getButton('9:00')}
-                                 {getButton('10:00')}
+                                 {getButton("9:00")}
+                                 {getButton("10:00")}
                              </ButtonGroup>
 
                              <ButtonGroup fluid>
-                                 {getButton('11:00')}
-                                 {getButton('12:00')}
-                                 {getButton('13:00')}
+                                 {getButton("11:00")}
+                                 {getButton("12:00")}
+                                 {getButton("13:00")}
                              </ButtonGroup>
 
                              <ButtonGroup fluid>
-                                 {getButton('15:00')}
-                                 {getButton('16:00')}
-                                 {getButton('17:00')}
+                                 {getButton("15:00")}
+                                 {getButton("16:00")}
+                                 {getButton("17:00")}
                              </ButtonGroup>
                          </Modal.Content>
                          :
                          <Modal.Content>
                              <p>Date: <b style={{color: "red"}}>{date}</b></p>
                              <p>Time: <b style={{color: "red"}}>{time.slice(1, 6)}</b></p>
-                             <p>Doctor: <b style={{color: "red"}}>Frankenstein</b></p>
+                             <p>Doctor: <b style={{color: "red"}}>{name}</b></p>
                              <p>Office: <b style={{color: "red"}}>144</b></p>
                          </Modal.Content>
                      }

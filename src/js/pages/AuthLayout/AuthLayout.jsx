@@ -14,6 +14,7 @@ const AuthLayout = ({children}) => {
             dispatch({type: "SET_TOKEN_EXPIRED",
                                 payload: false});
         }
+
     }, [isTokenExpired])
 
     return <>{children}</>;

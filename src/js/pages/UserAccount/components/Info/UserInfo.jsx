@@ -1,11 +1,16 @@
-import React, {useState} from "react";
+import React, {/*useEffect,*/ useState} from "react";
 import {Button, Form} from "semantic-ui-react";
 import DatePicker from "react-datepicker";
+/*import {useDispatch} from "react-redux";
+import {getProfileById} from "../../../../actions/profiles";*/
 
 
 
-export default function UserInfo() {
+export default function UserInfo(/*props*/) {
 
+   /* useEffect(() => {
+        useDispatch(getProfileById(use))
+    }*/
     const [dateOfBirth, setDateOfBirth] = useState(new Date());
     const [firstName] = useState("Ion");
     const [lastName] = useState("Batico");

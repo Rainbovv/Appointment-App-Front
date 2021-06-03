@@ -1,18 +1,23 @@
-import React, {useState} from "react";
+import React from "react";
 import UserAppointments from "./components/Appointments/UserAppointments";
 import {Grid, Image, Menu} from "semantic-ui-react";
 import "./UserAccount.css";
 import UserInfo from "./components/Info/UserInfo";
-import {useSelector} from "react-redux";
-import {getUserData} from "../../selectors/auth";
-
-
+import {useDispatch/*, useSelector*/} from "react-redux";
+/*import {getUserData} from "../../selectors/auth";*/
+import {signOutUser} from "../../actions/auth";
+import {useHistory} from "react-router-dom";
 
 
 function UserAccount(props) {
 
-    const userData = useSelector(getUserData);
-    const [activeItem, setActiveItem] = useState(props.activeItem);
+    const logOut = () => {
+        dispatch(signOutUser(history));
+    }
+    const history = useHistory();
+    const dispatch = useDispatch()
+    /*const userData = useSelector(getUserData);*/
+    const activeItem = props.activeItem;
 
     return (
         <Grid>
@@ -26,24 +31,24 @@ function UserAccount(props) {
                             <Menu.Item className={"menu-item"}
                                 name="Account Info"
                                 active={activeItem === "Account Info"}
-                                onClick={() => setActiveItem("Account Info")}
+                                onClick={()=>history.push("/account/info")}
                             />
 
                             <Menu.Item className={"menu-item"}
                                 name="Appointments"
                                 active={activeItem === "Appointments"}
-                                onClick={()=>setActiveItem("Appointments")}
+                                       onClick={()=>history.push("/account/appointments")}
                             />
                             <Menu.Item className={"menu-item"}
                                 name="Logout"
-                                onClick={() => alert("logout")}
+                                onClick={logOut}
                             />
                         </Menu>
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <div className="content-column">
-                        {activeItem === "Appointments" && <UserAppointments/> }
-                        {activeItem === "Account Info" && <UserInfo userData={userData}/> }
+                        {activeItem === "Appointments" && <UserAppointments/>}
+                        {activeItem === "Account Info" && <UserInfo/>}
                     </div>
                 </Grid.Column>
             </Grid.Row>
