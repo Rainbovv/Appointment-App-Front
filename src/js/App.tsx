@@ -12,6 +12,7 @@ import Header from "./pages/Header/Header";
 import AddUserPage from "./pages/AdminPage/AddUserPage";
 import UserPage from "./pages/AdminPage/UserPage";
 import AdminLayout from "./pages/AdminPage/AdminLayout";
+import AuthLayout from "./pages/AuthLayout/AuthLayout";
 import UserAccount from "./pages/UserAccount/UserAccount";
 
 
@@ -21,21 +22,25 @@ export default class App extends Component {
             <Provider store={store}>
                 <Router>
                     <PersistGate persistor={persistor}>
-                        <Header/>
-                        <Switch>
-                            // @ts-ignore
-                            <Route exact path="/" component={MainPage}/>
-                            <Route path="/sign-up" component={SignUpPage}/>
-                            <Route path="/account/info" render={() => <UserAccount activeItem="Account Info"/>}/>
-                            <Route path="/account/appointments" render={() => <UserAccount activeItem="Appointments"/>}/>
-                            <Route path="/account" component={UserAccount}/>
-                            <AdminLayout>
-                                <Route path="/admin" exact component={AdminMainPage}/>
-                                <Route path="/admin/add-user" exact component={AddUserPage}/>
-                                <Route path="/admin/:profileId" component={UserPage}/>
-                            </AdminLayout>
-                            <Route path="*" component={NotFound}/>
-                        </Switch>
+                        <AuthLayout>
+                            <Header/>
+                            <Switch>
+                                {/*
+                                // @ts-ignore */}
+                                <Route exact path="/" component={MainPage}/>
+                                <Route path="/sign-up" component={SignUpPage}/>
+                                <Route path="/account/info" render={() => <UserAccount activeItem="Account Info"/>}/>
+                                <Route path="/account/appointments" render={() => <UserAccount activeItem="Appointments"/>}/>
+                                <Route path="/account" component={UserAccount}/>
+                                <AdminLayout>
+                                    <Route path="/admin" exact component={AdminMainPage}/>
+                                    <Route path="/admin/add-user" exact component={AddUserPage}/>
+                                    <Route path="/admin/:profileId" component={UserPage}/>
+
+                                </AdminLayout>
+                                <Route path="*" component={NotFound}/>
+                            </Switch>
+                        </AuthLayout>
                     </PersistGate>
                 </Router>
             </Provider>

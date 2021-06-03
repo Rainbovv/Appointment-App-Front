@@ -25,7 +25,7 @@ const SignUp = () => {
     const [gender, setGender] = useState("");
     const [phone, setPhone] = useState("");
     const [login, setLogin] = useState("");
-    const [password, setPassowrd] = useState("");
+    const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
 
     //validate email
@@ -42,7 +42,7 @@ const SignUp = () => {
     const isPhoneValid = phone && phoneRegex.test(phone);
 
     const handleSubmit = (event) => {
-        var dateFormat = require("dateformat");
+        const dateFormat = require("dateformat");
 
         event.preventDefault();
 
@@ -67,8 +67,7 @@ const SignUp = () => {
                 <Message 
                     negative={true}
                     header="Account already exists"
-                    content="An account already exists for this email address, please log in or confirm your email address is correct"/>}
-                   
+                    content="An account already exists for this email address, please log in or confirm your email address is correct"/>}   
                 <Form.Input
                     label="First name"
                     name="firstName"
@@ -129,9 +128,9 @@ const SignUp = () => {
                     name="password"
                     type="password"
                     required={true}
-                    onChange={e => setPassowrd(e.target.value)}
+                    onChange={e => setPassword(e.target.value)}
                     error={!isPasswordValid && password ? {
-                        content: "Passwords should contain inimum eight characters, at least one uppercase letter, one lowercase letter and one number",
+                        content: "Passwords should contain minimum eight characters, at least one uppercase letter, one lowercase letter and one number",
                         pointing: "below",
                     } : false}
                 />
