@@ -21,12 +21,12 @@ import {bindActionCreators} from "redux";
         this.props.getPatientAppointments(this.props.userData.id)
     }
 
-    componentWillMount() {
-        this.props.getPatientAppointments(this.props.userData.id)
-    }
+    // componentWillMount() {
+    //     this.props.getPatientAppointments(this.props.userData.id)
+    // }
 
     handleChange = (event, {name, value}) => {
-        if (this.state.hasOwnProperty(name)) {
+        if (this.state.name) {
             this.setState({ [name]: value , modalOpen: true});
         }
     }
@@ -52,7 +52,7 @@ import {bindActionCreators} from "redux";
          const getButton = (hour) => {
              return (
                  <Button basic
-                         onClick={() => this.onClickTimeHandler(hour + ':00')}
+                         onClick={() => this.onClickTimeHandler(hour + ":00")}
                          disabled={!appointmentDates.includes(date + "T" + hour + ":00")}
                  >
                      {hour}
@@ -84,20 +84,20 @@ import {bindActionCreators} from "redux";
                          <Modal.Content>
                              <ButtonGroup fluid>
                                  {getButton("8:00")}
-                                 {getButton('9:00')}
-                                 {getButton('10:00')}
+                                 {getButton("9:00")}
+                                 {getButton("10:00")}
                              </ButtonGroup>
 
                              <ButtonGroup fluid>
-                                 {getButton('11:00')}
-                                 {getButton('12:00')}
-                                 {getButton('13:00')}
+                                 {getButton("11:00")}
+                                 {getButton("12:00")}
+                                 {getButton("13:00")}
                              </ButtonGroup>
 
                              <ButtonGroup fluid>
-                                 {getButton('15:00')}
-                                 {getButton('16:00')}
-                                 {getButton('17:00')}
+                                 {getButton("15:00")}
+                                 {getButton("16:00")}
+                                 {getButton("17:00")}
                              </ButtonGroup>
                          </Modal.Content>
                          :
@@ -125,5 +125,4 @@ getPatientAppointments
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-    )
-(UserAppointments);
+    )(UserAppointments);
