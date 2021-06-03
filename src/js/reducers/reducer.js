@@ -15,11 +15,9 @@ const persistConfig = {
 	storage,
 	whitelist: [
 		"auth",
-		"profiles",
 		"serviceFlags",
 		"departments",
 		"specialities",
-		"appointments"
 	]
 }
 
@@ -32,5 +30,6 @@ const rootReducer = combineReducers({
 	appointments: appointments,
 	errors: errors
 });
+
 
 export default persistReducer(persistConfig, rootReducer);

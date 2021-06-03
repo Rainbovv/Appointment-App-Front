@@ -1,9 +1,19 @@
 import React, {Fragment} from "react";
 import {connect} from "react-redux";
-import {AnyAction, bindActionCreators, Dispatch} from "redux";
+import {
+    AnyAction,
+    bindActionCreators,
+    Dispatch
+} from "redux";
 import {RootState} from "../../store";
-import {getProfilesList} from "../../actions/actions";
+import {PlainObject} from "../../types/interfaces/PlainObject";
+import {
+    getProfilesList,
+    getPatientProfiles,
+    getPersonalProfiles
+} from "../../actions/actions";
 import * as ProfileService from "../../services/ProfileService";
+import {adminContentTypes} from "../../config/parameters";
 
 import {
     Button,
@@ -22,9 +32,12 @@ type AdminPageState = {
 
 interface AdminPageProps extends RootState {
     adminContentType: string;
-    profilesListLoaded: boolean
+    profilesListLoaded: boolean;
+    getPatientProfiles: () => void;
+    getPersonalProfiles: () => void;
     getProfilesList: () => void;
-    profilesList: [];
+    patientProfilesList: Array<PlainObject>;
+    personalProfilesList: Array<PlainObject>;
     history: any;
 }
 
@@ -35,6 +48,7 @@ class AdminMainPage extends React.Component<AdminPageProps> {
             "last name",
             "mail",
             "telephone",
+            "role",
             "actions"
         ],
     };
@@ -42,10 +56,15 @@ class AdminMainPage extends React.Component<AdminPageProps> {
     componentDidMount() {
         const {
             adminContentType,
+            patientProfilesList,
+            personalProfilesList
         } = this.props;
 
-
-        this.props.getProfilesList();
+        if (adminContentType === adminContentTypes.PATIENT) {
+            this.props.getPatientProfiles();
+        } else {
+            this.props.getPersonalProfiles();
+        }
     }
 
     render() {
@@ -55,10 +74,12 @@ class AdminMainPage extends React.Component<AdminPageProps> {
         const {
             adminContentType,
             profilesListLoaded,
-            profilesList
+            patientProfilesList,
+            personalProfilesList,
         } = this.props;
 
-        const tableData = ProfileService.formatProfileData(profilesList);
+
+        const tableData = adminContentType === adminContentTypes.PATIENT ? patientProfilesList : personalProfilesList;
 
         return (
             <Fragment>
@@ -105,12 +126,16 @@ class AdminMainPage extends React.Component<AdminPageProps> {
 const mapStateToProps = (state: RootState) => ({
         adminContentType: state.serviceFlags.adminContentType,
         profilesListLoaded: state.profiles.profilesListLoaded,
-        profilesList: state.profiles.profilesList
+        profilesList: state.profiles.profilesList,
+        patientProfilesList: state.profiles.patientProfilesList,
+        personalProfilesList: state.profiles.personalProfilesList,
     }
 
 );
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => bindActionCreators({
-    getProfilesList
+    getProfilesList,
+    getPatientProfiles,
+    getPersonalProfiles
 }, dispatch);
 
 export default connect(

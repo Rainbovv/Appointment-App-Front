@@ -2,6 +2,8 @@ import {actionTypes} from "../actions/profiles";
 import {PlainObject} from "../types/interfaces/PlainObject";
 
 type profilesTypes = {
+    patientProfilesList: Array<PlainObject>,
+    personalProfilesList: Array<PlainObject>,
     profilesList: Array<PlainObject>,
     profilesListLoaded: boolean,
     profileContentLoaded: boolean,
@@ -9,11 +11,14 @@ type profilesTypes = {
 }
 
 const initialState = {
+    patientProfilesList: new Array(),
+    personalProfilesList: new Array(),
     profilesList: new Array(),
     profilesListLoaded: true,
     profileContentLoaded: true,
     selectedUserProfile: {}
 };
+
 
 export const profiles = (state = initialState, action: PlainObject) => {
     switch (action.type) {
@@ -26,6 +31,16 @@ export const profiles = (state = initialState, action: PlainObject) => {
             return {
                 ...state,
                 profilesList: action.payload,
+            };
+        case actionTypes.GET_PATIENT_PROFILES_LIST:
+            return {
+                ...state,
+                patientProfilesList: action.payload,
+            };
+        case actionTypes.GET_PERSONAL_PROFILES_LIST:
+            return {
+                ...state,
+                personalProfilesList: action.payload,
             };
         case actionTypes.REQUEST_PROFILE_BY_ID:
             return {

@@ -14,6 +14,8 @@ export enum actionTypes {
     GET_PROFILE_BY_ID = "GET_PROFILE_BY_ID",
     REQUEST_PROFILE_BY_ID = "REQUEST_PROFILE_BY_ID",
     REQUEST_PROFILES_LIST = "REQUEST_PROFILES_LIST",
+    GET_PATIENT_PROFILES_LIST = "GET_PATIENT_PROFILES_LIST",
+    GET_PERSONAL_PROFILES_LIST = "GET_PERSONAL_PROFILES_LIST",
 }
 
 export const getProfilesList = () => (dispatch: Dispatch) => {
@@ -67,4 +69,28 @@ export const deleteProfileAndUser = (profileId: number) => (dispatch: Dispatch) 
         .then(response=>{
             return response;
         });
+}
+
+export const getPatientProfiles = () => (dispatch: Dispatch) => {
+    const url = BASIC_URL + BASIC_PATH + PROFILE_URL + "/patients";
+    
+    return HttpService.get(url, {})
+        .then(response => {
+            dispatch({
+                type: actionTypes.GET_PATIENT_PROFILES_LIST,
+                payload: response,
+            });
+        })
+}
+
+export const getPersonalProfiles = () => (dispatch: Dispatch) => {
+    const url = BASIC_URL + BASIC_PATH + PROFILE_URL + "/personal";
+
+    return HttpService.get(url, {})
+        .then(response => {
+            dispatch({
+                type: actionTypes.GET_PERSONAL_PROFILES_LIST,
+                payload: response,
+            });
+        })
 }

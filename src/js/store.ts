@@ -21,6 +21,8 @@ export type RootState = {
 		adminContentType: string;
 	},
 	profiles: {
+		patientProfilesList: Array<PlainObject>;
+		personalProfilesList: Array<PlainObject>;
 		profilesListLoaded: boolean;
 		profilesList: Array<PlainObject>;
 		selectedUserProfile: PlainObject;

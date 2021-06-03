@@ -2,7 +2,8 @@ import React from "react";
 import {useHistory} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {
-    deleteProfileAndUser, getProfileById,
+    deleteProfileAndUser, 
+    getProfileById,
     getProfilesList
 } from "../../../actions/actions";
 
@@ -62,11 +63,14 @@ export const UsersTable: React.FunctionComponent<Props> = ({
             <Table.Body>
                 {
                     tableData.map((item) => {
-                        return <Table.Row key={item.profileId}>
-                            <Table.Cell width={3}>{item.firstName}</Table.Cell>
-                            <Table.Cell width={3}>{item.lastName}</Table.Cell>
+                        console.log(item)
+                        return <Table.Row key={item.userId}>
+                            <Table.Cell width={2}>{item.firstName}</Table.Cell>
+                            <Table.Cell width={2}>{item.lastName}</Table.Cell>
                             <Table.Cell width={3}>{item.email}</Table.Cell>
                             <Table.Cell width={3}>{item.telephone}</Table.Cell>
+                            <Table.Cell width={2}>{item.roleName}</Table.Cell>
+                            
                             <Table.Cell>
                                 <Button
                                     size={"tiny"}
