@@ -14,36 +14,39 @@ import UserPage from "./pages/AdminPage/UserPage";
 import AdminLayout from "./pages/AdminPage/AdminLayout";
 import AuthLayout from "./pages/AuthLayout/AuthLayout";
 import UserAccount from "./pages/UserAccount/UserAccount";
+import UserLayout from "./pages/UserAccount/UserLayout";
 
 
 export default class App extends Component {
-    render() {
-        return (
-            <Provider store={store}>
-                <Router>
-                    <PersistGate persistor={persistor}>
-                        <AuthLayout>
-                            <Header/>
-                            <Switch>
-                                {/*
-                                // @ts-ignore */}
-                                <Route exact path="/" component={MainPage}/>
-                                <Route path="/sign-up" component={SignUpPage}/>
-                                <Route path="/account/info" render={() => <UserAccount activeItem="Account Info"/>}/>
-                                <Route path="/account/appointments" render={() => <UserAccount activeItem="Appointments"/>}/>
-                                <Route path="/account" component={UserAccount}/>
-                                <AdminLayout>
-                                    <Route path="/admin" exact component={AdminMainPage}/>
-                                    <Route path="/admin/add-user" exact component={AddUserPage}/>
-                                    <Route path="/admin/:profileId" component={UserPage}/>
+	render() {
+		return (
+			<Provider store={store}>
+				<Router>
+					<PersistGate persistor={persistor}>
+						<AuthLayout>
+							<Header/>
+							<Switch>
+								{/*
+									// @ts-ignore */}
+								<Route exact path="/" component={MainPage}/>
+								<Route path="/sign-up" component={SignUpPage}/>
 
-                                </AdminLayout>
-                                <Route path="*" component={NotFound}/>
-                            </Switch>
-                        </AuthLayout>
-                    </PersistGate>
-                </Router>
-            </Provider>
-        );
-    }
+								<UserLayout>
+									<Route exact path="/account/info" component={() => <UserAccount activeItem="Account Info"/>}/>
+									<Route exact path="/account/appointments" component={() => <UserAccount activeItem ="Appointments"/>}/>
+									<Route exact path="/account" component={UserAccount}/>
+								</UserLayout>
+								<AdminLayout>
+									<Route path="/admin" exact component={AdminMainPage}/>
+									<Route path="/admin/add-user" exact component={AddUserPage}/>
+									<Route path="/admin/:profileId" component={UserPage}/>
+								</AdminLayout>
+								<Route path="*" component={NotFound}/>
+							</Switch>
+					</AuthLayout>
+					</PersistGate>
+				</Router>
+			</Provider>
+		);
+	}
 }

@@ -4,9 +4,9 @@ import {
 	RECEIVE_USER_AUTH,
 	RECEIVE_USER_SIGNOUT,
 	RECEIVE_AUTH_BAD_CREDENTIALS,
-	RECEIVE_SIGNUP_DUPLICATED, SET_TOKEN_EXPIRED
-} from "../actions/auth";
-
+	RECEIVE_SIGNUP_DUPLICATED,
+	SET_TOKEN_EXPIRED
+}  from "../actions/auth";
 
 const initialState = {
 	userData : null,
