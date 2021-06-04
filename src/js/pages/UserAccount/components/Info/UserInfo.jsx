@@ -17,6 +17,7 @@ export default function UserInfo() {
 
     const userData = useSelector(getUserData)
     let userProfile = useSelector(selectedUserProfile)
+    /*const isDoctor = userData && userData.roles.includes("DOCTOR")*/
     const [dateOfBirth, setDateOfBirth] = useState(Date.parse(userProfile.dateOfBirth));
     const [firstName, setFirstName] = useState(userProfile.firstName);
     const [lastName, setLastName] = useState(userProfile.lastName);

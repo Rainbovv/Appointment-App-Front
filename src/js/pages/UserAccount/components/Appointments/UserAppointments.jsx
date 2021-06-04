@@ -2,44 +2,47 @@ import * as React from "react";
 import {DateInput} from "semantic-ui-calendar-react";
 import {Button, ButtonGroup, Form, Modal,} from "semantic-ui-react";
 import {connect} from "react-redux";
-import {getPatientAppointments} from "../../../../actions/appointments";
+import {getDoctorAppointments, getPatientAppointments} from "../../../../actions/appointments";
 import {bindActionCreators} from "redux";
+
 
  class UserAppointments extends React.Component {
      constructor(props) {
          super(props);
 
          this.state = {
-             date: "",
              time: "",
              modalOpen: false,
              buttons: true,
-             name: ""
+             name: "",
+             date: "",
          }
      }
-
     componentDidMount() {
-        this.props.userData && this.props.getPatientAppointments(this.props.userData.id)
-    }
-
-    handleChange = (event, {name, value}) => {
-        if (this.state.name) {
-            this.setState({ [name]: value , modalOpen: true});
+        if (this.props.userData && this.props.userData.roles.includes("PATIENT")) {
+            this.props.getPatientAppointments(this.props.userData.id)
+        }
+        if (this.props.userData && this.props.userData.roles.includes("DOCTOR")) {
+            this.props.getDoctorAppointments(this.props.userData.id)
         }
     }
 
-    onClickTimeHandler = (hour) => {
+    handleChange = (event, {name, value}) => {
+         this.setState({[name]: value, modalOpen: true});
+    }
+
+    onClickTimeHandler = (hour, appointments) => {
 
         this.setState(() => {
             return {time:"T" + hour, buttons:false}
         })
-        this.setDoctorName()
+        this.setDoctorName(appointments)
     }
 
-     setDoctorName = () => {
-         console.log(new Date(this.props.appointments[0]))
-         this.setState((state, props) => {
-             return {name: props.appointments
+     setDoctorName = (appointments) => {
+         this.setState((state) => {
+             return {
+                 name: appointments
                      .filter(a => a.startTime === state.date+state.time)[0]
                      .firstName}
          })
@@ -48,7 +51,8 @@ import {bindActionCreators} from "redux";
      render() {
 
          const {
-             appointments
+             doctorAppointments,
+             patientAppointments
          } = this.props
 
          let {
@@ -58,14 +62,20 @@ import {bindActionCreators} from "redux";
              name
          } = this.state
 
-         const appointmentDates = appointments && appointments
+         const appointments = patientAppointments && patientAppointments.length > 0 ?
+                     patientAppointments : doctorAppointments
+
+         const userRole = patientAppointments && patientAppointments.length > 0 ?
+             "Doctor" : "Patient"
+
+         const appointmentDates = appointments
              .map(a => a.startTime)
 
 
          const getButton = (hour) => {
              return (
                  <Button basic
-                         onClick={() => this.onClickTimeHandler(hour + ":00")}
+                         onClick={() => this.onClickTimeHandler((hour + ":00"), appointments)}
                          disabled={!appointmentDates.includes(date + "T" + hour + ":00")}
                  >
                      {hour}
@@ -76,12 +86,10 @@ import {bindActionCreators} from "redux";
 
              <Form>
                  <DateInput
-                     value={this.state.date}
+                     value={date}
                      dateFormat="YYYY-MM-DD"
                      inline
                      name="date"
-                     // value={date}
-                     // disable={disableDates}
                      enable={appointmentDates}
                      marked={appointmentDates}
                      markColor="blue"
@@ -117,7 +125,7 @@ import {bindActionCreators} from "redux";
                          <Modal.Content>
                              <p>Date: <b style={{color: "red"}}>{date}</b></p>
                              <p>Time: <b style={{color: "red"}}>{time.slice(1, 6)}</b></p>
-                             <p>Doctor: <b style={{color: "red"}}>{name}</b></p>
+                             <p>{userRole}: <b style={{color: "red"}}>{name}</b></p>
                              <p>Office: <b style={{color: "red"}}>144</b></p>
                          </Modal.Content>
                      }
@@ -128,11 +136,13 @@ import {bindActionCreators} from "redux";
 }
 const mapStateToProps = (state) => ({
         userData: state.auth.userData,
-        appointments: state.appointments.patientAppointments
+        patientAppointments: state.appointments.patientAppointments,
+        doctorAppointments: state.appointments.doctorAppointments
     }
 );
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-getPatientAppointments
+getPatientAppointments,
+    getDoctorAppointments
 }, dispatch);
 
 export default connect(
