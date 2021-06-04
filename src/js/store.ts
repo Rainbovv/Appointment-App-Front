@@ -17,10 +17,15 @@ export const store = createStore(
 );
 
 export type RootState = {
+	auth: {
+		userData: PlainObject;
+	}
 	serviceFlags: {
 		adminContentType: string;
 	},
 	profiles: {
+		patientProfilesList: Array<PlainObject>;
+		personalProfilesList: Array<PlainObject>;
 		profilesListLoaded: boolean;
 		profilesList: Array<PlainObject>;
 		selectedUserProfile: PlainObject;
@@ -28,7 +33,10 @@ export type RootState = {
 	},
 	appointments: {
 		patientAppointments: Array<PlainObject>;
-		doctorAppointments: Array<PlainObject>
+		doctorAppointments: Array<PlainObject>;
+	}
+	roles: {
+		userRolesList: Array<PlainObject>;
 	}
 };
 

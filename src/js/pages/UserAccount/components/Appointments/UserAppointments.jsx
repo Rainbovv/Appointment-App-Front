@@ -23,7 +23,7 @@ import {bindActionCreators} from "redux";
     }
 
     handleChange = (event, {name, value}) => {
-        if (this.state.hasOwnProperty(name)) {
+        if (this.state.name) {
             this.setState({ [name]: value , modalOpen: true});
         }
     }
@@ -138,5 +138,4 @@ getPatientAppointments
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-    )
-(UserAppointments);
+    )(UserAppointments);

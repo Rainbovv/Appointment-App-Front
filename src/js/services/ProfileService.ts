@@ -16,8 +16,7 @@ export function formatProfileData(profilesList: Array<PlainObject>): Array<Plain
             newProfile["lastName"] = profile.lastName ? profile.lastName : "no name";
             newProfile["email"] = profile.email ? profile.email : "no email";
             newProfile["telephone"] = profile.telephone ? profile.telephone : "no telephone";
-// console.log("111111111111111111111", profile)
-//             console.log("22222222222222222222222222222222222222", newProfile)
+
             return newProfile
         }));
     }

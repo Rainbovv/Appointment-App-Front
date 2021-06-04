@@ -3,12 +3,17 @@ import {withRouter} from "react-router-dom";
 
 import {connect} from "react-redux";
 import {
-	Button,
 	Header,
 	Image,
-	Divider
+	Divider,
+	Container,
+	Grid,
+	Segment,
+	Icon,
+	Button
 } from "semantic-ui-react";
 
+import "./main-style.css" 
 
 
 class MainPage extends Component {
@@ -20,13 +25,7 @@ class MainPage extends Component {
 		}
 	}
 
-
 	render() {
-		const {
-			myState
-		} = this.state;
-
-
 		return (
 			<Fragment>
 				<Image
@@ -34,19 +33,53 @@ class MainPage extends Component {
 					style={{"maxHeight": "600px", "width": "100%"}}
 				/>
 				<Divider hidden/>
+				<Divider hidden/>
+				<Container>
+					<div className="main-description-container">
+						<Header
+							as="h1"
+							textalign="center"
+						>
+							Welcome to appointments platform!
+						</Header>
+						<Divider hidden/>
+						<Divider hidden/>
+						<Segment placeholder>
+							<Grid columns={2} stackable textAlign='center'>
+								<Divider vertical/>
+								<Grid.Row verticalAlign='middle'>
+									<Grid.Column>
+										<Header icon>
+											<Icon name='calendar alternate'/>
+											Create appointments online
+										</Header>
+									</Grid.Column>
 
-					<Header>
-						Welcome
-					</Header>
-					<Header as="h4">
-						Hello from Main Page!
-					</Header>
-					{myState ? <Button primary>Primary</Button> : <Button primary>Secondary</Button>}
-					<Button
-						primary
-					>
-						Primary
-					</Button>
+									<Grid.Column>
+										<Header icon>
+											<Icon name='tasks'/>
+											Manage appointments online
+										</Header>
+									</Grid.Column>
+								</Grid.Row>
+							</Grid>
+						</Segment>
+
+						<Header
+							as="h1"
+							textalign="center"
+						>
+							Find out details
+						</Header>
+						<Button>
+							Details
+						</Button>
+					</div>
+				</Container>
+				<Image
+					src="build/images/1slide.jpg"
+					style={{"maxHeight": "700px", "width": "100%"}}
+				/>
 			</Fragment>
 		)
 	}

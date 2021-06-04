@@ -8,7 +8,7 @@ const UserLayout = ({children}) => {
     const history = useHistory();
     const userData = useSelector(getUserData);
     useEffect(() => {
-        if (userData == null) {
+        if (userData === null) {
             history.push("/");
         }
 

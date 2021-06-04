@@ -54,7 +54,8 @@ const SignUp = () => {
             "telephone" : phone,
             "dateOfBirth" : dateFormat(startDate, "yyyy-mm-dd"),
             "gender" : gender,
-            "role" : "PATIENT"
+            "role" : "PATIENT",
+            "creator" : "PATIENT"
         }
         
        dispatch(registerNewUser(formattedData, history));
