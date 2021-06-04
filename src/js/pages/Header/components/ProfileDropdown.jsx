@@ -1,14 +1,24 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Button, Divider, Message } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
 import { signOutUser } from "../../../actions/auth";
 import { useSelector } from "react-redux";
 import { getUserData } from "../../../selectors/auth";
-import {Link, useHistory} from "react-router-dom";
+import {useHistory} from "react-router-dom";
+import {getProfileByLogin} from "../../../actions/profiles";
+import {selectedUserProfile} from "../../../selectors/profiles";
 
 const ProfileDropdown = () => {
-    const dispatch = useDispatch();
+
     const userData = useSelector(getUserData);
+    useEffect(() => {
+        dispatch(getProfileByLogin(userData.username))
+    }, [])
+    const profile = useSelector(selectedUserProfile)
+    const firstName = profile && profile.firstName
+
+    const dispatch = useDispatch();
+
     const history = useHistory();
     const handleOnClick = () => {
         dispatch(signOutUser(history));
@@ -16,16 +26,15 @@ const ProfileDropdown = () => {
     return (
             <div>
                 <Message size="small">
-                        {userData.firstName}
+                        {firstName}
                 </Message>
                 <Divider hidden/>
                 <Button.Group vertical fluid>
-                    <Button color="green">
-                        <Link to="/account/info">View Profile</Link>
+                    <Button color="green" onClick={()=> history.push("/account/info")}>View Profile
                     </Button>
                     <Divider hidden/>
                     <Button
-                         href="http://localhost:3000/#/account/appointments">View Appointments
+                        onClick={()=> history.push("/account/appointments")}>View Appointments
                     </Button>
                     <Divider hidden/>
                     <Button fluid color="red" onClick={handleOnClick}>

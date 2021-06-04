@@ -52,6 +52,22 @@ export const profiles = (state = initialState, action: PlainObject) => {
                 ...state,
                 selectedUserProfile: action.payload,
             };
+        case actionTypes.REQUEST_PROFILE_BY_LOGIN:
+            return {
+                ...state,
+                profileContentLoaded: action.payload
+            };
+        case actionTypes.GET_PROFILE_BY_LOGIN:
+            return {
+                ...state,
+                selectedUserProfile: action.payload,
+            };
+        case actionTypes.RECEIVE_USER_SIGNOUT:
+
+            return {
+                ...state,
+                selectedUserProfile: {}
+            }
         default:
             return state
     }

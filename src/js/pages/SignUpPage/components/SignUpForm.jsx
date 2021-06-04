@@ -52,7 +52,7 @@ const SignUp = () => {
             "login" : login,
             "password" : password,
             "telephone" : phone,
-            "dateOfBirth" : dateFormat(startDate, "yyyy-mm-dd'T'HH:MM:ss"),
+            "dateOfBirth" : dateFormat(startDate, "yyyy-mm-dd"),
             "gender" : gender,
             "role" : "PATIENT"
         }

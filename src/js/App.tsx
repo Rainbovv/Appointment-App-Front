@@ -14,6 +14,7 @@ import UserPage from "./pages/AdminPage/UserPage";
 import AdminLayout from "./pages/AdminPage/AdminLayout";
 import AuthLayout from "./pages/AuthLayout/AuthLayout";
 import UserAccount from "./pages/UserAccount/UserAccount";
+import UserLayout from "./pages/UserAccount/UserLayout";
 
 
 export default class App extends Component {
@@ -25,18 +26,31 @@ export default class App extends Component {
                         <AuthLayout>
                             <Header/>
                             <Switch>
+                                {/*
+									// @ts-ignore */}
                                 <Route exact path="/" component={MainPage}/>
                                 <Route path="/sign-up" component={SignUpPage}/>
-                                <Route path="/account/info" render={() => <UserAccount activeItem="Account Info"/>}/>
-                                <Route path="/account/appointments" render={() => <UserAccount activeItem="Appointments"/>}/>
-                                <Route path="/account" component={UserAccount}/>
-                                <AdminLayout>
-                                    <Switch>
-                                        <Route exact path="/admin"  component={AdminMainPage}/>
-                                        <Route exact path="/admin/add-user" component={AddUserPage}/>
-                                        <Route exact path="/admin/:profileId"  component={UserPage}/>
-                                    </Switch>
-                                </AdminLayout>
+
+                                <Route path={"/account"} render={() =>
+                                    <UserLayout>
+                                        <Route exact path="/account/info"
+                                               component={() => <UserAccount activeItem="Account Info"/>}/>
+                                        <Route exact path="/account/appointments"
+                                               component={() => <UserAccount activeItem="Appointments"/>}/>
+                                        <Route exact path="/account" component={UserAccount}/>
+                                    </UserLayout>
+                                }
+                                />
+
+                                <Route path={"/admin"} render={() =>
+                                    <AdminLayout>
+                                        <Route path="/admin" exact component={AdminMainPage}/>
+                                        <Route path="/admin/add-user" exact component={AddUserPage}/>
+                                        <Route path="/admin/:profileId" component={UserPage}/>
+                                    </AdminLayout>
+
+                                }
+                                />
                                 <Route path="*" component={NotFound}/>
                             </Switch>
                         </AuthLayout>

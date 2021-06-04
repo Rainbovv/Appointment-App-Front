@@ -13,29 +13,40 @@ import {bindActionCreators} from "redux";
              date: "",
              time: "",
              modalOpen: false,
-             buttons: true
+             buttons: true,
+             name: ""
          }
      }
 
     componentDidMount() {
-        this.props.getPatientAppointments(this.props.userData.id)
+        this.props.userData && this.props.getPatientAppointments(this.props.userData.id)
     }
 
-    // componentWillMount() {
-    //     this.props.getPatientAppointments(this.props.userData.id)
-    // }
-
     handleChange = (event, {name, value}) => {
-        if (this.state.name) {
+        if (this.state.hasOwnProperty(name)) {
             this.setState({ [name]: value , modalOpen: true});
         }
     }
 
     onClickTimeHandler = (hour) => {
-        this.setState({time:"T" + hour, buttons:false})
-        console.log(this.state.date + this.state.time)
+
+        this.setState(() => {
+            return {time:"T" + hour, buttons:false}
+        })
+        this.setDoctorName()
     }
+
+     setDoctorName = () => {
+         console.log(new Date(this.props.appointments[0]))
+         this.setState((state, props) => {
+             return {name: props.appointments
+                     .filter(a => a.startTime === state.date+state.time)[0]
+                     .firstName}
+         })
+     }
+
      render() {
+
          const {
              appointments
          } = this.props
@@ -43,11 +54,13 @@ import {bindActionCreators} from "redux";
          let {
              date,
              time,
-             buttons
+             buttons,
+             name
          } = this.state
 
          const appointmentDates = appointments && appointments
              .map(a => a.startTime)
+
 
          const getButton = (hour) => {
              return (
@@ -104,7 +117,7 @@ import {bindActionCreators} from "redux";
                          <Modal.Content>
                              <p>Date: <b style={{color: "red"}}>{date}</b></p>
                              <p>Time: <b style={{color: "red"}}>{time.slice(1, 6)}</b></p>
-                             <p>Doctor: <b style={{color: "red"}}>Frankenstein</b></p>
+                             <p>Doctor: <b style={{color: "red"}}>{name}</b></p>
                              <p>Office: <b style={{color: "red"}}>144</b></p>
                          </Modal.Content>
                      }
@@ -125,4 +138,5 @@ getPatientAppointments
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-    )(UserAppointments);
+    )
+(UserAppointments);
