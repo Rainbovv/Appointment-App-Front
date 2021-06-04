@@ -6,3 +6,5 @@ node_modules/**/*
 ./.idea/misc.xml
 ./.idea/vcs.xml
 ./.idea/**/
+/Appointment-App-Front.iml
+/.idea/
