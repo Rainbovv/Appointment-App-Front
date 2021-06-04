@@ -51,6 +51,9 @@ export const profiles = (state = initialState, action: PlainObject) => {
 
             return {
                 ...state,
+                profilesList: new Array(),
+                profilesListLoaded: false,
+                profileContentLoaded: false,
                 selectedUserProfile: {}
             }
         default:
