@@ -20,7 +20,7 @@ export class RoleService {
             return false;
         }
 
-        return roles.indexOf(roleTypes.ADMIN) >= 0;
+        return roles ? roles.indexOf(roleTypes.ADMIN) >= 0 : false;
     }
 }
 

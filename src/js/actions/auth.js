@@ -1,4 +1,5 @@
 import {HttpService} from "../services/HttpService";
+import {roleTypes} from "../config/parameters";
 
 import {
 	AUTH_URL,
@@ -10,7 +11,7 @@ import {
 
 export const REQUEST_USER_REGISTER = "REQUEST_USER_REGISTER";
 export const RECEIVE_USER_REGISTER = "RECEIVE_USER_REGISTER";
-export const RECEIVE_USER_AUTH    = "RECEIVE_USER_AUTH";
+export const RECEIVE_USER_AUTH = "RECEIVE_USER_AUTH";
 export const LOADING_CURRENT_USER = "LOADING_CURRENT_USER";
 export const RECEIVE_USER_SIGNOUT = "RECEIVE_USER_SIGNOUT";
 export const RECEIVE_SIGNUP_DUPLICATED = "RECEIVE_SIGNUP_DUPLICATED";
@@ -18,29 +19,28 @@ export const RECEIVE_AUTH_BAD_CREDENTIALS = "RECEIVE_AUTH_BAD_CREDENTIALS";
 export const SET_TOKEN_EXPIRED = "SET_TOKEN_EXPIRED";
 
 
-
 export const registerNewUser = (userData, history) => (dispatch) => {
 	const url = BASIC_URL + BASIC_PATH + REGISTRATION_URL;
-console.log("ROURRRR", history)
+
 	return HttpService.post(url, userData)
-	.then(response => {
-		if (response === 403) {
-			return dispatch({
-				type: RECEIVE_SIGNUP_DUPLICATED
-			})
-		} else if (typeof response === "object") {
-			dispatch({
-				type: RECEIVE_USER_AUTH,
-				payload: response
-			});
-			
-			if (userData && userData.creator) {
-				history.push("/admin");
-			} else {
-				history.push("/");
+		.then(response => {
+			if (response === 403) {
+				return dispatch({
+					type: RECEIVE_SIGNUP_DUPLICATED
+				})
+			} else if (typeof response === "object") {
+				if (userData && userData.creator && userData.creator === roleTypes.ADMIN) {
+					history.push("/admin");
+				} else {
+					dispatch({
+						type: RECEIVE_USER_AUTH,
+						payload: response
+					});
+
+					history.push("/");
+				}
 			}
-		}
-	})
+		})
 }
 
 export const authUser = (userData) => (dispatch) => {
@@ -58,7 +58,7 @@ export const authUser = (userData) => (dispatch) => {
 					payload: response
 				})
 			}
-		})		
+		})
 }
 
 export const signOutUser = (history) => (dispatch) => {
