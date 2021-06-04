@@ -21,7 +21,7 @@ export const SET_TOKEN_EXPIRED = "SET_TOKEN_EXPIRED";
 
 export const registerNewUser = (userData, history) => (dispatch) => {
 	const url = BASIC_URL + BASIC_PATH + REGISTRATION_URL;
-
+console.log("ROURRRR", history)
 	return HttpService.post(url, userData)
 	.then(response => {
 		if (response === 403) {
@@ -33,7 +33,12 @@ export const registerNewUser = (userData, history) => (dispatch) => {
 				type: RECEIVE_USER_AUTH,
 				payload: response
 			});
-			history.push("/");
+			
+			if (userData && userData.creator) {
+				history.push("/admin");
+			} else {
+				history.push("/");
+			}
 		}
 	})
 }

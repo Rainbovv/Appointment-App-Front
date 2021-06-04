@@ -17,6 +17,9 @@ export const store = createStore(
 );
 
 export type RootState = {
+	auth: {
+		userData: PlainObject;
+	}
 	serviceFlags: {
 		adminContentType: string;
 	},

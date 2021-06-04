@@ -94,9 +94,10 @@ const AddUserPage: React.FunctionComponent<Props> = () => {
             "office": office,
             "address": address,
             "socialNumber": socialNumber,
-            "dateOfBirth": dateFormat(startDate, "yyyy-mm-dd'T'HH:MM:ss"),
+            "dateOfBirth": dateFormat(startDate, "yyyy-mm-dd"),
             "gender": gender,
-            "role": role
+            "role": role,
+            "creator": "ADMIN"
         }
 
         dispatch(registerNewUser(formattedData, history));
