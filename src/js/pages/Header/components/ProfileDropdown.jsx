@@ -12,7 +12,7 @@ const ProfileDropdown = () => {
 
     useEffect(() => {
         dispatch(getProfileById(userData.id))
-    })
+    }, [])
     const profile = useSelector(selectedUserProfile)
     const firstName = profile && profile.firstName
 
