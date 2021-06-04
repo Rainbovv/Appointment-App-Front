@@ -34,7 +34,7 @@ const Header = () => {
 	}
 
 	return (
-		<Menu style={{"marginBottom": 0}}>
+		<Menu style={{"marginBottom": 0}} fixed="top">
 			<Container>
 				<Menu.Item as="a" header onClick={homePage}>
 					<Image
@@ -49,18 +49,19 @@ const Header = () => {
 				<Menu.Item as="a" name="appointments" onClick={appointmentsPage}>
 					Appointments
 				</Menu.Item>}
-				<Menu.Menu position="right">
-					<Menu.Item active="false" name="phone">
-						Hospital #1
-					</Menu.Item>
-					<Menu.Item active="false" name="phone">
-						+(373)69-999-999
-					</Menu.Item>
-				</Menu.Menu>
+				
 				<Menu.Menu position="right">
 					{
 						userLoaded ?
 							<>
+								<Menu.Menu position="right">
+									<Menu.Item active="false" name="phone">
+										Hospital #1
+									</Menu.Item>
+									<Menu.Item active="false" name="phone">
+										+(373)69-999-999
+									</Menu.Item>
+								</Menu.Menu>
 								<Popup
 									eventsEnabled="true"
 									position="bottom left"
