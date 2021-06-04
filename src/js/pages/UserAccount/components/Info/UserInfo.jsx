@@ -4,21 +4,23 @@ import DatePicker from "react-datepicker";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfileByLogin, updateProfile} from "../../../../actions/profiles";
 import {selectedUserProfile} from "../../../../selectors/profiles";
+import {getUserData} from "../../../../selectors/auth";
 
 
-export default function UserInfo(props) {
+export default function UserInfo() {
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getProfileByLogin(props.username))
+        dispatch(getProfileByLogin(userData.username))
     },[])
 
+    const userData = useSelector(getUserData)
     let userProfile = useSelector(selectedUserProfile)
     const [dateOfBirth, setDateOfBirth] = useState(Date.parse(userProfile.dateOfBirth));
     const [firstName, setFirstName] = useState(userProfile.firstName);
     const [lastName, setLastName] = useState(userProfile.lastName);
-    const [gender, setGender] = useState(userProfile.gender.toString());
+    const [gender, setGender] = useState(userProfile.gender);
     const [telephone, setTelephone] = useState(userProfile.telephone);
     const [email, setEmail] = useState(userProfile.email);
     const [address, setAddress] = useState(userProfile.address);

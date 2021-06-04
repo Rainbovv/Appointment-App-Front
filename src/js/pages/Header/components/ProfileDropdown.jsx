@@ -10,6 +10,7 @@ import {selectedUserProfile} from "../../../selectors/profiles";
 
 const ProfileDropdown = () => {
 
+    const userData = useSelector(getUserData);
     useEffect(() => {
         dispatch(getProfileByLogin(userData.username))
     }, [])
@@ -17,7 +18,7 @@ const ProfileDropdown = () => {
     const firstName = profile && profile.firstName
 
     const dispatch = useDispatch();
-    const userData = useSelector(getUserData);
+
     const history = useHistory();
     const handleOnClick = () => {
         dispatch(signOutUser(history));

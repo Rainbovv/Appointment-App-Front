@@ -3,8 +3,7 @@ import UserAppointments from "./components/Appointments/UserAppointments";
 import {Grid, Image, Menu} from "semantic-ui-react";
 import "./UserAccount.css";
 import UserInfo from "./components/Info/UserInfo";
-import {useDispatch, useSelector} from "react-redux";
-import {getUserData} from "../../selectors/auth";
+import {useDispatch} from "react-redux";
 import {signOutUser} from "../../actions/auth";
 import {useHistory} from "react-router-dom";
 
@@ -16,9 +15,7 @@ function UserAccount(props) {
     }
     const history = useHistory();
     const dispatch = useDispatch()
-    const userData = useSelector(getUserData);
     const activeItem = props.activeItem;
-    const login = userData && userData.username
 
     return (
         <Grid>
@@ -49,7 +46,7 @@ function UserAccount(props) {
                 <Grid.Column width={8}>
                     <div className="content-column">
                         {activeItem === "Appointments" && <UserAppointments/>}
-                        {activeItem === "Account Info" && <UserInfo id={login}/>}
+                        {activeItem === "Account Info" && <UserInfo/>}
                     </div>
                 </Grid.Column>
             </Grid.Row>
