@@ -18,7 +18,7 @@ function UserAccount(props) {
     const dispatch = useDispatch()
     const userData = useSelector(getUserData);
     const activeItem = props.activeItem;
-    const userId = userData? userData.id : 1
+    const login = userData && userData.username
 
     return (
         <Grid>
@@ -49,7 +49,7 @@ function UserAccount(props) {
                 <Grid.Column width={8}>
                     <div className="content-column">
                         {activeItem === "Appointments" && <UserAppointments/>}
-                        {activeItem === "Account Info" && <UserInfo id={userId}/>}
+                        {activeItem === "Account Info" && <UserInfo id={login}/>}
                     </div>
                 </Grid.Column>
             </Grid.Row>

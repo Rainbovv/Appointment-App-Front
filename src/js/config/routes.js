@@ -7,3 +7,5 @@ export const SIGNOUT_URL = "auth/sign-out";
 export const USERS_URL = "users";
 export const APPOINTMENTS_URL = "appointments"
 export const PROFILE_URL = "profiles";
+export const DEPARTMENTS_URL = "departments"
+export const SPECIALITIES_URL = "specialities"

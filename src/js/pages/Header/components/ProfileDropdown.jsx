@@ -5,13 +5,13 @@ import { signOutUser } from "../../../actions/auth";
 import { useSelector } from "react-redux";
 import { getUserData } from "../../../selectors/auth";
 import {useHistory} from "react-router-dom";
-import {getProfileById} from "../../../actions/profiles";
+import {getProfileByLogin} from "../../../actions/profiles";
 import {selectedUserProfile} from "../../../selectors/profiles";
 
 const ProfileDropdown = () => {
 
     useEffect(() => {
-        dispatch(getProfileById(userData.id))
+        dispatch(getProfileByLogin(userData.username))
     }, [])
     const profile = useSelector(selectedUserProfile)
     const firstName = profile && profile.firstName

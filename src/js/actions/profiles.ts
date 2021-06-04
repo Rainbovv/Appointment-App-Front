@@ -12,7 +12,10 @@ export enum actionTypes {
     GET_PROFILES_LIST = "GET_PROFILES_LIST",
     GET_PROFILE_BY_ID = "GET_PROFILE_BY_ID",
     REQUEST_PROFILE_BY_ID = "REQUEST_PROFILE_BY_ID",
+    GET_PROFILE_BY_LOGIN = "GET_PROFILE_BY_LOGIN",
+    REQUEST_PROFILE_BY_LOGIN = "REQUEST_PROFILE_BY_LOGIN",
     REQUEST_PROFILES_LIST = "REQUEST_PROFILES_LIST",
+    RECEIVE_USER_SIGNOUT = "RECEIVE_USER_SIGNOUT"
 }
 
 export const getProfilesList = () => (dispatch: Dispatch) => {
@@ -54,6 +57,28 @@ export const getProfileById = (profileId: number) => (dispatch: Dispatch) => {
 
             dispatch({
                 type: actionTypes.GET_PROFILE_BY_ID,
+                payload: response,
+            });
+        })
+}
+
+export const getProfileByLogin = (login: string) => (dispatch: Dispatch) => {
+    const url = BASIC_URL + BASIC_PATH + PROFILE_URL + "/login";
+
+    dispatch({
+        type: actionTypes.REQUEST_PROFILE_BY_LOGIN,
+        payload: false,
+    });
+
+    return HttpService.put(url, {login})
+        .then(response => {
+            dispatch({
+                type: actionTypes.REQUEST_PROFILE_BY_LOGIN,
+                payload: true,
+            });
+
+            dispatch({
+                type: actionTypes.GET_PROFILE_BY_LOGIN,
                 payload: response,
             });
         })

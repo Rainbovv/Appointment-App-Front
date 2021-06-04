@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Button, Form} from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import {useDispatch, useSelector} from "react-redux";
-import {getProfileById, updateProfile} from "../../../../actions/profiles";
+import {getProfileByLogin, updateProfile} from "../../../../actions/profiles";
 import {selectedUserProfile} from "../../../../selectors/profiles";
 
 
@@ -11,7 +11,7 @@ export default function UserInfo(props) {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getProfileById(props.id))
+        dispatch(getProfileByLogin(props.username))
     },[])
 
     let userProfile = useSelector(selectedUserProfile)
