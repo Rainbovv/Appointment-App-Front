@@ -19,11 +19,7 @@ import {bindActionCreators} from "redux";
      }
 
     componentDidMount() {
-        this.props.getPatientAppointments(this.props.userData.id)
-    }
-
-    componentWillMount() {
-        this.props.getPatientAppointments(this.props.userData.id)
+        this.props.userData && this.props.getPatientAppointments(this.props.userData.id)
     }
 
     handleChange = (event, {name, value}) => {

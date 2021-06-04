@@ -12,7 +12,7 @@ export default function UserInfo() {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getProfileByLogin(userData.username))
+        userData && dispatch(getProfileByLogin(userData.username))
     },[])
 
     const userData = useSelector(getUserData)
