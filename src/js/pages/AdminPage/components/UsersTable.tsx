@@ -63,7 +63,6 @@ export const UsersTable: React.FunctionComponent<Props> = ({
             <Table.Body>
                 {
                     tableData.map((item) => {
-                        console.log(item)
                         return <Table.Row key={item.userId}>
                             <Table.Cell width={2}>{item.firstName}</Table.Cell>
                             <Table.Cell width={2}>{item.lastName}</Table.Cell>

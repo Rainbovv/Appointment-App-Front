@@ -9,6 +9,7 @@ import {errors} from "./errors";
 import storage from "redux-persist/lib/storage";
 import {appointments} from "./appointments";
 import {roles} from "./roles";
+import {users} from "./users";
 
 const persistConfig = {
 	key: "root",
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
 	serviceFlags: serviceFlags,
 	appointments: appointments,
 	errors: errors,
-	roles: roles
+	roles: roles,
+	users: users
 });
 
 
