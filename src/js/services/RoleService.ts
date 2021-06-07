@@ -6,20 +6,19 @@ type Props = {
     userData: PlainObject;
 }
 
+
 export class RoleService {
-     appState = store.getState();
-    
-     isAdmin(): boolean {
+    static isAdmin(): boolean {
+        const appState = store.getState();
         const {
             userData
-        } = this.appState.auth;
-
+        } = appState.auth;
         const roles = userData && userData.roles;
 
         if (userData == null) {
             return false;
         }
-
+        
         return roles ? roles.indexOf(roleTypes.ADMIN) >= 0 : false;
     }
 }

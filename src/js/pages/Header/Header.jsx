@@ -15,8 +15,8 @@ import {
 import SignIn from "./components/SignInDropdown";
 import ProfileDropdown from "./components/ProfileDropdown";
 
+
 const Header = () => {
-	const userChecker = new RoleService();
 	const [open, setOpen] = useState(false);
 	const userLoaded = useSelector(getUserLoaded);
 
@@ -81,7 +81,7 @@ const Header = () => {
 									<ProfileDropdown/>
 								</Popup>
 								{
-									userChecker.isAdmin() &&
+									RoleService.isAdmin() &&
 									<Menu.Item
 										as="a"
 										name="admin"

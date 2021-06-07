@@ -22,8 +22,6 @@ interface AdminLayoutProps extends RootState {
 
 
 class AdminLayout extends React.Component<ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>> {
-    userChecker = new RoleService();
-
     render() {
         const {
             children,
@@ -33,7 +31,7 @@ class AdminLayout extends React.Component<ReturnType<typeof mapStateToProps> & R
         return (
             <div className="admin-layout">
                 {
-                    this.userChecker.isAdmin() ?
+                    RoleService.isAdmin() ?
                         <Grid>
                             <Grid.Row>
                                 <Grid.Column width={3}>
