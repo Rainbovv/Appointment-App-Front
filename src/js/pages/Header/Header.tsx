@@ -34,7 +34,7 @@ const Header: React.FC = () => {
 	}
 
 	return (
-		<Menu style={{"marginBottom": 0}}>
+		<Menu style={{"marginBottom": 0}} fixed="top">
 			<Container>
 				<Menu.Item as="a" header onClick={homePage}>
 					<Image

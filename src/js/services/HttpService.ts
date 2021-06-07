@@ -62,8 +62,8 @@ export class HttpService {
 
 async function request(url: string, method: string = "GET", requestParams: PlainObject, withoutResult: boolean = false) {
 	const config: Config = {
-		body: "",
-		headers: [],
+		body: undefined,
+		headers: undefined,
 		method,
 		CREDENTIALS
 	};
