@@ -10,7 +10,8 @@ import {PlainObject} from "../types/interfaces/PlainObject";
 
 
 export enum actionTypes {
-    CREATE_USER = "CREATE_USER"
+    CREATE_USER = "CREATE_USER",
+    EDIT_USER = "EDIT_USER"
 }
 
 export const createUser = (userData: PlainObject, history: PlainObject) => (dispatch: Dispatch) => {
@@ -23,6 +24,14 @@ export const createUser = (userData: PlainObject, history: PlainObject) => (disp
                 payload: response,
             });
 
+            history.push("/admin");
+        })
+}
+export const editUser = (userData: PlainObject, history: PlainObject) => (dispatch: Dispatch) => {
+    const url = BASIC_URL + BASIC_PATH + USERS_URL;
+
+    return HttpService.put(url, userData)
+        .then(response => {
             history.push("/admin");
         })
 }

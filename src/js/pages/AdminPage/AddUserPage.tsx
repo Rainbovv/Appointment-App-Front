@@ -202,7 +202,7 @@ const AddUserPage: React.FunctionComponent<Props> = () => {
                         label="Address"
                         name="address"
                         placeholder="Address"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAddress(e.target.value)}
                     />
                     <Form.Input
                         width={4}

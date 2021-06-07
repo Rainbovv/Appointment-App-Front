@@ -39,10 +39,15 @@ export const UsersTable: React.FunctionComponent<Props> = ({
         dispatch(getProfileById(profileId));
     };
 
+    const editAction = (profileId: number) =>{
+        history.push("/admin/" + profileId + "/edit-user");
+    };
+    
     const deleteAction = (profileId: number) => {
-        const deleteUser = async () => dispatch(deleteProfileAndUser(profileId));
-
-        deleteUser()
+        const promise = Promise.resolve();
+        
+        promise
+            .then(() => {return dispatch(deleteProfileAndUser(profileId))})
             .then(()=>dispatch(getProfilesList()));
     }
 
@@ -75,9 +80,7 @@ export const UsersTable: React.FunctionComponent<Props> = ({
                                     size={"tiny"}
                                     onClick={() => infoAction(item.profileId)}
                                 >
-                                    <Icon
-                                        name='user circle'
-                                    />
+                                    <Icon name='user circle'/>
                                     Info
                                 </Button>
                                 {
@@ -85,6 +88,7 @@ export const UsersTable: React.FunctionComponent<Props> = ({
                                     && <Button
 										color={"blue"}
 										size={"tiny"}
+										onClick={() => editAction(item.profileId)}
 									>
 										<Icon name='edit'/>
 										Edit

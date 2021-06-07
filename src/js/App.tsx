@@ -16,6 +16,7 @@ import AuthLayout from "./pages/AuthLayout/AuthLayout";
 import UserAccount from "./pages/UserAccount/UserAccount";
 import UserLayout from "./pages/UserAccount/UserLayout";
 import Footer from "./common/Footer";
+import EditUserPage from "./pages/AdminPage/EditUserPage";
 
 
 export default class App extends Component {
@@ -41,11 +42,13 @@ export default class App extends Component {
                                 />
                                 <Route path={"/admin"} render={() =>
                                     <AdminLayout>
-                                        <Route path="/admin" exact component={AdminMainPage}/>
-                                        <Route path="/admin/add-user" exact component={AddUserPage}/>
-                                        <Route path="/admin/:profileId" component={UserPage}/>
+                                        <Switch>
+                                            <Route path="/admin" exact component={AdminMainPage}/>
+                                            <Route path="/admin/add-user" exact component={AddUserPage}/>
+                                            <Route path="/admin/:profileId/edit-user" exact component={EditUserPage}/>
+                                            <Route path="/admin/:profileId" component={UserPage}/>
+                                        </Switch>
                                     </AdminLayout>
-
                                 }
                                 />
                                 <Route path="*" component={NotFound}/>
