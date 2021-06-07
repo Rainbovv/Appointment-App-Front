@@ -1,5 +1,5 @@
 import {RECEIVE_DOCTOR_APPOINTMENTS, RECEIVE_PATIENT_APPOINTMENTS} from "../actions/appointments";
-import {RECEIVE_USER_SIGNOUT} from "../actions/auth";
+import {authActionTypes} from "../actions/auth";
 
 
 const initialState = {
@@ -22,7 +22,7 @@ export const appointments = (state = initialState, action) => {
                 doctorAppointments: action.payload
             }
 
-        case RECEIVE_USER_SIGNOUT:
+        case authActionTypes.RECEIVE_USER_SIGNOUT:
 
             return {
                 ...state,

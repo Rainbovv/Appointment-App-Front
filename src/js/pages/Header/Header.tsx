@@ -14,11 +14,11 @@ import {
 
 import SignIn from "./components/SignInDropdown";
 import ProfileDropdown from "./components/ProfileDropdown";
+import {History} from "history";
 
-
-const Header = () => {
-	const [open, setOpen] = useState(false);
-	const userLoaded = useSelector(getUserLoaded);
+const Header: React.FC = () => {
+	const [open, setOpen] = useState<boolean>(false);
+	const userLoaded: boolean = useSelector(getUserLoaded);
 
 	const history = useHistory();
 
@@ -34,7 +34,7 @@ const Header = () => {
 	}
 
 	return (
-		<Menu style={{"marginBottom": 0}} fixed="top">
+		<Menu style={{"marginBottom": 0}}>
 			<Container>
 				<Menu.Item as="a" header onClick={homePage}>
 					<Image
@@ -49,21 +49,20 @@ const Header = () => {
 				<Menu.Item as="a" name="appointments" onClick={appointmentsPage}>
 					Appointments
 				</Menu.Item>}
-				
+				<Menu.Menu position="right">
+					<Menu.Item active={false} name="phone">
+						Hospital #1
+					</Menu.Item>
+					<Menu.Item active={false} name="phone">
+						+(373)69-999-999
+					</Menu.Item>
+				</Menu.Menu>
 				<Menu.Menu position="right">
 					{
 						userLoaded ?
 							<>
-								<Menu.Menu position="right">
-									<Menu.Item active="false" name="phone">
-										Hospital #1
-									</Menu.Item>
-									<Menu.Item active="false" name="phone">
-										+(373)69-999-999
-									</Menu.Item>
-								</Menu.Menu>
 								<Popup
-									eventsEnabled="true"
+									eventsEnabled={true}
 									position="bottom left"
 									on="click"
 									onClose={() => setOpen(false)}
@@ -93,7 +92,7 @@ const Header = () => {
 							</>
 							:
 							<Popup
-								eventsEnabled="true"
+								eventsEnabled={true}
 								position="bottom left"
 								on="click"
 								onClose={() => setOpen(false)}

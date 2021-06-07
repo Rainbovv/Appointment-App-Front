@@ -21,4 +21,8 @@
 //             dispatch({
 //                 type: actionTypes.REQUEST_DEPARTMENTS_LIST,
 //                 payload: true,
-//             });
+//             });...
+
+export enum departmentsActionTypes {
+    GET_DEPARTMENTS = "GET_DEPARTMENTS"
+}
