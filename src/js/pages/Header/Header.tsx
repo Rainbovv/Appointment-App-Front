@@ -17,7 +17,6 @@ import ProfileDropdown from "./components/ProfileDropdown";
 import {History} from "history";
 
 const Header: React.FC = () => {
-	const userChecker = new RoleService();
 	const [open, setOpen] = useState<boolean>(false);
 	const userLoaded: boolean = useSelector(getUserLoaded);
 
@@ -81,7 +80,7 @@ const Header: React.FC = () => {
 									<ProfileDropdown/>
 								</Popup>
 								{
-									userChecker.isAdmin() &&
+									RoleService.isAdmin() &&
 									<Menu.Item
 										as="a"
 										name="admin"
@@ -93,7 +92,7 @@ const Header: React.FC = () => {
 							</>
 							:
 							<Popup
-								eventsEnabled="true"
+								eventsEnabled={true}
 								position="bottom left"
 								on="click"
 								onClose={() => setOpen(false)}
