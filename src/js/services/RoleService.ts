@@ -6,14 +6,13 @@ type Props = {
     userData: PlainObject;
 }
 
+
 export class RoleService {
-     appState = store.getState();
-    
-     isAdmin(): boolean {
+    static isAdmin(): boolean {
+        const appState = store.getState();
         const {
             userData
-        }: PlainObject = this.appState.auth;
-
+        } = appState.auth;
         const roles = userData && userData.roles;
 
         if (userData == null) {

@@ -1,10 +1,10 @@
 package-lock.json
 build/**/*
+public/**/*
 node_modules/**/*
 ./.idea/inspectionProfiles
 ./.idea/workspace.xml
 ./.idea/misc.xml
 ./.idea/vcs.xml
 ./.idea/**/
-/Appointment-App-Front.iml
 /.idea/

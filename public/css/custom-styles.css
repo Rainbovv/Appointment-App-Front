@@ -2,3 +2,7 @@ body{
     height: 100vh;
     background-color: #fbfbfb;
 }
+
+#react {
+    margin-top: 65px;
+}

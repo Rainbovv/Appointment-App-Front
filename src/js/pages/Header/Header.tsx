@@ -21,16 +21,16 @@ const Header: React.FC = () => {
 	const [open, setOpen] = useState<boolean>(false);
 	const userLoaded: boolean = useSelector(getUserLoaded);
 
-	const history: History = useHistory();
+	const history = useHistory();
 
-	const homePage = (): void => {
+	const homePage = () => {
 		history.push("/");
 	}
-	const adminPage = (): void => {
+	const adminPage = () => {
 		history.push("/admin")
 	}
 
-	const appointmentsPage = (): void => {
+	const appointmentsPage = () => {
 		history.push("/appointments");
 	}
 
@@ -63,11 +63,11 @@ const Header: React.FC = () => {
 						userLoaded ?
 							<>
 								<Popup
-									eventsEnabled={true}
+									eventsEnabled="true"
 									position="bottom left"
 									on="click"
-									onClose={(): void => setOpen(false)}
-									onOpen={(): void => setOpen(true)}
+									onClose={() => setOpen(false)}
+									onOpen={() => setOpen(true)}
 									open={open}
 									trigger={
 										<Menu.Item as="a" name="profile">
@@ -93,11 +93,11 @@ const Header: React.FC = () => {
 							</>
 							:
 							<Popup
-								eventsEnabled={true}
+								eventsEnabled="true"
 								position="bottom left"
 								on="click"
-								onClose={(): void => setOpen(false)}
-								onOpen={(): void => setOpen(true)}
+								onClose={() => setOpen(false)}
+								onOpen={() => setOpen(true)}
 								open={open}
 								trigger={
 									<Menu.Item as="a" name="login">
