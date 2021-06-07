@@ -14,22 +14,23 @@ import {
 
 import SignIn from "./components/SignInDropdown";
 import ProfileDropdown from "./components/ProfileDropdown";
+import {History} from "history";
 
-const Header = () => {
+const Header: React.FC = () => {
 	const userChecker = new RoleService();
-	const [open, setOpen] = useState(false);
-	const userLoaded = useSelector(getUserLoaded);
+	const [open, setOpen] = useState<boolean>(false);
+	const userLoaded: boolean = useSelector(getUserLoaded);
 
-	const history = useHistory();
+	const history: History = useHistory();
 
-	const homePage = () => {
+	const homePage = (): void => {
 		history.push("/");
 	}
-	const adminPage = () => {
+	const adminPage = (): void => {
 		history.push("/admin")
 	}
 
-	const appointmentsPage = () => {
+	const appointmentsPage = (): void => {
 		history.push("/appointments");
 	}
 
@@ -50,10 +51,10 @@ const Header = () => {
 					Appointments
 				</Menu.Item>}
 				<Menu.Menu position="right">
-					<Menu.Item active="false" name="phone">
+					<Menu.Item active={false} name="phone">
 						Hospital #1
 					</Menu.Item>
-					<Menu.Item active="false" name="phone">
+					<Menu.Item active={false} name="phone">
 						+(373)69-999-999
 					</Menu.Item>
 				</Menu.Menu>
@@ -62,11 +63,11 @@ const Header = () => {
 						userLoaded ?
 							<>
 								<Popup
-									eventsEnabled="true"
+									eventsEnabled={true}
 									position="bottom left"
 									on="click"
-									onClose={() => setOpen(false)}
-									onOpen={() => setOpen(true)}
+									onClose={(): void => setOpen(false)}
+									onOpen={(): void => setOpen(true)}
 									open={open}
 									trigger={
 										<Menu.Item as="a" name="profile">
@@ -92,11 +93,11 @@ const Header = () => {
 							</>
 							:
 							<Popup
-								eventsEnabled="true"
+								eventsEnabled={true}
 								position="bottom left"
 								on="click"
-								onClose={() => setOpen(false)}
-								onOpen={() => setOpen(true)}
+								onClose={(): void => setOpen(false)}
+								onOpen={(): void => setOpen(true)}
 								open={open}
 								trigger={
 									<Menu.Item as="a" name="login">

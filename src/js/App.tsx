@@ -26,8 +26,6 @@ export default class App extends Component {
                         <AuthLayout>
                             <Header/>
                             <Switch>
-                                {/*
-									// @ts-ignore */}
                                 <Route exact path="/" component={MainPage}/>
                                 <Route path="/sign-up" component={SignUpPage}/>
 

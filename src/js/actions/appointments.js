@@ -1,15 +1,11 @@
-import {HttpService} from "../services/HttpService";
-import {
-    BASIC_URL,
-    BASIC_PATH,
-    APPOINTMENTS_URL
-} from "../config/routes";
+import {HttpService} from "../services/HttpService.ts";
+import {routes} from "../config/routes.ts";
 
 export const RECEIVE_PATIENT_APPOINTMENTS = "RECEIVE_PATIENT_APPOINTMENTS";
 export const RECEIVE_DOCTOR_APPOINTMENTS = "RECEIVE_DOCTOR_APPOINTMENTS";
 
 export const getPatientAppointments = (id) => (dispatch) => {
-    const URL = BASIC_URL + BASIC_PATH + APPOINTMENTS_URL + "/patient/" + id
+    const URL = routes.BASIC_URL + routes.BASIC_PATH + routes.APPOINTMENTS_URL + "/patient/" + id
 
     return HttpService.get(URL, {})
         .then(response => {
@@ -20,7 +16,7 @@ export const getPatientAppointments = (id) => (dispatch) => {
         })
 }
 export const getDoctorAppointments = (id) => (dispatch) => {
-    const URL = BASIC_URL + BASIC_PATH + APPOINTMENTS_URL + "/doctor/" + id
+    const URL = routes.BASIC_URL + routes.BASIC_PATH + routes.APPOINTMENTS_URL + "/doctor/" + id
 
     return HttpService.get(URL, {})
         .then(response => {

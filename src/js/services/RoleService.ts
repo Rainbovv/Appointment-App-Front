@@ -12,7 +12,7 @@ export class RoleService {
      isAdmin(): boolean {
         const {
             userData
-        } = this.appState.auth;
+        }: PlainObject = this.appState.auth;
 
         const roles = userData && userData.roles;
 

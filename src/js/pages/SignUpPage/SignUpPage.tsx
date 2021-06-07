@@ -1,7 +1,7 @@
 import React from "react";
 import SignUp from "./components/SignUpForm"
 
-const SignUpPage = () => (
+const SignUpPage: React.FC = () => (
     <SignUp />
 );
 
