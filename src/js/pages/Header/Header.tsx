@@ -63,7 +63,7 @@ const Header: React.FC = () => {
 						userLoaded ?
 							<>
 								<Popup
-									eventsEnabled="true"
+									eventsEnabled={true}
 									position="bottom left"
 									on="click"
 									onClose={() => setOpen(false)}
