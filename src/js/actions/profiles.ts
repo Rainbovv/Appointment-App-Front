@@ -1,14 +1,10 @@
 import {Dispatch} from "redux";
 import {HttpService} from "../services/HttpService";
 import {PlainObject} from "../types/interfaces/PlainObject";
-import {
-    BASIC_PATH,
-    BASIC_URL,
-    PROFILE_URL
-} from "../config/routes";
+import {routes} from "../config/routes";
 
 
-export enum actionTypes {
+export enum profileActionTypes {
     GET_PROFILES_LIST = "GET_PROFILES_LIST",
     GET_PROFILE_BY_ID = "GET_PROFILE_BY_ID",
     REQUEST_PROFILE_BY_ID = "REQUEST_PROFILE_BY_ID",
@@ -21,73 +17,73 @@ export enum actionTypes {
 }
 
 export const getProfilesList = () => (dispatch: Dispatch) => {
-    const url = BASIC_URL + BASIC_PATH + PROFILE_URL;
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.PROFILE_URL;
 
     dispatch({
-        type: actionTypes.REQUEST_PROFILES_LIST,
+        type: profileActionTypes.REQUEST_PROFILES_LIST,
         payload: false,
     });
 
     return HttpService.get(url, {})
         .then(response => {
             dispatch({
-                type: actionTypes.REQUEST_PROFILES_LIST,
+                type: profileActionTypes.REQUEST_PROFILES_LIST,
                 payload: true,
             });
 
             return dispatch({
-                type: actionTypes.GET_PROFILES_LIST,
+                type: profileActionTypes.GET_PROFILES_LIST,
                 payload: response,
             });
         })
 }
 
 export const getProfileById = (profileId: number) => (dispatch: Dispatch) => {
-    const url = BASIC_URL + BASIC_PATH + PROFILE_URL + "/" + profileId;
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.PROFILE_URL + "/" + profileId;
 
     dispatch({
-        type: actionTypes.REQUEST_PROFILE_BY_ID,
+        type: profileActionTypes.REQUEST_PROFILE_BY_ID,
         payload: false,
     });
 
     return HttpService.get(url, {})
         .then(response => {
             dispatch({
-                type: actionTypes.REQUEST_PROFILE_BY_ID,
+                type: profileActionTypes.REQUEST_PROFILE_BY_ID,
                 payload: true,
             });
 
             dispatch({
-                type: actionTypes.GET_PROFILE_BY_ID,
+                type: profileActionTypes.GET_PROFILE_BY_ID,
                 payload: response,
             });
         })
 }
 
 export const getProfileByLogin = (login: string) => (dispatch: Dispatch) => {
-    const url = BASIC_URL + BASIC_PATH + PROFILE_URL + "/login";
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.PROFILE_URL + "/login";
 
     dispatch({
-        type: actionTypes.REQUEST_PROFILE_BY_LOGIN,
+        type: profileActionTypes.REQUEST_PROFILE_BY_LOGIN,
         payload: false,
     });
 
     return HttpService.put(url, {login})
         .then(response => {
             dispatch({
-                type: actionTypes.REQUEST_PROFILE_BY_LOGIN,
+                type: profileActionTypes.REQUEST_PROFILE_BY_LOGIN,
                 payload: true,
             });
 
             dispatch({
-                type: actionTypes.GET_PROFILE_BY_LOGIN,
+                type: profileActionTypes.GET_PROFILE_BY_LOGIN,
                 payload: response,
             });
         })
 }
 
 export const deleteProfileAndUser = (profileId: number) => (dispatch: Dispatch) => {
-    const url = BASIC_URL + BASIC_PATH + PROFILE_URL + "/" + profileId;
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.PROFILE_URL + "/" + profileId;
 
     return HttpService.delete(url, {})
         .then(response=>{
@@ -96,7 +92,7 @@ export const deleteProfileAndUser = (profileId: number) => (dispatch: Dispatch) 
 }
 
 export const updateProfile = (profile: PlainObject) => () => {
-    const url = BASIC_URL + BASIC_PATH + PROFILE_URL
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.PROFILE_URL
 
     return HttpService.put(url, profile)
         .then(response=>{
@@ -105,24 +101,24 @@ export const updateProfile = (profile: PlainObject) => () => {
 }
 
 export const getPatientProfiles = () => (dispatch: Dispatch) => {
-    const url = BASIC_URL + BASIC_PATH + PROFILE_URL + "/patients";
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.PROFILE_URL + "/patients";
     
     return HttpService.get(url, {})
         .then(response => {
             dispatch({
-                type: actionTypes.GET_PATIENT_PROFILES_LIST,
+                type: profileActionTypes.GET_PATIENT_PROFILES_LIST,
                 payload: response,
             });
         })
 }
 
 export const getPersonalProfiles = () => (dispatch: Dispatch) => {
-    const url = BASIC_URL + BASIC_PATH + PROFILE_URL + "/personal";
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.PROFILE_URL + "/personal";
 
     return HttpService.get(url, {})
         .then(response => {
             dispatch({
-                type: actionTypes.GET_PERSONAL_PROFILES_LIST,
+                type: profileActionTypes.GET_PERSONAL_PROFILES_LIST,
                 payload: response,
             });
         })

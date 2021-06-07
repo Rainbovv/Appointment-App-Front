@@ -18,7 +18,7 @@ export class RoleService {
         if (userData == null) {
             return false;
         }
-        
+
         return roles ? roles.indexOf(roleTypes.ADMIN) >= 0 : false;
     }
 }

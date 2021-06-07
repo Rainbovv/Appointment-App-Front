@@ -4,17 +4,18 @@ import { useDispatch, useSelector } from "react-redux"
 import { authUser } from "../../../actions/auth";
 import { Link } from "react-router-dom";
 import { getBadCredentials } from "../../../selectors/errors";
+import {PlainObject} from "../../../types/interfaces/PlainObject";
 
-const SignIn = () => {
+const SignIn: React.FC = () => {
     const dispatch = useDispatch();
-    const isBadCredentials = useSelector(getBadCredentials);
-    const [login, setLogin] = useState("");
-    const [password, setPassowrd] = useState("");
+    const isBadCredentials: boolean = useSelector(getBadCredentials);
+    const [login, setLogin] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>): void => {
         event.preventDefault();
 
-        const formattedData = {
+        const formattedData: PlainObject = {
             "login" : login,
             "password" : password
         }
@@ -40,7 +41,7 @@ const SignIn = () => {
                         iconPosition="left"
                         placeholder="Password"
                         type="password"
-                        onChange={e => setPassowrd(e.target.value)}
+                        onChange={e => setPassword(e.target.value)}
                     />
                     {isBadCredentials && 
                     <Message 
@@ -54,7 +55,7 @@ const SignIn = () => {
                     </Form.Button>
                 </Form>
                 <Message size="small">
-                        <Link>Forgot your password?</Link>
+                        <Link to="/sign-up">Forgot your password?</Link>
                 </Message>
                 <Message size="small">
                     Not registered yet? <Link to="/sign-up">Sign Up</Link>
