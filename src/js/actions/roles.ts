@@ -6,7 +6,6 @@ import {routes} from "../config/routes";
 
 export enum rolesActionTypes {
     GET_ROLES_LIST = "GET_ROLES_LIST",
-    
 }
 
 export const getRolesList = () => (dispatch: Dispatch) => {
@@ -14,8 +13,6 @@ export const getRolesList = () => (dispatch: Dispatch) => {
     
     return HttpService.get(url, {})
         .then(response => {
-          
-
             return dispatch({
                 type: rolesActionTypes.GET_ROLES_LIST,
                 payload: response,

@@ -1,10 +1,25 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect} from "react";
 import {PlainObject} from "../../../types/interfaces/PlainObject";
 import {adminContentTypes} from "../../../config/parameters";
+import {
+    useDispatch,
+    useSelector
+} from "react-redux";
+import {adminContentType} from "../../../selectors/serviceFlags";
+import {
+    getDoctorAppointments,
+    getPatientAppointments
+} from "../../../actions/appointments";
+import {
+    useHistory,
+    useParams
+} from "react-router-dom";
+import {UrlParams} from "../../../types/interfaces/UrlParams";
 
 import {
     Button,
-    Header, Icon,
+    Header,
+    Icon,
     Table
 } from "semantic-ui-react";
 import Moment from "react-moment";
@@ -15,32 +30,45 @@ type Props = {
     appointments: Array<PlainObject>;
 }
 
+
 const AppointmentTable: React.FunctionComponent<Props> = (props) => {
-        const currentContentType: string = props.currentContentType;
-        const appointments: Array<PlainObject> = props.appointments;
+    const currentContentType: string = props.currentContentType;
+    const appointments: Array<PlainObject> = props.appointments;
+    const dispatch = useDispatch();
+    const contetType: string = useSelector(adminContentType);
+    const history = useHistory();
+    const {profileId} = useParams<UrlParams>();
 
-        return (
+    useEffect(() => {
+        if (contetType === adminContentTypes.PERSONAL) {
+            dispatch(getDoctorAppointments(parseInt(profileId)));
+        } else {
+            dispatch(getPatientAppointments(parseInt(profileId)));
+        }
+    }, []);
+
+    return (
+        <Fragment>
             <Fragment>
-                <Fragment>
-                    {
-                        appointments && appointments.length > 0 ?
-                            <Table singleLine>
-                                <Table.Header>
-                                    <Table.Row>
-                                        {
-                                            currentContentType === adminContentTypes.PATIENT ?
-                                                <Table.HeaderCell>Doctor</Table.HeaderCell>
-                                                :
-                                                <Table.HeaderCell>Patient</Table.HeaderCell>
-                                        }
-                                        <Table.HeaderCell>Date</Table.HeaderCell>
-                                        <Table.HeaderCell>Time</Table.HeaderCell>
-                                        <Table.HeaderCell>Action</Table.HeaderCell>
-                                    </Table.Row>
-                                </Table.Header>
-
-                                <Table.Body>
-                                    {appointments && appointments.map((appointment) => {
+                {
+                    appointments && appointments.length > 0 ?
+                        <Table singleLine>
+                            <Table.Header>
+                                <Table.Row>
+                                    {
+                                        currentContentType === adminContentTypes.PATIENT ?
+                                            <Table.HeaderCell>Doctor</Table.HeaderCell>
+                                            :
+                                            <Table.HeaderCell>Patient</Table.HeaderCell>
+                                    }
+                                    <Table.HeaderCell>Date</Table.HeaderCell>
+                                    <Table.HeaderCell>Time</Table.HeaderCell>
+                                    <Table.HeaderCell>Remark</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {
+                                    appointments && appointments.map((appointment) => {
                                         const fullName = appointment.firstName && appointment.firstName + " " + appointment.lastName && appointment.lastName;
                                         return <Table.Row key={appointment.id}>
                                             <Table.Cell>
@@ -54,33 +82,33 @@ const AppointmentTable: React.FunctionComponent<Props> = (props) => {
 												/>
                                             }
                                             </Table.Cell>
-                                            <Table.Cell>{
-                                                appointment.startTime &&
-												<Moment
-													format="HH:mm:ss"
-													date={appointment.startTime}
-												/>
-                                            }
+                                            <Table.Cell>
+                                                {
+                                                    appointment.startTime &&
+													<Moment
+														format="HH:mm:ss"
+														date={appointment.startTime}
+													/>
+                                                }
                                             </Table.Cell>
                                             <Table.Cell>
-                                                <Button basic>
-                                                    <Icon name="edit outline"/>
-                                                    Edit
-                                                </Button>
+                                                {
+                                                    appointment.remark || "no remarks"
+                                                }
                                             </Table.Cell>
                                         </Table.Row>
-                                    })}
-                                </Table.Body>
-                            </Table>
-                            :
-                            <Header as="h5">
-                                No appointments for this user
-                            </Header>
-                    }
-                </Fragment>
+                                    })
+                                }
+                            </Table.Body>
+                        </Table>
+                        :
+                        <Header as="h5">
+                            No appointments for this user
+                        </Header>
+                }
             </Fragment>
-        )
-    }
-;
+        </Fragment>
+    )
+};
 
 export default AppointmentTable;
