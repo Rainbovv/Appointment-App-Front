@@ -7,20 +7,22 @@ import { getUserData } from "../../../selectors/auth";
 import {useHistory} from "react-router-dom";
 import {getProfileByLogin} from "../../../actions/profiles";
 import {selectedUserProfile} from "../../../selectors/profiles";
+import {PlainObject} from "../../../types/interfaces/PlainObject";
+import {History} from "history";
 
-const ProfileDropdown = () => {
+const ProfileDropdown: React.FC = () => {
 
-    const userData = useSelector(getUserData);
-    useEffect(() => {
+    const userData: PlainObject = useSelector(getUserData);
+    useEffect((): void => {
         dispatch(getProfileByLogin(userData.username))
     }, [])
-    const profile = useSelector(selectedUserProfile)
-    const firstName = profile && profile.firstName
+    const profile: PlainObject = useSelector(selectedUserProfile)
+    const firstName: string = profile && profile.firstName
 
     const dispatch = useDispatch();
 
-    const history = useHistory();
-    const handleOnClick = () => {
+    const history: History = useHistory();
+    const handleOnClick = (): void => {
         dispatch(signOutUser(history));
     }
     return (
@@ -30,11 +32,11 @@ const ProfileDropdown = () => {
                 </Message>
                 <Divider hidden/>
                 <Button.Group vertical fluid>
-                    <Button color="green" onClick={()=> history.push("/account/info")}>View Profile
+                    <Button color="green" onClick={(): void => history.push("/account/info")}>View Profile
                     </Button>
                     <Divider hidden/>
                     <Button
-                        onClick={()=> history.push("/account/appointments")}>View Appointments
+                        onClick={(): void => history.push("/account/appointments")}>View Appointments
                     </Button>
                     <Divider hidden/>
                     <Button fluid color="red" onClick={handleOnClick}>

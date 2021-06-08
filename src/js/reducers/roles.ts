@@ -1,4 +1,4 @@
-import {actionTypes} from "../actions/roles";
+import {rolesActionTypes} from "../actions/roles";
 import {PlainObject} from "../types/interfaces/PlainObject";
 import {RECEIVE_USER_SIGNOUT} from "../actions/auth";
 
@@ -13,7 +13,7 @@ const initialState = {
 
 export const roles = (state = initialState, action: PlainObject) => {
     switch (action.type) {
-        case actionTypes.GET_ROLES_LIST:
+        case rolesActionTypes.GET_ROLES_LIST:
             return {
                 ...state,
                 userRolesList: action.payload

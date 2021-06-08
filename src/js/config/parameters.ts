@@ -8,5 +8,6 @@ export enum adminContentTypes {
 export enum roleTypes {
     PATIENT = "PATIENT",
     ADMIN = "ADMIN",
-    DOCTOR = "DOCTOR"
+    DOCTOR = "DOCTOR",
+    UNREGISTERED = "UNREGISTERED"
 }

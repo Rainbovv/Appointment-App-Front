@@ -19,7 +19,13 @@ export const store = createStore(
 export type RootState = {
 	auth: {
 		userData: PlainObject;
-	}
+		isTokenExpired: boolean;
+		currentUserLoaded: boolean;
+	},
+	errors: {
+		isEmailDuplicated: boolean;
+		isBadCredentials: boolean;
+	},
 	serviceFlags: {
 		adminContentType: string;
 	},
@@ -35,7 +41,7 @@ export type RootState = {
 	appointments: {
 		patientAppointments: Array<PlainObject>;
 		doctorAppointments: Array<PlainObject>;
-	}
+	},
 	roles: {
 		userRolesList: Array<PlainObject>;
 	}

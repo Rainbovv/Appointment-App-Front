@@ -1,28 +1,33 @@
 import {Dispatch} from "redux";
 import {HttpService} from "../services/HttpService";
 
-import {
-    BASIC_PATH,
-    BASIC_URL,
-    USERS_URL
-} from "../config/routes";
+import {routes} from "../config/routes";
 import {PlainObject} from "../types/interfaces/PlainObject";
 
-
-export enum actionTypes {
-    CREATE_USER = "CREATE_USER"
+export enum usersActionTypes {
+    CREATE_USER = "CREATE_USER",
+    EDIT_USER = "EDIT_USER"
 }
 
+
 export const createUser = (userData: PlainObject, history: PlainObject) => (dispatch: Dispatch) => {
-    const url = BASIC_URL + BASIC_PATH + USERS_URL;
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.USERS_URL;
 
     return HttpService.post(url, userData)
         .then(response => {
             return dispatch({
-                type: actionTypes.CREATE_USER,
+                type: usersActionTypes.CREATE_USER,
                 payload: response,
             });
 
+            history.push("/admin");
+        })
+}
+export const editUser = (userData: PlainObject, history: PlainObject) => (dispatch: Dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.USERS_URL;
+
+    return HttpService.put(url, userData)
+        .then(response => {
             history.push("/admin");
         })
 }
