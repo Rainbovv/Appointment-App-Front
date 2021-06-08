@@ -4,6 +4,7 @@ import {PlainObject} from "../types/interfaces/PlainObject";
 type profilesTypes = {
     patientProfilesList: Array<PlainObject>,
     personalProfilesList: Array<PlainObject>,
+    profilesBySpeciality: Array<PlainObject>,
     profilesList: Array<PlainObject>,
     profilesListLoaded: boolean,
     profileContentLoaded: boolean,
@@ -14,6 +15,7 @@ const initialState = {
     patientProfilesList: new Array(),
     personalProfilesList: new Array(),
     profilesList: new Array(),
+    profilesBySpeciality: new Array(),
     profilesListLoaded: true,
     profileContentLoaded: true,
     selectedUserProfile: {}
@@ -31,6 +33,11 @@ export const profiles = (state = initialState, action: PlainObject) => {
             return {
                 ...state,
                 profilesList: action.payload,
+            };
+        case actionTypes.GET_PROFILES_BY_SPECIALITY:
+            return {
+                ...state,
+                profilesBySpeciality: action.payload
             };
         case actionTypes.GET_PATIENT_PROFILES_LIST:
             return {

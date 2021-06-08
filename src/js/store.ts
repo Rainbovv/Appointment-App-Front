@@ -24,6 +24,7 @@ export type RootState = {
 		adminContentType: string;
 	},
 	profiles: {
+        profilesBySpeciality: Array<PlainObject>;
 		patientProfilesList: Array<PlainObject>;
 		personalProfilesList: Array<PlainObject>;
 		profilesListLoaded: boolean;
@@ -37,6 +38,10 @@ export type RootState = {
 	}
 	roles: {
 		userRolesList: Array<PlainObject>;
+	}
+	departments: {
+		departmentsLoaded: boolean;
+		departments: Array<PlainObject>;
 	}
 };
 

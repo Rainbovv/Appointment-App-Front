@@ -1,18 +1,18 @@
 import React, {useEffect} from "react";
 import {useSelector} from "react-redux";
-import {getUserData} from "../../selectors/auth";
+import {getUserLoaded} from "../../selectors/auth";
 import {useHistory} from "react-router-dom";
 
 
 const UserLayout = ({children}) => {
     const history = useHistory();
-    const userData = useSelector(getUserData);
+    const isUserLoaded = useSelector(getUserLoaded);
     useEffect(() => {
-        if (userData === null) {
+        if (!isUserLoaded) {
             history.push("/");
         }
 
-    }, [userData])
+    }, [])
 
     return  <>{children}</>;
 };

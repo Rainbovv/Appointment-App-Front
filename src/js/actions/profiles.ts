@@ -7,7 +7,6 @@ import {
     PROFILE_URL
 } from "../config/routes";
 
-
 export enum actionTypes {
     GET_PROFILES_LIST = "GET_PROFILES_LIST",
     GET_PROFILE_BY_ID = "GET_PROFILE_BY_ID",
@@ -17,7 +16,9 @@ export enum actionTypes {
     REQUEST_PROFILES_LIST = "REQUEST_PROFILES_LIST",
     GET_PATIENT_PROFILES_LIST = "GET_PATIENT_PROFILES_LIST",
     GET_PERSONAL_PROFILES_LIST = "GET_PERSONAL_PROFILES_LIST",
-    RECEIVE_USER_SIGNOUT = "RECEIVE_USER_SIGNOUT"
+    RECEIVE_USER_SIGNOUT = "RECEIVE_USER_SIGNOUT",
+    REQUEST_PROFILES_BY_SPECIALITY = "REQUEST_PROFILES_BY_SPECIALITY",
+    GET_PROFILES_BY_SPECIALITY = "GET_PROFILES_BY_SPECIALITY",
 }
 
 export const getProfilesList = () => (dispatch: Dispatch) => {
@@ -37,6 +38,28 @@ export const getProfilesList = () => (dispatch: Dispatch) => {
 
             return dispatch({
                 type: actionTypes.GET_PROFILES_LIST,
+                payload: response,
+            });
+        })
+}
+
+export const getProfilesBySpeciality = (speciality: string) => (dispatch: Dispatch) => {
+    const url = BASIC_URL + BASIC_PATH + PROFILE_URL + "/speciality/" + speciality;
+
+    dispatch({
+        type: actionTypes.REQUEST_PROFILES_BY_SPECIALITY,
+        payload: false,
+    });
+
+    return HttpService.get(url, {})
+        .then(response => {
+            dispatch({
+                type: actionTypes.REQUEST_PROFILES_BY_SPECIALITY,
+                payload: true,
+            });
+
+            return dispatch({
+                type: actionTypes.GET_PROFILES_BY_SPECIALITY,
                 payload: response,
             });
         })
@@ -86,7 +109,7 @@ export const getProfileByLogin = (login: string) => (dispatch: Dispatch) => {
         })
 }
 
-export const deleteProfileAndUser = (profileId: number) => (dispatch: Dispatch) => {
+export const deleteProfileAndUser = (profileId: number)  => {
     const url = BASIC_URL + BASIC_PATH + PROFILE_URL + "/" + profileId;
 
     return HttpService.delete(url, {})

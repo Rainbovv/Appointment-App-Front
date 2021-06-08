@@ -1,6 +1,6 @@
 import React from "react";
 import UserAppointments from "./components/Appointments/UserAppointments";
-import {Grid, Image, Menu} from "semantic-ui-react";
+import {Grid, GridRow, Image, Menu} from "semantic-ui-react";
 import "./UserAccount.css";
 import UserInfo from "./components/Info/UserInfo";
 import {useDispatch} from "react-redux";
@@ -50,6 +50,7 @@ function UserAccount(props) {
                     </div>
                 </Grid.Column>
             </Grid.Row>
+            <GridRow style={{marginTop: "300px"}}/>
         </Grid>
     )
 }

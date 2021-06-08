@@ -7,6 +7,7 @@ import {selectedUserProfile} from "../../../../selectors/profiles";
 import {getUserData} from "../../../../selectors/auth";
 
 
+
 export default function UserInfo() {
 
     const dispatch = useDispatch()
@@ -53,14 +54,14 @@ export default function UserInfo() {
                     <Form.Input
                         width="6"
                         label='First name'
-                        placeholder={firstName}
+                        value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                     />
                     <Form.Select
                         width="2"
                         label='Gender'
                         options={genderOptions}
-                        placeholder={gender}
+                        value={gender}
                         onChange={(e, { value }) => setGender(value)}
 
                     />
@@ -69,7 +70,7 @@ export default function UserInfo() {
                     <Form.Input
                         width="6"
                         label='Last name'
-                        placeholder={lastName}
+                        value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                     />
 
@@ -89,13 +90,13 @@ export default function UserInfo() {
                     <Form.Input
                         width="6"
                         label='Email'
-                        placeholder={email}
+                        value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <Form.Input
                         width="6"
                         label='Phone'
-                        placeholder={telephone}
+                        value={telephone}
                         onChange={(e) => setTelephone(e.target.value)}
                     />
                 </Form.Group>
@@ -103,13 +104,13 @@ export default function UserInfo() {
                     <Form.Input
                         width="6"
                         label='Address'
-                        placeholder={address}
+                        value={address}
                         onChange={(e) => setAddress(e.target.value)}
                     />
                     <Form.Input
                         width="6"
                         label='Social Nr'
-                        placeholder={socialNumber}
+                        value={socialNumber}
                         onChange={(e) => setSocialNumber(e.target.value)}
                     />
                 </Form.Group>
