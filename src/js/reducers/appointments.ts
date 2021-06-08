@@ -1,34 +1,34 @@
-import {RECEIVE_DOCTOR_APPOINTMENTS, RECEIVE_PATIENT_APPOINTMENTS} from "../actions/appointments";
 import {authActionTypes} from "../actions/auth";
-
+import {PlainObject} from "../types/interfaces/PlainObject";
+import {appointmentsActionType} from "../actions/appointments";
 
 const initialState = {
-    patientAppointments: [],
-    doctorAppointments: []
+    patientAppointments: {},
+    doctorAppointments: {}
 };
 
-export const appointments = (state = initialState, action) => {
+export const appointments = (state = initialState, action: PlainObject) => {
     switch (action.type) {
-        case RECEIVE_PATIENT_APPOINTMENTS:
 
+        case appointmentsActionType.RECEIVE_PATIENT_APPOINTMENTS:
             return {
                 ...state,
                 patientAppointments: action.payload
             }
-        case RECEIVE_DOCTOR_APPOINTMENTS:
 
+        case appointmentsActionType.RECEIVE_DOCTOR_APPOINTMENTS:
             return {
                 ...state,
                 doctorAppointments: action.payload
             }
 
         case authActionTypes.RECEIVE_USER_SIGNOUT:
-
             return {
                 ...state,
                 patientAppointments: [],
                 doctorAppointments: []
             }
+
         default:
             return state
     }

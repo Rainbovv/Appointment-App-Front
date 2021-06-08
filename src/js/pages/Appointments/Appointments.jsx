@@ -16,22 +16,24 @@ function Appointments() {
 
     const dispatch = useDispatch()
 
-    const [department, setDepartment] = useState("")
-    const [speciality, setSpeciality] = useState("")
-    const [showSpecialities, setShowSpecialities] = useState(false)
-    const [showDoctorsList, setShowDoctorsList] = useState(false)
     const specialities = useSelector(getSpecialities)
     const departments = useSelector(getDepartments)
-    const doctorProfiles = useSelector(profilesBySpeciality)
-    const [selectedDoctor, setSelectedDoctor] = useState("")
+    const doctors = useSelector(profilesBySpeciality)
     const appointments = useSelector(doctorAppointments)
-    const [doctorsAppointments, setDoctorsAppointments] = useState([])
-    const [showCalendar, setShowCalendar] = useState(false)
-    const [doctors, setDoctors] = useState([])
+    const appointmentDates = appointments.length > 0 ? appointments.map(a => a.startTime) : []
+
+    const [department, setDepartment] = useState("")
+    const [speciality, setSpeciality] = useState("")
+    const [doctor, setDoctor] = useState("")
+    const [date, setDate] = useState("")
+
     const [specOptions, setSpecOptions] = useState([])
     const depOptions = departments.length > 0 ? departments.map(element =>
         ({ key:element.name, value: element.name, text: element.name })) : []
-    const [date, setDate] = useState("")
+
+    const [showSpecialities, setShowSpecialities] = useState(false)
+    const [showDoctorsList, setShowDoctorsList] = useState(false)
+    const [showCalendar, setShowCalendar] = useState(false)
 
 
     useEffect(() => {
@@ -39,13 +41,13 @@ function Appointments() {
         dispatch(getSpecialitiesList)
     },[])
 
-    useEffect(() => {
-        doctorProfiles && setDoctors(doctorProfiles)
-    }, [doctorProfiles])
+    // useEffect(() => {
+    //     doctors && setDoctors(doctors)
+    // }, [doctors])
 
-    useEffect(() => {
-        appointments && setDoctorsAppointments(appointments)
-    }, [appointments])
+    // useEffect(() => {
+    //     appointments && setDoctorsAppointments(appointments)
+    // }, [appointments])
 
     const dateHandleChange = (event, {value}) => {
         setDate(value);
@@ -70,7 +72,7 @@ function Appointments() {
     }
 
     function selectDoctor(doctor){
-        setSelectedDoctor(doctor);
+        setDoctor(doctor);
         dispatch(getDoctorAppointments(doctor.user.id))
         setShowCalendar(true)
     }
@@ -134,8 +136,8 @@ function Appointments() {
                         inline
                         name="date"
                         // disable={}
-                        enable={doctorsAppointments}
-                        marked={doctorsAppointments}
+                        // enable={}
+                        marked={appointmentDates}
                         markColor="blue"
                         onChange={dateHandleChange}
                     />}

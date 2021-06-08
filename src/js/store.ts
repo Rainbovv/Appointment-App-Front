@@ -49,6 +49,10 @@ export type RootState = {
 		departmentsLoaded: boolean;
 		departments: Array<PlainObject>;
 	}
+	specialities: {
+		specialities: Array<PlainObject>,
+		specialitiesLoaded: boolean,
+	}
 };
 
 export const persistor = persistStore(store);

@@ -13,7 +13,7 @@ export enum profileActionTypes {
     REQUEST_PROFILES_LIST = "REQUEST_PROFILES_LIST",
     GET_PATIENT_PROFILES_LIST = "GET_PATIENT_PROFILES_LIST",
     GET_PERSONAL_PROFILES_LIST = "GET_PERSONAL_PROFILES_LIST",
-    RECEIVE_USER_SIGNOUT = "RECEIVE_USER_SIGNOUT"
+    GET_PROFILES_BY_SPECIALITY = "GET_PROFILES_BY_SPECIALITY"
 }
 
 export const getProfilesList = () => (dispatch: Dispatch) => {
@@ -33,6 +33,17 @@ export const getProfilesList = () => (dispatch: Dispatch) => {
 
             return dispatch({
                 type: profileActionTypes.GET_PROFILES_LIST,
+                payload: response,
+            });
+        })
+}
+export const getProfilesBySpeciality = (speciality: string) => (dispatch: Dispatch) => {
+    const url = routes.BASIC_URL + routes.BASIC_PATH + routes.PROFILE_URL + "/speciality/" + speciality;
+
+    return HttpService.get(url, {})
+        .then(response => {
+            dispatch({
+                type: profileActionTypes.GET_PROFILES_BY_SPECIALITY,
                 payload: response,
             });
         })
