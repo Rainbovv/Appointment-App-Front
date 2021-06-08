@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from "react";
+import React, {Component} from "react";
 import {withRouter} from "react-router-dom";
 
 import {connect} from "react-redux";
@@ -27,7 +27,7 @@ class MainPage extends Component {
 
 	render() {
 		return (
-			<Fragment>
+			<div className="main-container">
 				<Image
 					src="build/images/2slide.jpg"
 					style={{"maxHeight": "600px", "width": "100%"}}
@@ -80,7 +80,7 @@ class MainPage extends Component {
 					src="build/images/1slide.jpg"
 					style={{"maxHeight": "700px", "width": "100%"}}
 				/>
-			</Fragment>
+			</div>
 		)
 	}
 }

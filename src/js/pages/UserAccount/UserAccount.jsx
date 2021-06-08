@@ -18,7 +18,7 @@ function UserAccount(props) {
     const activeItem = props.activeItem;
 
     return (
-        <Grid>
+        <Grid style={{"minHeight": "calc(100vh - 210px)"}}>
             <Grid.Row className="menu-row">
                 <Grid.Column   width={3}>
                         <Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png"

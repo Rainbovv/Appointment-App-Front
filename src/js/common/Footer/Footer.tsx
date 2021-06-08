@@ -17,7 +17,7 @@ type Props = {}
 
 const Footer: React.FunctionComponent<Props> = (props) => {
     return (
-        <div className="footer-container">
+        <footer className="footer-container">
             <Segment inverted vertical style={{padding: "5em 0em", backgroundColor: "#25283e"}}>
                 <Container>
                     <Grid divided inverted stackable>
@@ -41,7 +41,7 @@ const Footer: React.FunctionComponent<Props> = (props) => {
                     </Grid>
                 </Container>
             </Segment>
-        </div>
+        </footer>
     )
 };
 
