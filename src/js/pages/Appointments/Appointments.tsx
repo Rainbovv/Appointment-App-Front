@@ -10,30 +10,31 @@ import {profilesBySpeciality} from "../../selectors/profiles";
 import {DateInput} from "semantic-ui-calendar-react";
 import {getDoctorAppointments} from "../../actions/appointments";
 import {doctorAppointments} from "../../selectors/appointments";
+import {PlainObject} from "../../types/interfaces/PlainObject";
 
 
 function Appointments() {
 
     const dispatch = useDispatch()
 
-    const specialities = useSelector(getSpecialities)
-    const departments = useSelector(getDepartments)
-    const doctors = useSelector(profilesBySpeciality)
-    const appointments = useSelector(doctorAppointments)
-    const appointmentDates = appointments.length > 0 ? appointments.map(a => a.startTime) : []
+    const specialities: Array<PlainObject> = useSelector(getSpecialities)
+    const departments: PlainObject = useSelector(getDepartments)
+    const doctors: Array<PlainObject>  = useSelector(profilesBySpeciality)
+    const appointments: Array<PlainObject> = useSelector(doctorAppointments)
+    const appointmentDates: Array<Date> = appointments.length > 0 ? appointments.map(a => new Date(a.startTime)) : []
 
-    const [department, setDepartment] = useState("")
-    const [speciality, setSpeciality] = useState("")
-    const [doctor, setDoctor] = useState("")
-    const [date, setDate] = useState("")
+    const [department, setDepartment] = useState<string>("")
+    const [speciality, setSpeciality] = useState<string>("")
+    const [doctor, setDoctor] = useState<PlainObject>({})
+    const [date, setDate] = useState<string>("")
 
-    const [specOptions, setSpecOptions] = useState([])
-    const depOptions = departments.length > 0 ? departments.map(element =>
+    const [specOptions, setSpecOptions] = useState<Array<PlainObject>>([])
+    const depOptions = departments.length > 0 ? departments.map((element: PlainObject) =>
         ({ key:element.name, value: element.name, text: element.name })) : []
 
-    const [showSpecialities, setShowSpecialities] = useState(false)
-    const [showDoctorsList, setShowDoctorsList] = useState(false)
-    const [showCalendar, setShowCalendar] = useState(false)
+    const [showSpecialities, setShowSpecialities] = useState<boolean>(false)
+    const [showDoctorsList, setShowDoctorsList] = useState<boolean>(false)
+    const [showCalendar, setShowCalendar] = useState<boolean>(false)
 
 
     useEffect(() => {
@@ -41,39 +42,31 @@ function Appointments() {
         dispatch(getSpecialitiesList)
     },[])
 
-    // useEffect(() => {
-    //     doctors && setDoctors(doctors)
-    // }, [doctors])
-
-    // useEffect(() => {
-    //     appointments && setDoctorsAppointments(appointments)
-    // }, [appointments])
-
-    const dateHandleChange = (event, {value}) => {
+    const dateHandleChange = (value:string) => {
         setDate(value);
     }
 
-    function specialityHandleSelect(speciality)  {
+    function specialityHandleSelect(speciality: string):void  {
         setSpeciality(speciality);
         dispatch(getProfilesBySpeciality(speciality));
         setShowDoctorsList(true);
     }
 
-    function departmentHandleSelect(department) {
+    function departmentHandleSelect(department: string) {
         setDepartment(department)
 
-        const specialitiesArr = []
-
         specialities.forEach(s =>  s.department.name === department &&
-                specialitiesArr.push({ key:s.name, value: s.name, text: s.name })
+                specOptions.push({ key:s.name, value: s.name, text: s.name })
         )
-        setSpecOptions(specialitiesArr)
+
         setShowSpecialities(true)
     }
 
-    function selectDoctor(doctor){
+    function selectDoctor(doctor: PlainObject){
         setDoctor(doctor);
+
         dispatch(getDoctorAppointments(doctor.user.id))
+
         setShowCalendar(true)
     }
 
@@ -83,9 +76,8 @@ function Appointments() {
 
         for (const doctor of doctors) {
             items.push(
-                <Item>
-                    <Item.Content verticalAlign='right'>
-
+                <Item key={doctor.id.toString()}>
+                    <Item.Content verticalAlign='middle'>
                             <Button style={{background: "rgba(161, 229, 255, 0.1)", padding:"0", paddingRight:"10px"}}
                                     onClick={() => selectDoctor(doctor)}
                             >
@@ -106,19 +98,23 @@ function Appointments() {
         )
     }
 
+
     return (
+
         <Grid>
             <Grid.Row className="menu-row">
                 <Grid.Column   width={3}>
                     <label style={{marginLeft:"60px"}}>Department</label>
                     <Select placeholder='Select department'
                             options={depOptions}
-                            onChange={(element) => departmentHandleSelect(element.target.innerText)}/>
+                            /*@ts-ignore*/
+                            onChange={(e) => departmentHandleSelect(e.target.innerText)}/>
                     {showSpecialities &&
                     <label style={{marginLeft:"60px"}}>Speciality</label>}
                     {showSpecialities &&
                     <Select placeholder='Select speciality'
                             options={specOptions}
+                            /*@ts-ignore*/
                             onChange={(e) => specialityHandleSelect(e.target.innerText)}/>
                     }
 
@@ -135,11 +131,10 @@ function Appointments() {
                         dateFormat="YYYY-MM-DD"
                         inline
                         name="date"
-                        // disable={}
-                        // enable={}
                         marked={appointmentDates}
                         markColor="blue"
-                        onChange={dateHandleChange}
+
+                        onChange={() => dateHandleChange}
                     />}
                 </Grid.Column>
             </Grid.Row>
