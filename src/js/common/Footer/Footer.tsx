@@ -17,16 +17,47 @@ type Props = {}
 
 const Footer: React.FunctionComponent<Props> = (props) => {
     return (
-        <div className="footer-container">
+        <footer className="footer-container">
             <Segment inverted vertical style={{padding: "5em 0em", backgroundColor: "#25283e"}}>
-                <Container>
+                <Container textAlign="justified">
                     <Grid divided inverted stackable>
                         <Grid.Row>
                             <Grid.Column width={3}>
                                 <Header inverted as='h4' content='About'/>
                                 <List link inverted>
-                                    <List.Item>Sitemap</List.Item>
-                                    <List.Item>Contact Us</List.Item>
+                                    <List.Item as="a">
+                                        <a href="https://stefanini.com/en/contact-us">
+                                            Contact Us
+                                        </a>
+                                    </List.Item>
+                                </List>
+                            </Grid.Column>
+                            <Grid.Column width={3}>
+                                <List>
+                                    <List.Item>
+                                        <List.Icon name='users' />
+                                        <List.Content>Stefanini EMEA</List.Content>
+                                    </List.Item>
+                                    <List.Item>
+                                        <List.Icon name='marker' />
+                                        <List.Content>Jaguariúna , BRA</List.Content>
+                                    </List.Item>
+                                    <List.Item>
+                                        <List.Icon name='mail' />
+                                        <List.Content>
+                                            <a href='mailto:stefanini@stefanini.com'>
+                                                stefanini@stefanini.com
+                                            </a>
+                                        </List.Content>
+                                    </List.Item>
+                                    <List.Item>
+                                        <List.Icon name='linkify' />
+                                        <List.Content>
+                                            <a href="https://stefanini.com/">
+                                                stefanini.com
+                                            </a>
+                                        </List.Content>
+                                    </List.Item>
                                 </List>
                             </Grid.Column>
                             <Grid.Column width={7}>
@@ -41,7 +72,7 @@ const Footer: React.FunctionComponent<Props> = (props) => {
                     </Grid>
                 </Container>
             </Segment>
-        </div>
+        </footer>
     )
 };
 
