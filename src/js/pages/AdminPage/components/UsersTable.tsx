@@ -1,8 +1,10 @@
 import React from "react";
 import {useHistory} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
-    deleteProfileAndUser, 
+    deleteProfileAndUser,
+    getPatientProfiles,
+    getPersonalProfiles,
     getProfileById,
     getProfilesList
 } from "../../../actions/actions";
@@ -15,6 +17,7 @@ import {
     Icon,
     Table
 } from "semantic-ui-react";
+import {adminContentType} from "../../../selectors/serviceFlags";
 
 
 type Props = {
@@ -33,22 +36,31 @@ export const UsersTable: React.FunctionComponent<Props> = ({
                                                            }) => {
     const dispatch = useDispatch();
     const history = useHistory();
+    const contetType: string = useSelector(adminContentType);
 
-    const infoAction = (profileId: number) =>{
+    const infoAction = (profileId: number) => {
         history.push("/admin/" + profileId);
         dispatch(getProfileById(profileId));
     };
 
-    const editAction = (profileId: number) =>{
+    const editAction = (profileId: number) => {
         history.push("/admin/" + profileId + "/edit-user");
     };
-    
+
     const deleteAction = (profileId: number) => {
         const promise = Promise.resolve();
-        
+
         promise
-            .then(() => {return dispatch(deleteProfileAndUser(profileId))})
-            .then(()=>dispatch(getProfilesList()));
+            .then(() => {
+                return dispatch(deleteProfileAndUser(profileId))
+            })
+            .then(() => {
+                if (contetType === adminContentTypes.PERSONAL) {
+                    dispatch(getPersonalProfiles());
+                } else {
+                    dispatch(getPatientProfiles());
+                }
+            })
     }
 
     return (
@@ -74,7 +86,7 @@ export const UsersTable: React.FunctionComponent<Props> = ({
                             <Table.Cell width={3}>{item.email}</Table.Cell>
                             <Table.Cell width={3}>{item.telephone}</Table.Cell>
                             <Table.Cell width={2}>{item.roleName}</Table.Cell>
-                            
+
                             <Table.Cell>
                                 <Button
                                     size={"tiny"}

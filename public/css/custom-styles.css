@@ -4,5 +4,15 @@ body{
 }
 
 #react {
-    margin-top: 65px;
+    height: 100%;
+    margin-top: 60px;
+    min-height: 100%;
+}
+
+html, body, #root {
+    height: 100%;
+}
+
+footer{
+    margin-top: auto
 }

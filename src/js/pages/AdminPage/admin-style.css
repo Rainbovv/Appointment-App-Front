@@ -1,5 +1,7 @@
 .admin-layout {
+    min-height: calc(100vh - 320px);
     padding: 40px;
+    margin-bottom: 100px;
 }
 
 .admin-layout-content{
