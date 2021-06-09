@@ -4,17 +4,17 @@ import {getUserLoaded} from "../../selectors/auth";
 import {useHistory} from "react-router-dom";
 
 
-const UserLayout = ({children}) => {
+export default function UserLayout(props: { children: any; }) {
+
     const history = useHistory();
-    const isUserLoaded = useSelector(getUserLoaded);
+    const isUserLoaded: boolean = useSelector(getUserLoaded);
+
     useEffect(() => {
         if (!isUserLoaded) {
             history.push("/");
         }
 
-    }, [])
+    }, [isUserLoaded]);
 
-    return  <>{children}</>;
-};
-
-export default UserLayout;
+    return  <>{props.children}</>;
+}

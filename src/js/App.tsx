@@ -35,6 +35,7 @@ export default class App extends Component {
                                 <Route path="/sign-up" component={SignUpPage}/>
                                 <Route exact path="/appointments" component={Appointments}/>
                                 <Route path={"/account"} render={() =>
+
                                     <UserLayout>
                                         <Route exact path="/account/info"
                                                component={() => <UserAccount activeItem="Account Info"/>}/>
