@@ -15,6 +15,7 @@ import "./footer-style.css";
 
 type Props = {}
 
+
 const Footer: React.FunctionComponent<Props> = (props) => {
     return (
         <footer className="footer-container">
@@ -25,7 +26,7 @@ const Footer: React.FunctionComponent<Props> = (props) => {
                             <Grid.Column width={3}>
                                 <Header inverted as='h4' content='About'/>
                                 <List link inverted>
-                                    <List.Item as="a">
+                                    <List.Item>
                                         <a href="https://stefanini.com/en/contact-us">
                                             Contact Us
                                         </a>

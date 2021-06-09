@@ -12,7 +12,6 @@ import {
     getPatientProfiles,
     getPersonalProfiles
 } from "../../actions/actions";
-import * as ProfileService from "../../services/ProfileService";
 import {adminContentTypes} from "../../config/parameters";
 
 import {
@@ -56,8 +55,6 @@ class AdminMainPage extends React.Component<AdminPageProps> {
     componentDidMount() {
         const {
             adminContentType,
-            patientProfilesList,
-            personalProfilesList
         } = this.props;
 
         if (adminContentType === adminContentTypes.PATIENT) {
@@ -120,7 +117,6 @@ class AdminMainPage extends React.Component<AdminPageProps> {
             </Fragment>
         );
     }
-
 }
 
 const mapStateToProps = (state: RootState) => ({

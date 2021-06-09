@@ -5,11 +5,16 @@ import {createLogger} from "redux-logger";
 import {persistStore} from "redux-persist";
 import {PlainObject} from "./types/interfaces/PlainObject";
 
+let middleware: Array<any>
 
-const middleware = [
-	thunk,
-	createLogger()
-];
+if (process.env.NODE_ENV === "development") {
+	middleware = [
+		thunk,
+		createLogger()
+	];
+} else {
+	middleware = [thunk]
+}
 
 export const store = createStore(
 	reducer,

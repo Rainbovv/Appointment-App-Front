@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 
-const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -11,9 +10,13 @@ const BUILD_DIR = path.resolve(__dirname, './build');
 const ASSETS_PATH = path.resolve(__dirname, './src/js');
 const STATIC_PATH = path.resolve(__dirname, './public')
 
+const isDev = process.env.NODE_ENV === "development";
+const withHotReload = "webpack-hot-middleware/client?path=/__webpack_hmr&reload=true";
+const app = isDev ? [path.join(ASSETS_PATH, "/index.tsx"), withHotReload] : path.join(ASSETS_PATH, "/index.tsx");
+
 
 var webpack_config = {
-	mode: 'development',
+	mode: (isDev) ? "development" : "production",
 
 	context: __dirname,
 
@@ -23,10 +26,7 @@ var webpack_config = {
 			"react-dom",
 			"react-router"
 		],
-		react_app: [
-			path.join(ASSETS_PATH, "/index.tsx"),
-			"webpack-hot-middleware/client?path=/__webpack_hmr&reload=true"
-		]
+		react_app : app
 	},
 
 	output: {
@@ -41,7 +41,8 @@ var webpack_config = {
 		extensions: [' ', '.web.js', '.ts', '.tsx', '.js', '.jsx', 'css'],
 	},
 
-	devtool: ("production" === process.env.NODE_ENV) ? "source-map" : "eval-source-map",
+	devtool: isDev
+		? "eval-source-map" : "source-map",
 
 	watchOptions: {
 		poll: true
@@ -100,13 +101,13 @@ var webpack_config = {
 				use: [
 					{
 						loader: MiniCssExtractPlugin.loader,
-						options: {
-						}
+						options: {}
 					}
 					, 'css-loader'],
 			},
 		]
-	},
+	}
+	,
 
 	plugins: [
 		new webpack.DefinePlugin({
@@ -115,12 +116,6 @@ var webpack_config = {
 			}
 		}),
 		new webpack.HotModuleReplacementPlugin(),
-		// new CleanWebpackPlugin({
-		// 	verbose: true,
-		// 	cleanOnceBeforeBuildPatterns: [
-		// 		BUILD_DIR
-		// 	]
-		// }),
 		new HtmlWebpackPlugin({
 			title: ' Appointment-APP | Stefanini EMEA ',
 			template: './public/index.html',
@@ -156,18 +151,22 @@ var webpack_config = {
 		errors: true,
 		errorDetails: true,
 		children: false,
-
 		assets: true,
 		entrypoints: true,
 		chunks: true,
 		chunksSort: "size",
-
 		modules: false,
 		modulesSort: "size",
 		logging: true,
 		loggingTrace: true,
 		moduleTrace: true,
 	},
+
+	performance: {
+		hints: false,
+		maxEntrypointSize: 512000,
+		maxAssetSize: 512000
+	}
 };
 
 module.exports = webpack_config;
