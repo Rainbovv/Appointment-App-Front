@@ -15,6 +15,7 @@ import AdminLayout from "./pages/AdminPage/AdminLayout";
 import AuthLayout from "./pages/AuthLayout/AuthLayout";
 import UserAccount from "./pages/UserAccount/UserAccount";
 import UserLayout from "./pages/UserAccount/UserLayout";
+import Appointments from "./pages/Appointments/Appointments";
 import Footer from "./common/Footer";
 import EditUserPage from "./pages/AdminPage/EditUserPage";
 
@@ -28,9 +29,13 @@ export default class App extends Component {
                         <AuthLayout>
                             <Header/>
                             <Switch>
+                                {/*
+									// @ts-ignore */}
                                 <Route exact path="/" component={MainPage}/>
                                 <Route path="/sign-up" component={SignUpPage}/>
+                                <Route exact path="/appointments" component={Appointments}/>
                                 <Route path={"/account"} render={() =>
+
                                     <UserLayout>
                                         <Route exact path="/account/info"
                                                component={() => <UserAccount activeItem="Account Info"/>}/>
@@ -40,6 +45,7 @@ export default class App extends Component {
                                     </UserLayout>
                                 }
                                 />
+
                                 <Route path={"/admin"} render={() =>
                                     <AdminLayout>
                                         <Switch>

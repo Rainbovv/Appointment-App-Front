@@ -1,51 +1,49 @@
-import React, {useEffect, useState} from "react";
+import React, {SyntheticEvent, useEffect, useState} from "react";
 import {Button, Form} from "semantic-ui-react";
 import DatePicker from "react-datepicker";
 import {useDispatch, useSelector} from "react-redux";
-import {getProfileByLogin, updateProfile} from "../../../../actions/profiles";
-import {selectedUserProfile} from "../../../../selectors/profiles";
-import {getUserData} from "../../../../selectors/auth";
-
+import {getProfileByLogin, updateProfile} from "../../../actions/profiles";
+import {selectedUserProfile} from "../../../selectors/profiles";
+import {getUserData} from "../../../selectors/auth";
+import {PlainObject} from "../../../types/interfaces/PlainObject";
 
 export default function UserInfo() {
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        userData && dispatch(getProfileByLogin(userData.username))
-    },[])
+        userData && dispatch(getProfileByLogin(userData.username));
+    },[]);
 
-    const userData = useSelector(getUserData)
-    let userProfile = useSelector(selectedUserProfile)
-    /*const isDoctor = userData && userData.roles.includes("DOCTOR")*/
-    const [dateOfBirth, setDateOfBirth] = useState(Date.parse(userProfile.dateOfBirth));
-    const [firstName, setFirstName] = useState(userProfile.firstName);
-    const [lastName, setLastName] = useState(userProfile.lastName);
-    const [gender, setGender] = useState(userProfile.gender);
-    const [telephone, setTelephone] = useState(userProfile.telephone);
-    const [email, setEmail] = useState(userProfile.email);
-    const [address, setAddress] = useState(userProfile.address);
-    const [socialNumber, setSocialNumber] = useState(userProfile.socialNumber);
+    const userData: PlainObject = useSelector(getUserData);
+    let userProfile: PlainObject = useSelector(selectedUserProfile);
+    const [dateOfBirth, setDateOfBirth] = useState<any>(Date.parse(userProfile.dateOfBirth));
+    const [firstName, setFirstName] = useState<string>(userProfile.firstName);
+    const [lastName, setLastName] = useState<string>(userProfile.lastName);
+    const [gender, setGender] = useState<string>(userProfile.gender);
+    const [telephone, setTelephone] = useState<string>(userProfile.telephone);
+    const [email, setEmail] = useState<string>(userProfile.email);
+    const [address, setAddress] = useState<string>(userProfile.address);
+    const [socialNumber, setSocialNumber] = useState<string>(userProfile.socialNumber);
 
     const submitChanges = () => {
-        const dateFormat = require("dateformat");
-        userProfile["firstName"] = firstName
-        userProfile["lastName"] = lastName
-        userProfile["email"] = email
-        userProfile["telephone"] = telephone
-        userProfile["dateOfBirth"] = dateFormat(dateOfBirth, "yyyy-mm-dd")
-        userProfile["gender"] = gender
-        userProfile["address"] = address
-        userProfile["socialNumber"] = socialNumber
+        userProfile["firstName"] = firstName;
+        userProfile["lastName"] = lastName;
+        userProfile["email"] = email;
+        userProfile["telephone"] = telephone;
+        userProfile["dateOfBirth"] = dateOfBirth;
+        userProfile["gender"] = gender;
+        userProfile["address"] = address;
+        userProfile["socialNumber"] = socialNumber;
 
-        dispatch(updateProfile(userProfile))
+        dispatch(updateProfile(userProfile));
     }
 
     const genderOptions = [
         {key:"m", text: "Male", value: "male"},
         {key:"f", text: "Female", value: "female"},
-        {key: "o", text: "Other", value: "other"}
-    ]
+        {key: "o", text: "Other", value: "other"},
+    ];
 
     return (
             <Form onSubmit={submitChanges}>
@@ -53,15 +51,15 @@ export default function UserInfo() {
                     <Form.Input
                         width="6"
                         label='First name'
-                        placeholder={firstName}
+                        value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                     />
                     <Form.Select
                         width="2"
-                        label='Gender'
+                        label="Gender"
                         options={genderOptions}
-                        placeholder={gender}
-                        onChange={(e, { value }) => setGender(value)}
+                        value={gender}
+                        onChange={(e : SyntheticEvent<HTMLElement>, data: PlainObject) => setGender(data.value)}
 
                     />
                 </Form.Group>
@@ -69,15 +67,16 @@ export default function UserInfo() {
                     <Form.Input
                         width="6"
                         label='Last name'
-                        placeholder={lastName}
+                        value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                     />
 
                     <Form.Field>
                         <label>Date of birth</label>
                         <DatePicker
+                            dateFormat="yyyy-MM-dd"
                             selected={dateOfBirth}
-                            onChange={date => setDateOfBirth(date)}
+                            onChange={(date: Date) => setDateOfBirth(date)}
                             peekNextMonth
                             showMonthDropdown
                             showYearDropdown
@@ -89,13 +88,13 @@ export default function UserInfo() {
                     <Form.Input
                         width="6"
                         label='Email'
-                        placeholder={email}
+                        value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <Form.Input
                         width="6"
                         label='Phone'
-                        placeholder={telephone}
+                        value={telephone}
                         onChange={(e) => setTelephone(e.target.value)}
                     />
                 </Form.Group>
@@ -103,18 +102,18 @@ export default function UserInfo() {
                     <Form.Input
                         width="6"
                         label='Address'
-                        placeholder={address}
+                        value={address}
                         onChange={(e) => setAddress(e.target.value)}
                     />
                     <Form.Input
                         width="6"
                         label='Social Nr'
-                        placeholder={socialNumber}
+                        value={socialNumber}
                         onChange={(e) => setSocialNumber(e.target.value)}
                     />
                 </Form.Group>
                 <Button color='vk' style={{marginTop:"15px"}} type='submit'
                 >Submit</Button>
             </Form>
-    )
+    );
 }

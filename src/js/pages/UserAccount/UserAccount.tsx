@@ -1,21 +1,22 @@
 import React from "react";
-import UserAppointments from "./components/Appointments/UserAppointments";
-import {Grid, Image, Menu} from "semantic-ui-react";
+import UserAppointments from "./components/UserAppointments";
+import {Grid, GridRow, Image, Menu} from "semantic-ui-react";
 import "./UserAccount.css";
-import UserInfo from "./components/Info/UserInfo";
+import UserInfo from "./components/UserInfo";
 import {useDispatch} from "react-redux";
 import {signOutUser} from "../../actions/auth";
 import {useHistory} from "react-router-dom";
+import {PlainObject} from "../../types/interfaces/PlainObject";
 
 
-function UserAccount(props) {
+function UserAccount(props: PlainObject) {
 
     const logOut = () => {
         dispatch(signOutUser(history));
     }
     const history = useHistory();
     const dispatch = useDispatch()
-    const activeItem = props.activeItem;
+    const activeItem:string = props.activeItem;
 
     return (
         <Grid style={{"minHeight": "calc(100vh - 205px)"}}>
@@ -45,11 +46,13 @@ function UserAccount(props) {
                 </Grid.Column>
                 <Grid.Column width={8}>
                     <div className="content-column">
+                        {/*@ts-ignore*/}
                         {activeItem === "Appointments" && <UserAppointments/>}
                         {activeItem === "Account Info" && <UserInfo/>}
                     </div>
                 </Grid.Column>
             </Grid.Row>
+            <GridRow style={{marginTop: "300px"}}/>
         </Grid>
     )
 }
