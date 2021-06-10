@@ -6,4 +6,5 @@ export * from "./profiles"
 export * from "./appointments"
 export * from "./roles"
 export * from "./users"
+export * from "./holidays"
 
