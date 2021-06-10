@@ -23,7 +23,7 @@ export default function Appointments() {
     const departments: PlainObject = useSelector(getDepartments)
     const doctors: Array<PlainObject>  = useSelector(profilesBySpeciality)
     const appointments: Array<PlainObject> = useSelector(doctorAppointments)
-    const appointmentDates: Array<string> = appointments.map(a => a.startTime)
+    const appointmentDates: Array<string> = appointments && appointments.map(a => a.startTime)
     const appointmentOptions: Array<Moment> = appointmentDates.map(a => moment(a));
 
     const [showModal, setShowModal] = useState<boolean>(false)
@@ -36,7 +36,7 @@ export default function Appointments() {
     const newAppointment: PlainObject = {}
 
     const [specOptions, setSpecOptions] = useState<Array<PlainObject>>([]);
-    const depOptions:Array<PlainObject> = departments.map((element:PlainObject) =>
+    const depOptions:Array<PlainObject> = departments && departments.map((element:PlainObject) =>
                                             ({key: element.name, value: element.name, text: element.name }));
 
     const [showSpecialities, setShowSpecialities] = useState<boolean>(false);
