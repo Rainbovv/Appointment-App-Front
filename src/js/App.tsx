@@ -12,7 +12,7 @@ import Header from "./pages/Header/Header";
 import AddUserPage from "./pages/AdminPage/AddUserPage";
 import UserPage from "./pages/AdminPage/UserPage";
 import AdminLayout from "./pages/AdminPage/AdminLayout";
-import AuthLayout from "./pages/AuthLayout/AuthLayout";
+import AuthWrapper from "./pages/AuthWrapper/AuthWrapper";
 import UserAccount from "./pages/UserAccount/UserAccount";
 import UserLayout from "./pages/UserAccount/UserLayout";
 import Footer from "./common/Footer";
@@ -25,7 +25,7 @@ export default class App extends Component {
             <Provider store={store}>
                 <Router>
                     <PersistGate persistor={persistor}>
-                        <AuthLayout>
+                        <AuthWrapper>
                             <Header/>
                             <Switch>
                                 <Route exact path="/" component={MainPage}/>
@@ -54,7 +54,7 @@ export default class App extends Component {
                                 <Route path="*" component={NotFound}/>
                             </Switch>
                             <Footer/>
-                        </AuthLayout>
+                        </AuthWrapper>
                     </PersistGate>
                 </Router>
             </Provider>
