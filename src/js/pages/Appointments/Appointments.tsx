@@ -1,5 +1,5 @@
 import React, {SyntheticEvent, useEffect, useState} from "react";
-import {Button, Grid, GridRow, Item, Select} from "semantic-ui-react";
+import {Button, ButtonGroup, Form, Grid, GridRow, Item, Modal, Select} from "semantic-ui-react";
 import {useDispatch, useSelector} from "react-redux";
 import {getDepartments} from "../../selectors/departments";
 import {getDepartmentsList} from "../../actions/departments";
@@ -23,13 +23,17 @@ export default function Appointments() {
     const departments: PlainObject = useSelector(getDepartments)
     const doctors: Array<PlainObject>  = useSelector(profilesBySpeciality)
     const appointments: Array<PlainObject> = useSelector(doctorAppointments)
-    const appointmentDates: Array<Date> = appointments.map(a => a.startTime)
+    const appointmentDates: Array<string> = appointments.map(a => a.startTime)
     const appointmentOptions: Array<Moment> = appointmentDates.map(a => moment(a));
 
+    const [showModal, setShowModal] = useState<boolean>(false)
+    const [showButtons, setShowButtons] = useState<boolean>(false)
     const [department, setDepartment] = useState<string>("");
     const [speciality, setSpeciality] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [doctor, setDoctor] = useState<PlainObject>({});
+    const [time, setTime] = useState<string>("")
+    const newAppointment: PlainObject = {}
 
     const [specOptions, setSpecOptions] = useState<Array<PlainObject>>([]);
     const depOptions:Array<PlainObject> = departments.map((element:PlainObject) =>
@@ -47,7 +51,8 @@ export default function Appointments() {
 
     const dateHandleChange  = (event: SyntheticEvent<HTMLElement, Event>,
                                data: PlainObject) => {
-        console.log(data.value);
+        setDate(data.value);
+        setShowModal(true);
     }
 
     function specialityHandleSelect(speciality: string):void  {
@@ -59,12 +64,15 @@ export default function Appointments() {
     function departmentHandleSelect(department: string) {
         setDepartment(department);
 
+        const options:Array<PlainObject> = []
+
         specialities.forEach(s => s.department.name === department &&
-                                                specOptions.push({
+                                                options.push({
                                                     key: s.name,
                                                     value: s.name,
                                                     text: s.name
                                                 }));
+        setSpecOptions(options)
         setShowSpecialities(true);
     }
 
@@ -74,6 +82,40 @@ export default function Appointments() {
         dispatch(getDoctorAppointments(doctor.user.id));
 
         setShowCalendar(true);
+    }
+
+    function onClickTimeHandler(hour:string, appointments:Array<PlainObject>) {
+
+        setTime("T" + hour);
+        setShowButtons(true)
+    }
+
+    function getDayOfWeek(date: Date) {
+        const dayOfWeek = date.getDay();
+        return isNaN(dayOfWeek) ? null :
+            ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'][dayOfWeek];
+    }
+
+    function getButton(hour:string) {
+
+        const dayOfWeek:string = getDayOfWeek(new Date(date + "T" + hour + ":00"))
+
+        const schedule:PlainObject = doctor.schedule && doctor.schedule[dayOfWeek]
+
+        console.log(appointmentDates.includes(date + "T" + hour + ":00"))
+            return (
+                <Button basic
+                        onClick={() => onClickTimeHandler((hour + ":00"), appointments)}
+                        disabled={(schedule &&
+                                    !(parseInt(schedule.start.slice(0,2), 10)
+                                        <= parseInt(hour.slice(0,2), 10) &&
+                                    parseInt(hour.slice(0,2),10)
+                                        < parseInt(schedule.end.slice(0,2),10))
+                            || appointmentDates.includes(date + "T" + hour + ":00"))}
+                >
+                    {hour}
+                </Button>
+            );
     }
 
     const doctorsList = () => {
@@ -86,10 +128,8 @@ export default function Appointments() {
                       style={{marginLeft: "50px", cursor: "pointer"}}
                       onClick={() => selectDoctor(doctor)}>
 
-                        <Item.Image size='tiny' rounded
-                                    src='build/images/user_avatar.png'
+                        <Item.Image size='tiny' rounded src='build/images/user_avatar.png'/>
 
-                                    onM/>
                         <Button style={{paddingBottom: "0", background: "none", paddingLeft:"10px"}}>
                             {doctor.firstName} {doctor.lastName}
                         </Button>
@@ -107,22 +147,23 @@ export default function Appointments() {
 
 
     return (
+
+    <Form>
         <Grid>
             <Grid.Row style={{marginTop: "80px"}}>
                 <Grid.Column width={3} style={{marginLeft: "125px"}}>
                     <label style={{marginLeft:"60px"}}>Department</label>
                     <Select placeholder='Select department'
                             options={depOptions}
-                            onChange={(e) => departmentHandleSelect(e.target.innerText)}/>
+                            onChange={(e:SyntheticEvent<HTMLElement>, data: PlainObject) =>
+                                departmentHandleSelect(data.value)}/>
                     {showSpecialities &&
                     <label style={{marginLeft:"60px"}}>Speciality</label>}
                     {showSpecialities &&
                     <Select placeholder='Select speciality'
                             options={specOptions}
-                            onChange={(e) => specialityHandleSelect(e.target.innerText)}/>
-                    }
-
-
+                            onChange={(e:SyntheticEvent<HTMLElement>, data: PlainObject) =>
+                                specialityHandleSelect(data.value)}/>}
                 </Grid.Column>
                 <Grid.Column width={4} style={{paddingLeft: "5px"}}>
                     {showDoctorsList && doctorsList()}
@@ -143,5 +184,40 @@ export default function Appointments() {
 
             <GridRow style={{marginTop: "400px"}}/>
         </Grid>
+        <Modal
+            size="mini"
+            closeIcon
+            open={showModal}
+            onClose={ () => setShowModal( false)}
+        >
+            <Modal.Content>
+                <ButtonGroup fluid>
+                    {doctor.schedule && getButton("8:00")}
+                    {doctor.schedule && getButton("9:00")}
+                    {doctor.schedule && getButton("10:00")}
+                </ButtonGroup>
+
+                <ButtonGroup fluid>
+                    {doctor.schedule && getButton("11:00")}
+                    {doctor.schedule && getButton("12:00")}
+                    {doctor.schedule && getButton("13:00")}
+                </ButtonGroup>
+
+                <ButtonGroup fluid>
+                    {doctor.schedule && getButton("15:00")}
+                    {doctor.schedule && getButton("16:00")}
+                    {doctor.schedule && getButton("17:00")}
+                </ButtonGroup>
+            </Modal.Content>
+            {/* :
+                <Modal.Content>
+                    <p>Date:<b style={{color: "red"}}>&emsp;&emsp;&emsp;&emsp;{date}</b></p>
+                    <p>Time:<b style={{color: "red"}}>&emsp;&emsp;&emsp;&emsp;&emsp;{time.slice(1, 6)}</b></p>
+                    <p>{showRole}:<b style={{color: "red"}}>&emsp;&emsp;&emsp;{name}</b></p>
+                    <p>Office:<b style={{color: "red"}}>&emsp;&emsp;&emsp;&emsp;&ensp;{office}</b></p>
+                </Modal.Content>
+            }*/}
+        </Modal>
+    </Form>
     );
 }

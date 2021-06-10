@@ -74,7 +74,7 @@ export default function UserInfo() {
                     <Form.Field>
                         <label>Date of birth</label>
                         <DatePicker
-                            dateFormat="yyyy-MM-dd"
+                            dateFormat="dd-Mo-yyyy"
                             selected={dateOfBirth}
                             onChange={(date: Date) => setDateOfBirth(date)}
                             peekNextMonth

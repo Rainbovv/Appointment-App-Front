@@ -99,7 +99,6 @@ interface UserAppointmentsProps extends RootState {
 
          const appointmentOptions: Array<Moment> = appointmentDates.map(a => moment(a));
 
-
          const getButton = (hour:string) => {
              return (
                  <Button basic
@@ -170,7 +169,7 @@ const mapStateToProps = (state:RootState) => ({
     }
 );
 const mapDispatchToProps = (dispatch: Dispatch) => bindActionCreators({
-getPatientAppointments,
+    getPatientAppointments,
     getDoctorAppointments
 }, dispatch);
 
