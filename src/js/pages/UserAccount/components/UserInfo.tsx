@@ -17,6 +17,7 @@ export default function UserInfo() {
 
     const userData: PlainObject = useSelector(getUserData);
     let userProfile: PlainObject = useSelector(selectedUserProfile);
+
     const [dateOfBirth, setDateOfBirth] = useState<any>(Date.parse(userProfile.dateOfBirth));
     const [firstName, setFirstName] = useState<string>(userProfile.firstName);
     const [lastName, setLastName] = useState<string>(userProfile.lastName);
