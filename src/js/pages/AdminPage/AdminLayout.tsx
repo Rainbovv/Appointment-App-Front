@@ -1,23 +1,22 @@
-import React, {} from "react";
+import React from "react";
 import {AnyAction, bindActionCreators, Dispatch} from "redux";
 import {connect} from "react-redux";
 import {setAdminContentType} from "../../actions/actions";
 import {RootState} from "../../store";
 import RoleService from "../../services/RoleService";
-import {PlainObject} from "../../types/interfaces/PlainObject";
 
 import {MenuLeft} from "./components/MenuLeft";
 import {
-    Container, 
-    Grid, 
+    Container,
+    Grid,
     Header
 } from "semantic-ui-react";
 import {withRouter} from "react-router-dom";
 
 
 interface AdminLayoutProps extends RootState {
-    contentType: string;
-    setAdminContentType: (contentType: string) => void;
+    contentType?: string;
+    setAdminContentType?: (contentType: string) => void;
 }
 
 
