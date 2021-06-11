@@ -14,7 +14,7 @@ html, body, #root {
 }
 
 .content-layout{
-    min-height: calc(100vh - 320px);
+    min-height: calc(100vh - 222px);
 }
 
 .page-container{
