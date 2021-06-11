@@ -41,7 +41,9 @@ interface UserAppointmentsProps extends RootState {
          }
 
     componentDidMount() {
-        this.props.userData.roles && this.props.userData.roles.includes("DOCTOR") ?
+        const userData = this.props.userData;
+
+        userData && userData.roles && userData.roles.includes("DOCTOR") ?
             this.props.userData && this.props.getDoctorAppointments(this.props.userData.id) :
             this.props.userData && this.props.getPatientAppointments(this.props.userData.id)
     }
@@ -66,6 +68,8 @@ interface UserAppointmentsProps extends RootState {
 
              let appointment = appointments
                                     .filter(a => a.startTime === state.date + state.time)[0]
+
+             console.log(appointment)
 
              return {
                  office: appointment.office,
