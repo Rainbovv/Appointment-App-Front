@@ -1,6 +1,7 @@
 import {HttpService} from "../services/HttpService";
 import {routes} from "../config/routes";
 import { Dispatch } from "redux";
+import {PlainObject} from "../types/interfaces/PlainObject";
 
 export enum appointmentsActionTypes  {
     RECEIVE_PATIENT_APPOINTMENTS = "RECEIVE_PATIENT_APPOINTMENTS",
@@ -9,24 +10,30 @@ export enum appointmentsActionTypes  {
 
 
 export const getPatientAppointments = (id: number) => (dispatch: Dispatch) => {
-    const URL = routes.BASIC_URL + routes.BASIC_PATH + routes.APPOINTMENTS_URL + "/patient/" + id
+    const URL = routes.BASIC_URL + routes.BASIC_PATH + routes.APPOINTMENTS_URL + "/patient/" + id;
 
     return HttpService.get(URL, {})
         .then(response => {
             return dispatch({
                 type: appointmentsActionTypes.RECEIVE_PATIENT_APPOINTMENTS,
                 payload: response
-            })
-        })
+            });
+        });
 }
 export const getDoctorAppointments = (id: number) => (dispatch: Dispatch) => {
-    const URL = routes.BASIC_URL + routes.BASIC_PATH + routes.APPOINTMENTS_URL + "/doctor/" + id
+    const URL = routes.BASIC_URL + routes.BASIC_PATH + routes.APPOINTMENTS_URL + "/doctor/" + id;
 
     return HttpService.get(URL, {})
         .then(response => {
             return dispatch({
                 type: appointmentsActionTypes.RECEIVE_DOCTOR_APPOINTMENTS,
                 payload: response
-            })
-        })
+            });
+        });
+}
+
+export const createNewAppointment = (appointmentDto: PlainObject) => (dispatch: Dispatch) => {
+    const URL = routes.BASIC_URL + routes.BASIC_PATH + routes.APPOINTMENTS_URL + "/dto";
+
+    return HttpService.post(URL, appointmentDto);
 }

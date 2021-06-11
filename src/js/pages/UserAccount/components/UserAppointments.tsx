@@ -1,6 +1,6 @@
 import * as React from "react";
 import {DateInput} from "semantic-ui-calendar-react";
-import {Button, ButtonGroup, Form, Modal,} from "semantic-ui-react";
+import {Button, ButtonGroup, Form, Header, Icon, Modal,} from "semantic-ui-react";
 import {connect} from "react-redux";
 import {getDoctorAppointments, getPatientAppointments} from "../../../actions/appointments";
 import {bindActionCreators, Dispatch} from "redux";
@@ -41,7 +41,9 @@ interface UserAppointmentsProps extends RootState {
          }
 
     componentDidMount() {
-        this.props.userData && this.props.userData.roles.includes("DOCTOR") ?
+        const userData = this.props.userData;
+
+        userData && userData.roles && userData.roles.includes("DOCTOR") ?
             this.props.userData && this.props.getDoctorAppointments(this.props.userData.id) :
             this.props.userData && this.props.getPatientAppointments(this.props.userData.id)
     }
@@ -67,10 +69,16 @@ interface UserAppointmentsProps extends RootState {
              let appointment = appointments
                                     .filter(a => a.startTime === state.date + state.time)[0]
 
+             console.log(appointment)
+
              return {
                  office: appointment.office,
                  name: appointment.firstName + " " + appointment.lastName};
          });
+     }
+
+     closeModal = () => {
+         this.setState({modalOpen: false, buttons: true})
      }
 
      render() {
@@ -127,8 +135,14 @@ interface UserAppointmentsProps extends RootState {
                      size="mini"
                      closeIcon
                      open={modalOpen}
-                     onClose={() => this.setState({modalOpen: false, buttons: true})}
+                     onClose={this.closeModal}
+
                  >
+
+                     <Header textAlign={"center"} content={buttons ?
+                         "Please, select the time:" :
+                             "Your appointment:"} />
+
                      {buttons ?
                          <Modal.Content>
                              <ButtonGroup fluid>
@@ -150,13 +164,39 @@ interface UserAppointmentsProps extends RootState {
                              </ButtonGroup>
                          </Modal.Content>
                          :
-                         <Modal.Content>
-                             <p>Date:<b style={{color: "red"}}>&emsp;&emsp;&emsp;&emsp;{date}</b></p>
-                             <p>Time:<b style={{color: "red"}}>&emsp;&emsp;&emsp;&emsp;&emsp;{time.slice(1, 6)}</b></p>
-                             <p>{showRole}:<b style={{color: "red"}}>&emsp;&emsp;&emsp;{name}</b></p>
-                             <p>Office:<b style={{color: "red"}}>&emsp;&emsp;&emsp;&emsp;&ensp;{office}</b></p>
+                         <Modal.Content style={{color: "#4c75a3", fontWeight: "bold"}}>
+                             <Form style={{paddingLeft:"45px"}}>
+                                 <p>Date:
+                                     <label style={{color: "black", fontWeight: "normal"}}>
+                                         &nbsp;&nbsp;&nbsp;&emsp;&emsp;&emsp;&emsp;{date}
+                                     </label>
+                                 </p>
+
+                                 <p>Time:
+                                     <label style={{color: "black", fontWeight: "normal"}}>
+                                         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;{time.slice(1, 6)}
+                                     </label>
+                                 </p>
+
+                                 <p>{showRole}:
+                                     <label style={{color: "black", fontWeight: "normal"}}>
+                                         &emsp;&emsp;&emsp;{name}
+                                     </label>
+                                 </p>
+                                 <p>Office:
+                                     <label style={{color: "black", fontWeight: "normal"}}>
+                                         &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;{office}
+                                     </label>
+                                 </p>
+                             </Form>
                          </Modal.Content>
                      }
+                     <Modal.Actions>
+                         <Button size="mini" color='vk'
+                                 onClick={this.closeModal}>
+                             <Icon name='checkmark'/>Close
+                         </Button>
+                     </Modal.Actions>
                  </Modal>
              </Form>
          );

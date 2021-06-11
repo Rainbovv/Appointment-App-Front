@@ -22,8 +22,7 @@ const AuthWrapper: React.FC = ({children}) => {
     }, [isTokenExpired])
 
     return (
-
-        <>
+        <div className="content-layout">
             <Modal
                 centered={false}
                 open={isOpen}
@@ -39,7 +38,7 @@ const AuthWrapper: React.FC = ({children}) => {
                 </Modal.Actions>
             </Modal>
             {children}
-        </>
+        </div>
     );
 };
 
