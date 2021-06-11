@@ -26,11 +26,9 @@ export default class App extends Component {
             <Provider store={store}>
                 <Router>
                     <PersistGate persistor={persistor}>
+                        <Header/>
                         <AuthWrapper>
-                            <Header/>
                             <Switch>
-                                {/*
-									// @ts-ignore */}
                                 <Route exact path="/" component={MainPage}/>
                                 <Route path="/sign-up" component={SignUpPage}/>
                                 <Route exact path="/appointments" component={Appointments}/>
@@ -59,8 +57,8 @@ export default class App extends Component {
                                 />
                                 <Route path="*" component={NotFound}/>
                             </Switch>
-                            <Footer/>
                         </AuthWrapper>
+                        <Footer/>
                     </PersistGate>
                 </Router>
             </Provider>

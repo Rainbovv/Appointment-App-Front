@@ -16,5 +16,5 @@ export default function UserLayout(props: { children: any; }) {
 
     }, [isUserLoaded]);
 
-    return  <>{props.children}</>;
+    return  <div className="page-container">{props.children}</div>;
 }

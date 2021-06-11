@@ -13,6 +13,15 @@ html, body, #root {
     height: 100%;
 }
 
+.content-layout{
+    min-height: calc(100vh - 320px);
+}
+
+.page-container{
+    padding: 40px;
+    margin-bottom: 100px;
+}
+
 footer{
     margin-top: auto
 }

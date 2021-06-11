@@ -64,7 +64,7 @@ const SignUp: React.FC = () => {
     }
 
     return (
-        <Container text>
+        <Container text className="page-container">
             <Form onSubmit={handleSubmit}>
                 {isEmailDuplicated && 
                 <Message 

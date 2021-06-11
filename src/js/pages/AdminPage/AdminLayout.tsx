@@ -29,7 +29,7 @@ class AdminLayout extends React.Component<ReturnType<typeof mapStateToProps> & R
         } = this.props;
 
         return (
-            <div className="admin-layout">
+            <div className="page-container">
                 {
                     RoleService.isAdmin() ?
                         <Grid>

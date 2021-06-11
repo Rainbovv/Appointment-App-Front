@@ -19,7 +19,7 @@ function UserAccount(props: PlainObject) {
     const activeItem:string = props.activeItem;
 
     return (
-        <Grid style={{"minHeight": "calc(100vh - 205px)"}}>
+        <Grid>
             <Grid.Row className="menu-row">
                 <Grid.Column   width={3}>
                         <Image src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
@@ -52,7 +52,7 @@ function UserAccount(props: PlainObject) {
                     </div>
                 </Grid.Column>
             </Grid.Row>
-            <GridRow style={{marginTop: "300px"}}/>
+            <GridRow/>
         </Grid>
     )
 }

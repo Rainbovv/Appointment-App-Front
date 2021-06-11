@@ -164,7 +164,7 @@ export default function Appointments() {
     }
 
     return (
-    <Form>
+    <Form className="page-container">
         <Grid>
             <Grid.Row style={{paddingTop:"100px"}}/>
             <Grid.Row centered>
