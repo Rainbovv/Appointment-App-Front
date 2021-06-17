@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-	"dev": "set NODE_ENV=development&&node server.js",
-	"prod": "set NODE_ENV=production&&node server.js",
-	"dev-build": "set NODE_ENV=development&&webpack",
-	"prod-build": "set NODE_ENV=production&&webpack"
+	"dev": "NODE_ENV=development node server.js",
+	"prod": "NODE_ENV=production node server.js",
+	"dev-build": "NODE_ENV=development webpack",
+	"prod-build": "NODE_ENV=production webpack"
   },
   "author": "stefanini",
   "license": "MIT",

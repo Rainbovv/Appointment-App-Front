@@ -113,9 +113,19 @@ export const updateProfile = (profile: PlainObject) => () => {
 
 export const getPatientProfiles = () => (dispatch: Dispatch) => {
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.PROFILE_URL + "/patients";
-    
+
+    dispatch({
+        type: profileActionTypes.REQUEST_PROFILES_LIST,
+        payload: false,
+    });
+
     return HttpService.get(url, {})
         .then(response => {
+            dispatch({
+                type: profileActionTypes.REQUEST_PROFILES_LIST,
+                payload: true,
+            });
+
             dispatch({
                 type: profileActionTypes.GET_PATIENT_PROFILES_LIST,
                 payload: response,
@@ -126,8 +136,18 @@ export const getPatientProfiles = () => (dispatch: Dispatch) => {
 export const getPersonalProfiles = () => (dispatch: Dispatch) => {
     const url = routes.BASIC_URL + routes.BASIC_PATH + routes.PROFILE_URL + "/personal";
 
+    dispatch({
+        type: profileActionTypes.REQUEST_PROFILES_LIST,
+        payload: false,
+    });
+
     return HttpService.get(url, {})
         .then(response => {
+            dispatch({
+                type: profileActionTypes.REQUEST_PROFILES_LIST,
+                payload: true,
+            });
+
             dispatch({
                 type: profileActionTypes.GET_PERSONAL_PROFILES_LIST,
                 payload: response,
