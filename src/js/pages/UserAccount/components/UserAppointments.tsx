@@ -69,8 +69,6 @@ interface UserAppointmentsProps extends RootState {
              let appointment = appointments
                                     .filter(a => a.startTime === state.date + state.time)[0]
 
-             console.log(appointment)
-
              return {
                  office: appointment.office,
                  name: appointment.firstName + " " + appointment.lastName};
