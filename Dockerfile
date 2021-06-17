@@ -8,7 +8,6 @@ COPY package.json /app
 
 RUN npm install
 
-COPY . /app
+COPY . .
 
 RUN npm run prod-build
-RUN npm run prod
